@@ -1603,9 +1603,9 @@ img {
 
 .cf-content-wrapper {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 420px 1fr;
   align-items: center;
-  gap: 80px;
+  gap: 60px;
   width: 100%;
   padding: 0 5vw;
   max-width: 1600px;
@@ -1613,13 +1613,34 @@ img {
   z-index: 2;
 }
 
+/* Circle container: blue solid circle + girl on top */
+.cf-character-wrap {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.cf-circle-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--blue);
+  z-index: 1;
+}
+
 .cf-character {
-  width: 100%;
-  max-width: 850px;
+  position: relative;
+  z-index: 2;
+  width: 130%;
+  max-width: none;
   height: auto;
   object-fit: contain;
-  justify-self: start;
-  margin-left: -20px;
+  margin-bottom: -20px;
+  margin-left: -10%;
 }
 
 .cf-steps {
@@ -1666,21 +1687,7 @@ img {
   position: absolute;
 }
 .cf-blob-girl-blue {
-  top: 50%;
-  left: 2vw;
-  width: 500px;
-  height: 500px;
-  background: var(--blue);
-  opacity: 0.15;
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  transform: translateY(-50%);
-  animation: morphBlob 8s ease-in-out infinite;
-}
-
-@keyframes morphBlob {
-  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  display: none;
 }
 .cf-blob-bottom-blue {
   bottom: -2px; left: 0; width: 100%; 
@@ -1714,14 +1721,12 @@ img {
   visibility: hidden;
 }
 
-/* Individual Cards */
+/* Individual Cards — grid: left content | right image */
 .cf-feature-card {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  display: flex;
-  align-items: stretch;
-  padding: 60px;
-  gap: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -1735,53 +1740,63 @@ img {
   position: relative;
 }
 
+/* Left panel: num box + title + description */
 .cf-feature-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 50px 44px;
+  gap: 24px;
 }
 
 .cf-feature-header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 20px;
+  margin-bottom: 4px;
 }
 
+/* Number as a bordered box */
 .cf-feature-num {
-  font-size: 6rem;
+  font-size: 5rem;
   font-weight: 900;
   color: var(--orange);
   line-height: 1;
   letter-spacing: -0.04em;
+  border: 3px solid var(--orange);
+  padding: 4px 14px;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .cf-feature-title {
-  font-size: 3rem;
+  font-size: 2.6rem;
   font-weight: 800;
   color: #0F172A;
+  line-height: 1.05;
 }
 
 .cf-feature-desc {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   color: #64748B;
-  line-height: 1.65;
+  line-height: 1.7;
+  text-align: justify;
 }
 
+/* Right panel: image fills full area edge-to-edge */
 .cf-feature-visual {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .cf-mockup-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-height: 500px;
-  object-fit: contain;
-  border-radius: 12px;
-  border: 1px solid var(--border);
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  border: none;
 }
 
 /* Navigation */
@@ -1834,13 +1849,9 @@ img {
     gap: 32px;
   }
 
-  .cf-character {
-    position: relative;
-    width: 100%;
-    max-width: 340px;
-    margin-left: 0;
-    margin-bottom: -40px;
-    z-index: 1;
+  .cf-character-wrap {
+    width: 280px;
+    height: 280px;
   }
 
   .cf-steps {
@@ -1849,19 +1860,25 @@ img {
   }
 
   .cf-feature-card {
-    flex-direction: column;
-    padding: 32px 24px;
-    text-align: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 260px;
   }
   
+  .cf-feature-content {
+    padding: 28px 24px 16px;
+    text-align: center;
+  }
+
   .cf-feature-header {
     justify-content: center;
-    flex-direction: column;
-    gap: 8px;
   }
   
   .cf-feature-num {
     font-size: 2.8rem;
+  }
+
+  .cf-feature-desc {
+    text-align: center;
   }
   
   .cf-steps-nav {
