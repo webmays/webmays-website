@@ -1655,6 +1655,7 @@ img {
 .cf-feature-cards {
   position: relative;
   flex: 1;
+  min-height: 480px;
   border-radius: 24px;
   overflow: hidden;
   background: var(--white);
