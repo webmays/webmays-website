@@ -1590,7 +1590,7 @@ img {
   background: #f8f9fc;
   position: relative;
   z-index: 998;
-  padding: 120px 0;
+  padding: 160px 0;
   overflow: hidden;
 }
 
@@ -1603,7 +1603,7 @@ img {
 
 .cf-content-wrapper {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 4fr 6fr;
   align-items: center;
   gap: 40px;
   width: 100%;
@@ -1616,8 +1616,9 @@ img {
 /* Circle container: blue solid circle + girl on top */
 .cf-character-wrap {
   position: relative;
-  width: 380px;
-  height: 380px;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1;
   flex-shrink: 0;
   display: flex;
   align-items: flex-end;
