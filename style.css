@@ -1608,21 +1608,22 @@ img {
 }
 
 .cf-character {
-  width: 35%;
-  max-width: 480px;
-  flex-shrink: 0;
+  flex-basis: 35%;
+  max-width: 450px;
+  flex-shrink: 1;
   height: auto;
   object-fit: contain;
   margin-left: -20px;
 }
 
 .cf-steps {
-  width: 65%;
+  flex: 1;
   max-width: 800px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   gap: 0;
+  min-width: 0;
 }
 
 .cf-header {
@@ -1683,7 +1684,7 @@ img {
 }
 
 .cf-feature-content {
-  padding: 40px 32px 40px 40px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
