@@ -1723,12 +1723,12 @@ img {
   visibility: hidden;
 }
 
-/* Individual Cards — 50% text | 50% image */
+/* Individual Cards — 42% text | 58% image */
 .cf-feature-card {
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 42% 58%;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -1746,9 +1746,8 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 60px 48px 48px 52px;
+  padding: 60px 40px 60px 52px;
   gap: 16px;
-  border-right: 1px solid #E2E8F0; /* Divisor text / image */
 }
 
 .cf-feature-header {
@@ -1790,18 +1789,20 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #F8FAFC;
+  border-left: 1px solid #E2E8F0;
+  padding: 32px;
 }
 
 .cf-mockup-image {
-  position: absolute;
-  inset: 0;
+  position: relative;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  padding: 24px;
-  box-sizing: border-box;
-  border-radius: 0;
-  border: none;
+  object-fit: cover;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
 }
 
 /* Navigation */
@@ -1817,7 +1818,7 @@ img {
 
 .cf-nav-num {
   width: 60px;
-  height: 64px;
+  height: 56px;
   border-radius: 0 16px 16px 0;
   display: flex;
   align-items: center;
