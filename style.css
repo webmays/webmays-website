@@ -1702,9 +1702,10 @@ img {
   border-radius: 24px;
   box-shadow: 0 12px 40px rgba(0, 87, 255, 0.06);
   border: 1px solid var(--border);
-  min-height: 540px;
+  height: 480px;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
 }
 
 /* Transition Overlay */
@@ -1721,12 +1722,12 @@ img {
   visibility: hidden;
 }
 
-/* Individual Cards — grid: left content | right image */
+/* Individual Cards — 55% text | 45% image */
 .cf-feature-card {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 55% 45%;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -1737,52 +1738,53 @@ img {
   opacity: 1;
   pointer-events: auto;
   visibility: visible;
-  position: relative;
 }
 
-/* Left panel: num box + title + description */
+/* Left panel */
 .cf-feature-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 50px 44px;
-  gap: 24px;
+  padding: 48px 48px 48px 52px;
+  gap: 20px;
 }
 
 .cf-feature-header {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 4px;
+  gap: 18px;
 }
 
+/* Number: giant, orange, no box */
 .cf-feature-num {
-  font-size: 5rem;
+  font-size: 7.5rem;
   font-weight: 900;
   color: var(--orange);
-  line-height: 1;
-  letter-spacing: -0.04em;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
   flex-shrink: 0;
 }
 
 .cf-feature-title {
-  font-size: 2.6rem;
+  font-size: 2.8rem;
   font-weight: 800;
   color: #0F172A;
-  line-height: 1.05;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
 }
 
 .cf-feature-desc {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: #64748B;
-  line-height: 1.7;
+  line-height: 1.75;
   text-align: justify;
 }
 
-/* Right panel: image fills full area edge-to-edge */
+/* Right panel: image edge-to-edge, respects card border-radius on right */
 .cf-feature-visual {
   position: relative;
   overflow: hidden;
+  border-radius: 0 22px 22px 0;
 }
 
 .cf-mockup-image {
