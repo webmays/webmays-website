@@ -1563,10 +1563,10 @@ img {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    overflow-y: hidden;
-    /* Impede que seja possível arrastar para cima */
-    touch-action: pan-x;
-    /* Trava o scroll por toque apenas no eixo X */
+    overflow-y: visible;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
     gap: 16px;
     scroll-snap-type: x mandatory;
     padding-bottom: 20px;
@@ -1588,6 +1588,7 @@ img {
     scroll-snap-align: center;
     min-height: 420px;
     /* Reduz levemente a altura no mobile */
+    touch-action: pan-x pan-y;
     scale: 0.95;
     /* Card fica levemente menor por padrão */
     filter: grayscale(100%);
@@ -1817,7 +1818,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: clamp(38px, 4vw, 54px) clamp(28px, 3vw, 44px) clamp(24px, 2.5vw, 36px);
+  padding: clamp(38px, 4vw, 54px) clamp(20px, 2.2vw, 36px) clamp(24px, 2.5vw, 36px);
   gap: 18px;
   border-right: 1px solid #F1F5F9;
   overflow: hidden;
@@ -1826,11 +1827,11 @@ img {
 .cf-feature-header {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: clamp(10px, 1.2vw, 16px);
 }
 
 .cf-feature-num {
-  font-size: clamp(2.6rem, 3.2vw, 3.2rem);
+  font-size: clamp(2.4rem, 2.8vw, 3rem);
   font-weight: 900;
   color: var(--orange);
   line-height: 1;
@@ -1840,13 +1841,12 @@ img {
 }
 
 .cf-feature-title {
-  font-size: clamp(1.75rem, 2.2vw, 2.35rem);
+  font-size: clamp(1.35rem, 1.75vw, 2rem);
   font-weight: 800;
   color: #0F172A;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  white-space: nowrap;
 }
 
 /* Descrição: Tipografia legível com mais espaço horizontal para o texto */
@@ -1911,7 +1911,7 @@ img {
   font-weight: 800;
   font-size: 1.25rem;
   font-family: inherit;
-  color: #CBD5E1;
+  color: var(--orange);
   background: var(--white);
   border: 1px solid #E2E8F0;
   border-left: none;
@@ -1922,14 +1922,19 @@ img {
 
 .cf-nav-num:hover {
   background: #f8f9fc;
-  color: var(--orange);
+  color: #e04f00;
   transform: translateX(3px);
 }
 
 .cf-nav-num.active {
-  color: var(--orange);
+  color: #CBD5E1;
   background: var(--white);
   transform: translateX(0);
+}
+
+.cf-nav-num.active:hover {
+  color: #CBD5E1;
+  transform: none;
 }
 
 /* 8. Patterns Decorativos */
@@ -2036,8 +2041,8 @@ img {
     border-radius: 14px 14px 0 0;
     border: 1.5px solid #E2E8F0;
     border-bottom: none;
-    background: #EDF2F7;
-    color: #94A3B8;
+    background: var(--white);
+    color: var(--orange);
     font-weight: 800;
     font-size: 1.12rem;
     font-family: inherit;
@@ -2053,12 +2058,12 @@ img {
 
   .cf-nav-num:hover {
     background: #F8FAFC;
-    color: var(--orange);
+    color: #e04f00;
     transform: translateY(-2px);
   }
 
   .cf-nav-num.active {
-    color: var(--orange);
+    color: #CBD5E1;
     background: var(--white);
     height: 46px;
     margin-top: -6px;
@@ -2066,6 +2071,11 @@ img {
     border-bottom: 2px solid var(--white);
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
     z-index: 12;
+    transform: none;
+  }
+
+  .cf-nav-num.active:hover {
+    color: #CBD5E1;
     transform: none;
   }
 
@@ -2136,9 +2146,9 @@ img {
   }
 
   .cf-feature-title {
-    font-size: clamp(1.6rem, 5vw, 1.85rem);
+    font-size: clamp(1.35rem, 4.6vw, 1.8rem);
     line-height: 1.1;
-    word-break: break-word;
+    white-space: nowrap;
   }
 
   /* Texto Justificado com Distribuição Equilibrada */
