@@ -1590,25 +1590,27 @@ img {
   background: #f8f9fc;
   position: relative;
   z-index: 998;
-  padding: 160px 0;
+  padding: 120px 0;
   overflow: hidden;
 }
 
 .cf-header {
   position: relative;
   z-index: 2;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   text-align: center;
+  grid-column: 1 / -1;
 }
 
 .cf-content-wrapper {
   display: grid;
-  grid-template-columns: 4fr 6fr;
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: auto 1fr;
   align-items: center;
-  gap: 40px;
+  gap: 20px 40px;
   width: 100%;
   padding: 0 4vw;
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
   z-index: 2;
 }
@@ -1616,22 +1618,20 @@ img {
 /* Circle container: blue solid circle + girl on top */
 .cf-character-wrap {
   position: relative;
-  width: 100%;
-  max-width: 500px;
-  aspect-ratio: 1;
+  width: 400px;
+  height: 480px; /* matches card height */
   flex-shrink: 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  margin-left: -20px;
 }
 
 .cf-circle-bg {
   position: absolute;
-  top: -30px;
+  bottom: 80px; /* Pushed up so it starts from her back and doesn't go below her */
   left: -20px;
-  width: 110%;
-  height: 110%;
+  width: 440px;
+  height: 440px;
   border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
   background: var(--blue);
   z-index: 1;
@@ -1655,10 +1655,6 @@ img {
   display: flex;
   flex-direction: column;
   z-index: 3;
-}
-
-.cf-header {
-  margin-bottom: 40px;
 }
 
 .cf-header .section-title {
