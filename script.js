@@ -16,12 +16,6 @@ window.addEventListener('beforeunload', () => {
   window.scrollTo(0, 0);
 });
 
-/* --- Navbar scroll effect --- */
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 20);
-});
-
 /* --- Hamburger menu --- */
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
@@ -84,10 +78,9 @@ const fadeObserver = new IntersectionObserver((entries) => {
 
 // Apply to section cards
 const animTargets = [
-  '.step-card',
+  '.cf-feature-card',
   '.servico-card',
   '.faq-item',
-  '.sobre-card',
 ];
 animTargets.forEach(sel => {
   document.querySelectorAll(sel).forEach((el, i) => {
@@ -110,7 +103,7 @@ const drawObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.sobre-doodle, .faq-doodle, .cta-doodle-svg').forEach(svg => {
+document.querySelectorAll('.faq-doodle, .cta-doodle-svg').forEach(svg => {
   svg.querySelectorAll('.draw-path, .dot-pop').forEach(el => {
     el.style.animationPlayState = 'paused';
   });
@@ -226,6 +219,12 @@ function initGsapEffects() {
   }
 
   gsap.registerPlugin(ScrollTrigger);
+
+  // Navbar ScrollTrigger
+  ScrollTrigger.create({
+    start: "top -20",
+    toggleClass: { targets: "#navbar", className: "scrolled" }
+  });
 
   // Inicialização do Lenis (Smooth Scroll com física de inércia fluida)
   let lenis;
@@ -551,8 +550,8 @@ const cfNavNums = document.querySelectorAll('.cf-nav-num');
 const cfFeatureCards = document.querySelectorAll('.cf-feature-card');
 const cfOverlay = document.querySelector('.cf-transition-overlay');
 
-// Seta o estado inicial do overlay no GSAP: rotacionado em 45deg (diagonal) e posicionado no canto inferior direito
-gsap.set(cfOverlay, { rotation: 45, xPercent: 150, autoAlpha: 0 });
+// Seta o estado inicial do overlay no GSAP: inclinado e escondido à direita
+gsap.set(cfOverlay, { skewX: -15, xPercent: 120 });
 
 let isCfAnimating = false;
 
@@ -575,22 +574,22 @@ cfNavNums.forEach(navNum => {
         gsap.set(cfOverlay, { autoAlpha: 0 }); // Esconde totalmente no fim
       }
     });
-    // Varredura de IDA e VOLTA na diagonal
-    tl.to(cfOverlay, {
-      xPercent: 0,
-      autoAlpha: 1,
-      duration: 0.8,
-      ease: 'power3.inOut',
-      onComplete: function() {
-        // Troca o card quando a tela está 100% coberta
-        oldCard.classList.remove('active');
-        newCard.classList.add('active');
+    
+    // Varredura contínua da DIREITA para a ESQUERDA
+    tl.fromTo(cfOverlay, 
+      { xPercent: 120, autoAlpha: 1, skewX: -15 },
+      { 
+        xPercent: -120, 
+        duration: 1.5, 
+        ease: 'power2.inOut',
+        onUpdate: function() {
+          // Troca o card exatamente na metade do movimento (quando a tela ta coberta)
+          if (this.progress() >= 0.5 && oldCard.classList.contains('active')) {
+            oldCard.classList.remove('active');
+            newCard.classList.add('active');
+          }
+        }
       }
-    })
-    .to(cfOverlay, {
-      xPercent: 150,
-      duration: 0.8,
-      ease: 'power3.inOut'
-    });
+    );
   });
 });

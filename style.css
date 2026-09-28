@@ -1508,6 +1508,10 @@ img {
   align-items: center;
   gap: 6px;
   text-decoration: none;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
   transition: color 0.2s, gap 0.2s;
   margin-top: auto;
 }
@@ -1586,7 +1590,7 @@ img {
   background: #f8f9fc;
   position: relative;
   z-index: 998;
-  padding: 100px 0;
+  padding: 240px 0;
   overflow: hidden;
 }
 
@@ -1598,32 +1602,33 @@ img {
 }
 
 .cf-content-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 40px;
+  gap: 80px;
   width: 100%;
-  padding: 0 60px;
+  padding: 0 5vw;
+  max-width: 1600px;
+  margin: 0 auto;
   z-index: 2;
 }
 
 .cf-character {
-  flex-basis: 35%;
-  max-width: 450px;
-  flex-shrink: 1;
+  width: 100%;
+  max-width: 850px;
   height: auto;
   object-fit: contain;
+  justify-self: start;
   margin-left: -20px;
 }
 
 .cf-steps {
-  flex: 1;
-  max-width: 800px;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 0;
-  min-width: 0;
+  flex-direction: column;
+  z-index: 3;
 }
 
 .cf-header {
@@ -1650,41 +1655,88 @@ img {
 }
 
 
-/* ============================
-   NOVO ESTILO DE CARD (FEATURE) E NAVEGAÇÃO
-   ============================ */
-.cf-feature-cards {
-  position: relative;
-  flex: 1;
-  min-height: 480px;
-  border-radius: 24px;
-  overflow: hidden;
-  background: var(--white);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
-  border: 1px solid #E2E8F0;
+/* Patterns */
+.cf-patterns {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.cf-shape {
+  position: absolute;
+}
+.cf-blob-girl-blue {
+  top: 50%;
+  left: 2vw;
+  width: 500px;
+  height: 500px;
+  background: var(--blue);
+  opacity: 0.15;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  transform: translateY(-50%);
+  animation: morphBlob 8s ease-in-out infinite;
 }
 
+@keyframes morphBlob {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+.cf-blob-bottom-blue {
+  bottom: -2px; left: 0; width: 100%; 
+  height: clamp(120px, 15vw, 220px);
+  opacity: 1;
+}
+
+/* Feature Cards Container */
+.cf-feature-cards {
+  position: relative;
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0, 87, 255, 0.06);
+  border: 1px solid var(--border);
+  min-height: 540px;
+  overflow: hidden;
+  display: flex;
+}
+
+/* Transition Overlay */
+.cf-transition-overlay {
+  position: absolute;
+  width: 150%;
+  height: 120%;
+  top: -10%;
+  left: -25%;
+  background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 95%, #FF5A00 95%, #FF5A00 100%);
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Individual Cards */
 .cf-feature-card {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: stretch;
+  padding: 60px;
+  gap: 50px;
   opacity: 0;
   pointer-events: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: var(--white);
-  overflow: hidden;
-  z-index: 1;
+  visibility: hidden;
+  transition: opacity 0.3s;
 }
 
 .cf-feature-card.active {
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
   position: relative;
-  z-index: 2;
 }
 
 .cf-feature-content {
-  padding: 32px;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1694,146 +1746,139 @@ img {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .cf-feature-num {
-  font-size: 4.5rem;
+  font-size: 6rem;
   font-weight: 900;
   color: var(--orange);
   line-height: 1;
   letter-spacing: -0.04em;
-  text-shadow: 0 0 20px rgba(255, 90, 0, 0.2);
 }
 
 .cf-feature-title {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 800;
   color: #0F172A;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
 }
 
 .cf-feature-desc {
-  font-size: 1.1rem;
+  font-size: 1.35rem;
   color: #64748B;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .cf-feature-visual {
-  background: #F8FAFC;
+  flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 24px;
+  align-items: center;
 }
 
-.cf-feature-visual img {
+.cf-mockup-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 16px;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid var(--border);
 }
 
-.cf-transition-overlay {
-  position: absolute;
-  width: 250%;
-  height: 250%;
-  top: -75%;
-  left: -75%;
-  background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 95%, #FF5A00 95%, #FF5A00 100%);
-  z-index: 50;
-  pointer-events: none;
-  opacity: 0;
-}
-
+/* Navigation */
 .cf-steps-nav {
+  position: absolute;
+  right: -60px;
+  top: 60px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-top: 40px;
+  gap: 12px;
+  z-index: 1;
 }
 
 .cf-nav-num {
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: var(--orange);
-  cursor: pointer;
-  transition: all 0.3s var(--ease);
-  line-height: 1;
-  background: #F8FAFC;
-  padding: 24px 24px 24px 40px;
-  border: 1px solid #E2E8F0;
-  border-left: none;
-  border-radius: 0 20px 20px 0;
-  margin-left: -24px;
+  width: 60px;
+  height: 64px;
+  border-radius: 0 16px 16px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 1;
-  box-shadow: inset 4px 0 8px rgba(0,0,0,0.02);
+  font-weight: 800;
+  font-size: 1.25rem;
+  font-family: inherit;
+  color: var(--orange);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: none;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  padding-right: 4px;
 }
 
 .cf-nav-num:hover {
-  background: #F1F5F9;
+  background: #f8f9fc;
+  transform: translateX(4px);
 }
 
 .cf-nav-num.active {
   color: #CBD5E1;
-  font-size: 2.2rem;
-  cursor: default;
   background: var(--white);
-  z-index: 10;
-  margin-left: -2px;
-  padding-left: 24px;
-  border-left: 2px solid var(--white);
-  box-shadow: 12px 4px 30px rgba(0,0,0,0.06);
+  transform: translateX(0);
 }
 
 @media (max-width: 900px) {
-  .cf-splash {
-    width: 150px;
-  }
-
   .cf-content-wrapper {
+    display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    padding: 0;
     align-items: center;
+    gap: 32px;
   }
 
   .cf-character {
     position: relative;
-    bottom: auto;
-    left: auto;
     width: 100%;
     max-width: 340px;
-    margin-bottom: -20px;
+    margin-left: 0;
+    margin-bottom: -40px;
+    z-index: 1;
   }
 
   .cf-steps {
     max-width: 100%;
+    z-index: 2;
   }
 
-  .cf-header .section-title {
-    font-size: 2.2rem;
-  }
-
-  .cf-step {
+  .cf-feature-card {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 24px;
-    gap: 16px;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  
+  .cf-feature-header {
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .cf-feature-num {
+    font-size: 2.8rem;
+  }
+  
+  .cf-steps-nav {
+    position: relative;
+    right: 0;
+    top: 0;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 24px;
   }
 
-  .cf-step-num {
-    width: auto;
-    font-size: 2.5rem;
-  }
-
-  .cf-step-action {
-    align-self: flex-start;
-    margin-top: 8px;
+  .cf-nav-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border-left: 1px solid var(--border);
+    padding-right: 0;
   }
 }
 
@@ -1841,12 +1886,27 @@ img {
    SERVICOS
    ============================ */
 .servicos {
-  background: #fff;
+  background: var(--blue);
 }
 
 .servicos-header {
   max-width: 640px;
   margin-bottom: 56px;
+}
+
+.servicos-header .section-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.servicos-header .section-desc {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
 }
 
 .servicos-grid {
@@ -2384,19 +2444,4 @@ img {
 .servicos-grid {
   grid-template-columns: 1fr;
 }
-
-/* ============================
-   SERVICOS (ALL BLUE)
-   ============================ */
-#servicos {
-  background-color: var(--blue);
-  color: var(--white);
-}
-
-#servicos .section-title {
-  color: var(--white);
-}
-
-#servicos .section-desc {
-  color: rgba(255, 255, 255, 0.8);
 }
