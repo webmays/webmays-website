@@ -43,8 +43,8 @@
 
 html {
   font-size: 16px;
-  overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 html.lenis,
@@ -68,14 +68,15 @@ body {
   font-family: var(--font);
   background: var(--light);
   color: var(--dark);
-  overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: clip;
+  max-width: 100%;
   line-height: 1.6;
 }
 
 main {
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
+  max-width: 100%;
 }
 
 a {
@@ -900,6 +901,8 @@ img {
   color: var(--mid);
   max-width: 100%;
   text-align: justify;
+  text-justify: inter-word;
+  text-align-last: left;
 }
 
 .sobre-novo-visual-wrapper {
@@ -908,7 +911,7 @@ img {
   width: 600px;
   height: 600px;
   overflow: visible;
-  transform: translateX(50px);
+  transform: translate(50px, 35px);
 }
 
 /* Círculo — gradiente vertical laranja forte → quase transparente */
@@ -932,7 +935,7 @@ img {
 /* Personagem — posicionada sobre o círculo e mascarada embaixo */
 .sobre-novo-char {
   position: absolute;
-  bottom: -4%;
+  bottom: -16%;
   left: 35%;
   transform: translateX(-50%);
   width: 165%;
@@ -942,8 +945,8 @@ img {
   pointer-events: auto;
   transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
   /* fade suave na base da personagem para se misturar com o gradiente */
-  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 76%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 76%, transparent 100%);
 }
 
 .sobre-novo-char:hover {
@@ -955,7 +958,7 @@ img {
     flex: 0 0 420px;
     width: 420px;
     height: 420px;
-    transform: translateX(0);
+    transform: translateY(25px);
   }
 
   .sobre-novo-visual {
@@ -966,43 +969,80 @@ img {
 
 @media (max-width: 900px) {
   #sobre {
-    padding-bottom: 0px !important;
+    padding: 70px 0 50px !important;
+    min-height: auto;
+    overflow-x: clip;
   }
 
   .sobre-novo-grid {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+  }
+
+  .sobre-novo-content {
+    flex: 1 1 auto;
+    margin-top: 0;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .sobre-novo-title {
+    font-size: clamp(2rem, 5.5vw, 2.8rem);
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .sobre-novo-desc {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: left;
+    max-width: 100%;
   }
 
   .sobre-novo-visual-wrapper {
     flex: none;
     width: 280px;
     height: 280px;
+    position: relative;
     align-self: center;
-    transform: translateX(0);
-    margin-top: -85px;
-    margin-bottom: -60px;
+    transform: none;
+    margin: 40px auto 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
   }
 
   .sobre-novo-visual {
-    transform: scale(1.15);
-    /* Aumenta levemente, mas menos que antes */
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    transform: scale(1.08);
+    display: block;
+    z-index: 1;
   }
 
   .sobre-novo-char {
+    position: absolute;
     left: 50%;
+    transform: translateX(-50%);
     width: 115%;
-    bottom: 12%;
-    /* Garante que a personagem desça um pouco mais em relação à bolha */
-    -webkit-mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
-  }
-
-  .sobre-novo-title {
-    font-size: clamp(2rem, 6vw, 3rem);
-    line-height: 1.1;
-    /* Dá um leve respiro entre as linhas do título no celular */
+    bottom: -25%;
+    height: auto;
+    display: block;
+    z-index: 2;
+    -webkit-mask-image: linear-gradient(to bottom, black 74%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 74%, transparent 100%);
   }
 }
 
@@ -1140,13 +1180,15 @@ img {
 .projetos {
   background: var(--light);
   position: relative;
-  z-index: 999;
-  /* Z-index alto para garantir que a seção Sobre fixada fique ESCONDIDA atrás desta */
+  z-index: 3;
+  /* Z-index acima da seção Sobre fixada e permitindo sangria de tinta para a seção seguinte */
   min-height: 100vh;
   box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.14), 0 -10px 25px rgba(0, 87, 255, 0.05);
   border-top: 1px solid rgba(0, 87, 255, 0.1);
   padding: 110px 0;
   box-sizing: border-box;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 /* Manchas e Pingos de Tinta Real (Textura Orgânica, Gotas e Escorrimentos Naturais) */
@@ -1158,7 +1200,8 @@ img {
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .paint-element {
@@ -1224,15 +1267,16 @@ img {
   transform: rotate(-12deg);
 }
 
+/* Drip Laranja no Desktop: Forte presença visual orgânica, escorrendo naturalmente da splash inferior esquerda */
 .drip-left {
+  display: block;
   top: auto;
-  bottom: -380px;
-  /* O topo da gota (-380 + 500 = 120px) ficará dentro da mancha */
-  left: 80px;
-  /* Alinhado com o centro da splash-bottom-left */
-  width: 140px;
-  height: 500px;
+  bottom: -320px;
+  left: clamp(40px, 4.5vw, 85px);
+  width: clamp(190px, 13vw, 240px);
+  height: clamp(440px, 28vw, 520px);
   z-index: 1;
+  transform: rotate(0deg);
 }
 
 .splash-top-right {
@@ -1245,32 +1289,30 @@ img {
 
 .drip-right {
   top: auto;
-  bottom: -380px;
-  /* O topo da gota (-380 + 500 = 120px) ficará dentro da mancha */
+  bottom: -280px;
   left: auto;
-  right: 100px;
-  /* Alinhado com o centro da splash-mid-right */
-  width: 140px;
-  height: 500px;
+  right: clamp(60px, 6vw, 110px);
+  width: clamp(160px, 11vw, 220px);
+  height: clamp(400px, 26vw, 500px);
   transform: rotate(2deg);
   z-index: 1;
 }
 
 .splash-bottom-left {
-  bottom: -80px;
+  bottom: -50px;
   left: -20px;
-  width: 340px;
-  height: 340px;
+  width: clamp(280px, 20vw, 340px);
+  height: clamp(280px, 20vw, 340px);
   transform: rotate(185deg);
   z-index: 2;
 }
 
 .splash-mid-right {
   top: auto;
-  bottom: -80px;
-  right: -60px;
-  width: 460px;
-  height: 460px;
+  bottom: -30px;
+  right: -30px;
+  width: 320px;
+  height: 320px;
   transform: rotate(115deg);
   z-index: 2;
 }
@@ -1297,41 +1339,34 @@ img {
 /* Responsividade: Mobile e Tablet */
 @media (max-width: 900px) {
   .splash-top-left {
-    width: 340px;
-    height: 340px;
-    left: -120px;
+    width: 240px;
+    height: 240px;
+    left: -60px;
     top: -20px;
   }
 
   .splash-top-right {
-    width: 310px;
-    height: 310px;
+    width: 200px;
+    height: 200px;
     left: auto;
-    right: -100px;
+    right: -20px;
     top: 40px;
   }
 
   .drip-left {
-    left: 40px;
-    /* Alinhado ao centro da mancha */
-    width: 150px;
-    /* Aumenta a largura proporcionalmente */
-    height: 550px;
-    /* Aumenta a altura para chegar no ponto desejado */
-    bottom: -420px;
-    /* Faz a gota descer bastante para a próxima seção */
+    display: none !important;
   }
 
   .drip-right {
     display: none;
-    /* Remove a tinta azul inferior no mobile */
   }
 
   .splash-bottom-left {
     left: -20px;
-    width: 270px;
-    height: 270px;
-    bottom: -60px;
+    width: 200px;
+    height: 200px;
+    bottom: -30px;
+    z-index: 3;
   }
 
   .splash-mid-right {
@@ -1586,84 +1621,52 @@ img {
   }
 }
 
+/* ==========================================================================
+   COMO FUNCIONA - ARQUITETURA FLEXBOX FLUIDA (DEBUG FRIENDLY)
+   ========================================================================== */
+
+/* 1. Container de Seção: Define o fundo limpo e permite passagem suave de elementos de tinta */
 .como-funciona {
   background: #f8f9fc;
   position: relative;
-  z-index: 998;
-  padding: 120px 0;
-  overflow: hidden;
-}
-
-.cf-header {
-  position: relative;
   z-index: 2;
-  margin-bottom: 40px;
-  text-align: center;
-  grid-column: 1 / -1;
+  padding: clamp(40px, 5.5vw, 76px) 0 clamp(90px, 10vw, 140px);
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
+/* 2. Wrapper Central: Coluna vertical fluida sem travas rígidas */
 .cf-content-wrapper {
-  display: grid;
-  grid-template-columns: 400px 1fr;
-  grid-template-rows: auto 1fr;
-  align-items: center;
-  gap: 20px 120px;
-  width: 100%;
-  padding: 0 4vw;
-  max-width: 1500px;
-  margin: 0 auto;
-  z-index: 2;
-}
-
-/* Circle container: blue solid circle + girl on top */
-.cf-character-wrap {
-  position: relative;
-  width: 400px;
-  height: 480px; /* matches card height */
-  flex-shrink: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.cf-circle-bg {
-  position: absolute;
-  bottom: 80px; /* Pushed up so it starts from her back and doesn't go below her */
-  left: -20px;
-  width: 440px;
-  height: 440px;
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  background: var(--blue);
-  z-index: 1;
-}
-
-.cf-character {
-  position: relative;
-  z-index: 2;
-  width: 165%;
-  max-width: none;
-  height: auto;
-  object-fit: contain;
-  margin-bottom: 0;
-  margin-left: -25%;
-}
-
-.cf-steps {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
   display: flex;
   flex-direction: column;
-  z-index: 3;
+  align-items: center;
+  width: 100%;
+  max-width: 1680px; /* Ampla largura para acomodar o card mais esticado na horizontal */
+  margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 48px);
+  padding-left: clamp(8px, 1.5vw, 20px); /* Recuo reduzido para posicionar a garota mais à esquerda */
+  position: relative;
+  z-index: 2;
+  gap: clamp(16px, 2.5vw, 28px); /* Gap reduzido para puxar o card mais para cima na seção */
+}
+
+/* 3. Cabeçalho: Centralizado, espaçamento natural e z-index acima do drip */
+.cf-header {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 5;
 }
 
 .cf-header .section-title {
-  font-size: 3.2rem;
+  font-size: clamp(2.2rem, 3.5vw, 3.4rem);
   font-weight: 800;
   color: #0F172A;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.03em;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 6; /* As letras passam por CIMA da gota decorativa */
 }
 
 .cf-header .highlight-blue {
@@ -1671,51 +1674,112 @@ img {
 }
 
 .cf-header .section-desc {
-  font-size: 1.15rem;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
   color: #64748B;
   font-weight: 500;
 }
 
+/* 4. Linha Principal (Flexbox Row):
+   - align-items: flex-end -> Garante o alinhamento da base
+   - justify-content: space-between -> Distribui as duas colunas fluidamente
+   - gap fluido -> Evita colisões em notebooks de 1366px e 1280px */
+.cf-main {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  gap: clamp(20px, 3.5vw, 56px);
+}
 
-/* Patterns */
-.cf-patterns {
+/* 5. Coluna Esquerda: Personagem Feminina e Círculo Orgânico
+   - margin-right: auto -> Puxa a garota firmemente para o canto esquerdo
+   - flex: 1 1 440px -> Permite escala fluida e natural */
+.cf-character-wrap {
+  flex: 1 1 440px;
+  max-width: 520px;
+  min-width: 320px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-right: auto;
+  flex-shrink: 0;
+}
+
+/* Círculo Azul Dinâmico: Usa porcentagem relativa (width: 78%) e aspect-ratio: 1
+   -> Ancorado na borda esquerda (left: 0) junto com a personagem */
+.cf-circle-bg {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--blue);
+  left: 0;
+  top: 8%;
   z-index: 1;
 }
-.cf-shape {
+
+/* Faíscas decorativas posicionadas percentualmente acima da cabeça */
+.cf-character-sparks {
   position: absolute;
-}
-.cf-blob-girl-blue {
-  display: none;
-}
-.cf-blob-bottom-blue {
-  bottom: -2px; left: 0; width: 100%; 
-  height: clamp(120px, 15vw, 220px);
-  opacity: 1;
+  top: 10%;
+  right: 16%;
+  width: clamp(24px, 6%, 40px);
+  height: auto;
+  aspect-ratio: 1;
+  z-index: 3;
+  pointer-events: none;
 }
 
-/* Feature Cards Container */
+/* Imagem da personagem: 100% da largura do wrap, escala natural */
+.cf-character {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+}
+
+/* 6. Coluna Direita: Cards Interativos e Navegação Lateral
+   - flex: 1.8 1 780px -> Estica horizontalmente com mais presença
+   - max-width: 1000px -> Card ampliado horizontalmente conforme solicitado
+   - margin-bottom: clamp(18px, 2.5vw, 36px) -> Eleva suavemente o card dentro da seção
+   - margin-right: 64px -> Reserva o espaço exato para os marca-páginas (right: -60px) */
+.cf-steps {
+  flex: 1.8 1 780px;
+  max-width: 1000px;
+  min-width: 480px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: clamp(18px, 2.5vw, 36px);
+  margin-right: 64px;
+  z-index: 3;
+}
+
+/* Container do Card Principal: Levemente ampliado na vertical e horizontal */
 .cf-feature-cards {
   position: relative;
+  width: 100%;
+  min-height: 460px;
+  height: 460px;
   background: var(--white);
-  border-radius: 24px;
-  box-shadow: 0 12px 40px rgba(0, 87, 255, 0.06);
-  border: 1px solid var(--border);
-  height: 480px;
+  border-radius: 30px;
+  box-shadow: 0 20px 48px rgba(0, 87, 255, 0.06);
+  border: 1px solid #E2E8F0;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
-/* Transition Overlay */
+/* Overlay tecnológico de transição GSAP */
 .cf-transition-overlay {
   position: absolute;
-  width: 150%;
-  height: 120%;
-  top: -10%;
-  left: -25%;
+  width: 140%;
+  height: 110%;
+  top: -5%;
+  left: -20%;
   background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 95%, #FF5A00 95%, #FF5A00 100%);
   z-index: 50;
   pointer-events: none;
@@ -1723,16 +1787,18 @@ img {
   visibility: hidden;
 }
 
-/* Individual Cards — 42% text | 58% image */
+/* Card Individual: Flex horizontal dividindo Texto (47%) e Imagem (53%) */
 .cf-feature-card {
   position: absolute;
   inset: 0;
-  display: grid;
-  grid-template-columns: 42% 58%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
-  transition: opacity 0.3s;
+  height: 100%;
+  width: 100%;
 }
 
 .cf-feature-card.active {
@@ -1741,13 +1807,20 @@ img {
   visibility: visible;
 }
 
-/* Left panel */
+/* Painel Esquerdo de Texto (47%): Largura estritamente travada para não afetar a imagem */
 .cf-feature-content {
+  flex: 0 0 47%;
+  width: 47%;
+  min-width: 47%;
+  max-width: 47%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 60px 40px 60px 52px;
-  gap: 16px;
+  padding: clamp(38px, 4vw, 54px) clamp(28px, 3vw, 44px) clamp(24px, 2.5vw, 36px);
+  gap: 18px;
+  border-right: 1px solid #F1F5F9;
+  overflow: hidden;
 }
 
 .cf-feature-header {
@@ -1756,70 +1829,81 @@ img {
   gap: 16px;
 }
 
-/* Number: smaller, orange, no box */
 .cf-feature-num {
-  font-size: 4.5rem;
+  font-size: clamp(2.6rem, 3.2vw, 3.2rem);
   font-weight: 900;
   color: var(--orange);
-  line-height: 0.9;
-  letter-spacing: -0.05em;
+  line-height: 1;
+  letter-spacing: -0.04em;
   flex-shrink: 0;
+  font-family: inherit;
 }
 
 .cf-feature-title {
-  font-size: 2.2rem;
+  font-size: clamp(1.75rem, 2.2vw, 2.35rem);
   font-weight: 800;
   color: #0F172A;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
+/* Descrição: Tipografia legível com mais espaço horizontal para o texto */
 .cf-feature-desc {
-  font-size: 1.15rem;
+  font-size: clamp(1rem, 1.1vw, 1.12rem);
   color: #64748B;
-  line-height: 1.6;
-  text-align: justify;
+  line-height: 1.68;
+  letter-spacing: -0.01em;
+  word-spacing: normal;
+  text-align: left;
+  max-width: 100%;
 }
 
-/* Right panel: image edge-to-edge, respects card border-radius on right */
+/* Painel Direito da Imagem (53%): Dimensões fixas imutáveis idênticas ao Card 01 */
 .cf-feature-visual {
+  flex: 0 0 53%;
+  width: 53%;
+  min-width: 53%;
+  max-width: 53%;
+  height: 100%;
+  box-sizing: border-box;
   position: relative;
-  overflow: hidden;
-  border-radius: 0 22px 22px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #F8FAFC;
-  border-left: 1px solid #E2E8F0;
-  padding: 32px;
+  padding: clamp(18px, 2.2vw, 26px);
+  background: transparent;
+  overflow: hidden;
 }
 
+/* Quadro da Imagem: Arredondado com borda sutil e respiro confortável */
 .cf-mockup-image {
-  position: relative;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: bottom center;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  border-radius: 22px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+  display: block;
 }
 
-/* Navigation */
+/* 7. Marca-Páginas (Navegação Lateral 01-04) */
 .cf-steps-nav {
   position: absolute;
   right: -60px;
-  top: 60px;
+  top: 38px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  z-index: 1;
+  gap: 10px;
+  z-index: 10;
 }
 
 .cf-nav-num {
   width: 60px;
-  height: 56px;
+  height: 54px;
   border-radius: 0 16px 16px 0;
   display: flex;
   align-items: center;
@@ -1827,82 +1911,291 @@ img {
   font-weight: 800;
   font-size: 1.25rem;
   font-family: inherit;
-  color: var(--orange);
+  color: #CBD5E1;
   background: var(--white);
-  border: 1px solid var(--border);
+  border: 1px solid #E2E8F0;
   border-left: none;
   cursor: pointer;
-  transition: all 0.3s var(--ease);
-  padding-right: 4px;
+  transition: all 0.25s var(--ease);
+  padding-right: 3px;
 }
 
 .cf-nav-num:hover {
   background: #f8f9fc;
-  transform: translateX(4px);
+  color: var(--orange);
+  transform: translateX(3px);
 }
 
 .cf-nav-num.active {
-  color: #CBD5E1;
+  color: var(--orange);
   background: var(--white);
   transform: translateX(0);
 }
 
-@media (max-width: 900px) {
+/* 8. Patterns Decorativos */
+.cf-patterns {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cf-shape {
+  position: absolute;
+}
+
+/* Gota de tinta laranja: no desktop fica desativada dentro de como-funciona,
+   pois .drip-left em #projetos realiza o escorrimento completo e orgânico com ScrollTrigger */
+.cf-drip-accent {
+  display: none !important;
+}
+
+.cf-drip-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+  mix-blend-mode: multiply;
+  display: block;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 100%);
+}
+
+.cf-blob-bottom-blue {
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: clamp(100px, 14vw, 180px);
+  opacity: 1;
+}
+
+/* 9. Responsividade Limpa (Breakpoint Tablets e Mobile) */
+@media (max-width: 960px) {
   .cf-content-wrapper {
-    display: flex;
+    padding: 0 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cf-main {
     flex-direction: column;
-    padding: 0;
     align-items: center;
-    gap: 32px;
+    gap: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .cf-character-wrap {
-    width: 280px;
-    height: 280px;
+    display: none !important;
   }
 
+  /* Coluna/Container dos Steps: Perfeitamente contido na tela, sem overflow */
   .cf-steps {
-    max-width: 100%;
-    z-index: 2;
-  }
-
-  .cf-feature-card {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 260px;
-  }
-  
-  .cf-feature-content {
-    padding: 28px 24px 16px;
-    text-align: center;
-  }
-
-  .cf-feature-header {
-    justify-content: center;
-  }
-  
-  .cf-feature-num {
-    font-size: 2.8rem;
-  }
-
-  .cf-feature-desc {
-    text-align: center;
-  }
-  
-  .cf-steps-nav {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 460px;
+    margin: 0 auto;
+    margin-right: auto;
+    margin-bottom: 0;
     position: relative;
-    right: 0;
-    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /* Marca-Páginas posicionados no TOPO do card */
+  .cf-steps-nav {
+    order: -1;
+    position: relative;
+    top: 2px;
+    right: auto;
+    left: auto;
+    bottom: auto;
+    display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 24px;
+    align-items: flex-end;
+    gap: clamp(6px, 2vw, 10px);
+    width: 100%;
+    z-index: 10;
+    margin: 0 auto;
+    padding: 0 12px;
+    box-sizing: border-box;
   }
 
   .cf-nav-num {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border-left: 1px solid var(--border);
-    padding-right: 0;
+    width: clamp(52px, 15vw, 68px);
+    height: 40px;
+    border-radius: 14px 14px 0 0;
+    border: 1.5px solid #E2E8F0;
+    border-bottom: none;
+    background: #EDF2F7;
+    color: #94A3B8;
+    font-weight: 800;
+    font-size: 1.12rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.02);
+  }
+
+  .cf-nav-num:hover {
+    background: #F8FAFC;
+    color: var(--orange);
+    transform: translateY(-2px);
+  }
+
+  .cf-nav-num.active {
+    color: var(--orange);
+    background: var(--white);
+    height: 46px;
+    margin-top: -6px;
+    border-color: #CBD5E1;
+    border-bottom: 2px solid var(--white);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+    z-index: 12;
+    transform: none;
+  }
+
+  /* Container do Card Principal */
+  .cf-feature-cards {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: auto;
+    height: auto;
+    border-radius: 24px;
+    background: var(--white);
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 16px 40px rgba(0, 87, 255, 0.06);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+  }
+
+  .cf-feature-card {
+    position: relative;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cf-feature-card:not(.active) {
+    display: none !important;
+  }
+
+  .cf-feature-card.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Conteúdo de Texto com Justificação Correta */
+  .cf-feature-content {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #F1F5F9;
+    padding: clamp(20px, 5vw, 28px) clamp(18px, 5vw, 26px) clamp(16px, 4vw, 20px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+
+  .cf-feature-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .cf-feature-num {
+    font-size: clamp(2rem, 6vw, 2.3rem);
+    line-height: 1;
+  }
+
+  .cf-feature-title {
+    font-size: clamp(1.6rem, 5vw, 1.85rem);
+    line-height: 1.1;
+    word-break: break-word;
+  }
+
+  /* Texto Justificado com Distribuição Equilibrada */
+  .cf-feature-desc {
+    font-size: clamp(0.96rem, 2.7vw, 1.04rem);
+    line-height: 1.68;
+    color: #64748B;
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: left;
+    hyphens: auto;
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Painel da Imagem Fixo e Fluido */
+  .cf-feature-visual {
+    flex: 0 0 clamp(220px, 55vw, 275px);
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: clamp(220px, 55vw, 275px);
+    max-height: clamp(220px, 55vw, 275px);
+    height: clamp(220px, 55vw, 275px);
+    box-sizing: border-box;
+    padding: clamp(12px, 3.5vw, 18px) clamp(16px, 4.5vw, 22px) clamp(16px, 4.5vw, 22px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .cf-mockup-image {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    box-sizing: border-box;
+    border-radius: 18px;
+  }
+
+  /* No mobile, desativamos os drips longos de projetos */
+  .drip-left,
+  .drip-right {
+    display: none !important;
+  }
+
+  /* No mobile, ativamos o drip sutil posicionado atrás do título */
+  .cf-drip-accent {
+    display: block !important;
+    top: -45px;
+    left: 20px;
+    width: 32px;
+    height: 130px;
+    z-index: 1;
   }
 }
 
@@ -2452,20 +2745,4 @@ img {
   .servicos-grid {
     grid-template-columns: 1fr;
   }
-}
-
-.hero-stats {
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.stat-divider {
-  width: 40px;
-  height: 1px;
-}
-
-.servicos-grid {
-  grid-template-columns: 1fr;
-}
 }

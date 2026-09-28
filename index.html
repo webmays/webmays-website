@@ -210,8 +210,10 @@
     <section class="section como-funciona" id="como-funciona">
       <!-- Patterns Decorativos -->
       <div class="cf-patterns" aria-hidden="true">
-        <!-- Blue Blob Behind Girl -->
-        <div class="cf-shape cf-blob-girl-blue"></div>
+        <!-- Gota Escorrida Delicada (Posicionada atrás das letras do título) -->
+        <div class="cf-drip-accent">
+          <img src="assets/paint-drip-orange.png" alt="" class="cf-drip-img" />
+        </div>
 
         <!-- Bottom Blue Wave -->
         <svg class="cf-shape cf-blob-bottom-blue" viewBox="0 0 1000 600" preserveAspectRatio="none">
@@ -224,8 +226,15 @@
           <h2 class="section-title">Do briefing ao <span class="highlight-blue">site no ar</span></h2>
           <p class="section-desc">Um processo transparente, rápido e sem surpresas.</p>
         </div>
-        <div class="cf-character-wrap">
+
+        <!-- Linha Principal Flexbox: Personagem + Cards -->
+        <div class="cf-main">
+          <div class="cf-character-wrap">
           <div class="cf-circle-bg"></div>
+          <svg class="cf-character-sparks" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M12 28 C16 20 20 14 26 8" stroke="#0057FF" stroke-width="3" stroke-linecap="round"/>
+            <path d="M28 26 C31 20 33 16 36 12" stroke="#0057FF" stroke-width="3" stroke-linecap="round"/>
+          </svg>
           <img src="assets/CodingGirl.png" alt="Personagem Webmays Codando" class="cf-character">
         </div>
         <div class="cf-steps">
@@ -258,7 +267,7 @@
                   <p class="cf-feature-desc">Criamos a proposta visual e alinhamos a estrutura antes de começar. Você receberá um protótipo de alta fidelidade para aprovar todos os detalhes antes de escrevermos qualquer linha de código.</p>
                 </div>
                 <div class="cf-feature-visual">
-                  <img src="assets/Briefing.png" alt="Ilustração de Design" class="cf-mockup-image">
+                  <img src="assets/Design.png" alt="Ilustração de Design" class="cf-mockup-image">
                 </div>
               </div>
 
@@ -299,8 +308,9 @@
             </div>
 
 
-          </div>
-        </div>
+          </div> <!-- .cf-steps -->
+        </div> <!-- .cf-main -->
+      </div> <!-- .cf-content-wrapper -->
     </section>
 
     <section class="section servicos" id="servicos">

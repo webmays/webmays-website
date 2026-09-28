@@ -78,7 +78,7 @@ const fadeObserver = new IntersectionObserver((entries) => {
 
 // Apply to section cards
 const animTargets = [
-  '.cf-feature-card',
+  '.cf-steps',
   '.servico-card',
   '.faq-item',
 ];
@@ -275,10 +275,10 @@ function initGsapEffects() {
 
   // Desktop & Tablet (> 768px): Folha sobreposta com Parallax de profundidade
   mm.add("(min-width: 769px)", () => {
-    // 1. Fixa "Sobre nós" no topo até que "Projetos" suba e o cubra por completo
+    // 1. Fixa "Sobre nós" no final da garota no círculo laranja até que "Projetos" suba e o cubra por completo
     ScrollTrigger.create({
       trigger: sobre,
-      start: 'top top',
+      start: 'bottom bottom',
       endTrigger: projetos,
       end: 'top top',
       pin: true,
@@ -301,6 +301,7 @@ function initGsapEffects() {
 
     // 2.1 Efeito parallax suave na personagem feminina
     gsap.to('.sobre-novo-char', {
+      xPercent: -50,
       y: -25,
       ease: 'none',
       scrollTrigger: {
@@ -388,8 +389,9 @@ function initGsapEffects() {
     }
   });
 
-  // Mobile (<= 768px)
+  // Mobile (<= 768px): Transição Parallax no final da garota no círculo laranja
   mm.add("(max-width: 768px)", () => {
+    // 1. Fixa "Sobre nós" no final da garota no círculo laranja até que "Projetos" suba e o cubra por completo (igual ao desktop)
     ScrollTrigger.create({
       trigger: sobre,
       start: 'bottom bottom',
@@ -399,15 +401,30 @@ function initGsapEffects() {
       pinSpacing: false
     });
 
+    // 2. Parallax de profundidade em Sobre nós com amortecimento (scrub suave: 1.2s)
     gsap.to('#sobre .container', {
-      scale: 0.97,
-      opacity: 0.6,
+      yPercent: -8,
+      scale: 0.95,
+      opacity: 0.4,
       ease: 'none',
       scrollTrigger: {
         trigger: projetos,
         start: 'top bottom',
         end: 'top top',
-        scrub: 1
+        scrub: 1.2
+      }
+    });
+
+    // 2.1 Efeito parallax suave na personagem feminina
+    gsap.to('.sobre-novo-char', {
+      xPercent: -50,
+      y: -20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: projetos,
+        start: 'top bottom',
+        end: 'top top',
+        scrub: 1.5
       }
     });
 
@@ -480,11 +497,18 @@ function initGsapEffects() {
       // Define o delay dinâmico diretamente no CSS inline do elemento
       drip.style.transitionDelay = `${0.4 + i * 0.25}s`;
 
-      ScrollTrigger.create({
+      const st = ScrollTrigger.create({
         trigger: '#projetos',
         start: 'top 70%',
-        onEnter: () => drip.classList.add('drip-reveal')
+        onEnter: () => drip.classList.add('drip-reveal'),
+        onRefresh: (self) => {
+          if (self.progress > 0) drip.classList.add('drip-reveal');
+        }
       });
+
+      if (st && st.progress > 0) {
+        drip.classList.add('drip-reveal');
+      }
     });
 
     // Gotas satélites: respingos que se soltaram e caíram independentes
@@ -543,53 +567,105 @@ document.querySelectorAll('.projeto-row').forEach(card => {
   carouselObserver.observe(card);
 });
 
-/* ============================
-   COMO FUNCIONA - FEATURE CARDS
-   ============================ */
+/* ==========================================================================
+   COMO FUNCIONA - TRANSIÇÃO INTELIGENTE (PULA INTERMEDIÁRIOS & NÃO-BLOQUEANTE)
+   ========================================================================== */
 const cfNavNums = document.querySelectorAll('.cf-nav-num');
 const cfFeatureCards = document.querySelectorAll('.cf-feature-card');
 const cfOverlay = document.querySelector('.cf-transition-overlay');
 
-// Seta o estado inicial do overlay no GSAP: inclinado e escondido à direita
-gsap.set(cfOverlay, { skewX: -15, xPercent: 120 });
+// Estado inicial: overlay inclinado e fora da visão à direita
+if (cfOverlay) {
+  gsap.set(cfOverlay, { skewX: -12, xPercent: 110, autoAlpha: 0 });
+}
 
-let isCfAnimating = false;
+let cfTimeline = null;
+let currentActiveId = '01'; // O card atualmente visível
+let activeTargetId = '01';  // O card que será revelado na fase atual
+let queuedTargetId = null;  // Card na fila se o clique ocorrer após a troca de conteúdo
+
+function triggerCardTransition(targetId) {
+  activeTargetId = targetId;
+  queuedTargetId = null;
+
+  // Atualiza botões
+  cfNavNums.forEach(num => num.classList.toggle('active', num.getAttribute('data-target') === targetId));
+
+  let hasSwapped = false;
+
+  cfTimeline = gsap.timeline({
+    onComplete: () => {
+      currentActiveId = activeTargetId;
+      cfTimeline = null;
+      gsap.set(cfOverlay, { autoAlpha: 0, xPercent: 110 });
+
+      // Se um novo card foi clicado enquanto o overlay já estava saindo, transiciona para ele agora
+      if (queuedTargetId && queuedTargetId !== currentActiveId) {
+        const next = queuedTargetId;
+        queuedTargetId = null;
+        triggerCardTransition(next);
+      }
+    }
+  });
+
+  // 1. Overlay varre da direita até o centro cobrindo 100% do card (~0.32s)
+  cfTimeline.fromTo(cfOverlay,
+    { xPercent: 110, autoAlpha: 1, skewX: -12 },
+    { xPercent: 0, duration: 0.32, ease: 'power2.in' }
+  );
+
+  // 2. No ponto exato de cobertura máxima (xPercent: 0):
+  // Troca SEMPRE para o activeTargetId mais recente! Se o usuário clicou em outros no meio do caminho,
+  // ele vai direto para o último sem nunca parar ou exibir o intermediário.
+  cfTimeline.add(() => {
+    hasSwapped = true;
+    const finalCard = document.getElementById(`card-${activeTargetId}`);
+    if (finalCard) {
+      cfFeatureCards.forEach(c => c.classList.remove('active'));
+      finalCard.classList.add('active');
+      currentActiveId = activeTargetId;
+    }
+  });
+
+  // 3. Overlay varre para a esquerda revelando o card final (~0.32s)
+  cfTimeline.to(cfOverlay, {
+    xPercent: -110,
+    duration: 0.32,
+    ease: 'power2.out'
+  });
+
+  // Helper para saber se a troca sob o overlay já ocorreu
+  cfTimeline.hasSwapped = () => hasSwapped;
+}
 
 cfNavNums.forEach(navNum => {
   navNum.addEventListener('click', () => {
-    if (navNum.classList.contains('active') || isCfAnimating) return;
-    isCfAnimating = true;
-
     const targetId = navNum.getAttribute('data-target');
-    const oldCard = document.querySelector('.cf-feature-card.active');
-    const newCard = document.getElementById(`card-${targetId}`);
 
-    // Atualiza classes da navegação lateral
-    cfNavNums.forEach(num => num.classList.remove('active'));
-    navNum.classList.add('active');
-    
-    const tl = gsap.timeline({
-      onComplete: () => { 
-        isCfAnimating = false; 
-        gsap.set(cfOverlay, { autoAlpha: 0 }); // Esconde totalmente no fim
+    // Se já é o card ativo e nenhuma transição está ocorrendo ou na fila, ignora
+    if (targetId === currentActiveId && (!cfTimeline || !cfTimeline.isActive()) && !queuedTargetId) {
+      return;
+    }
+
+    // Feedback visual imediato na aba clicada sempre
+    cfNavNums.forEach(num => num.classList.toggle('active', num.getAttribute('data-target') === targetId));
+
+    // Se a animação já estiver rodando:
+    if (cfTimeline && cfTimeline.isActive()) {
+      // Se o overlay ainda está entrando (cobrindo o card) e ainda NÃO trocou o conteúdo:
+      if (!cfTimeline.hasSwapped()) {
+        // Redireciona a troca diretamente para o último clicado!
+        // Não para no intermediário e não recomeça a animação!
+        activeTargetId = targetId;
+        queuedTargetId = null;
+      } else {
+        // Se o overlay já atingiu o centro e já está saindo, agenda para rodar logo após sair
+        queuedTargetId = targetId;
       }
-    });
-    
-    // Varredura contínua da DIREITA para a ESQUERDA
-    tl.fromTo(cfOverlay, 
-      { xPercent: 120, autoAlpha: 1, skewX: -15 },
-      { 
-        xPercent: -120, 
-        duration: 1.5, 
-        ease: 'power2.inOut',
-        onUpdate: function() {
-          // Troca o card exatamente na metade do movimento (quando a tela ta coberta)
-          if (this.progress() >= 0.5 && oldCard.classList.contains('active')) {
-            oldCard.classList.remove('active');
-            newCard.classList.add('active');
-          }
-        }
-      }
-    );
+      return;
+    }
+
+    // Se estiver ocioso, inicia a transição imediatamente
+    triggerCardTransition(targetId);
   });
 });
