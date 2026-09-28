@@ -1608,17 +1608,17 @@ img {
 }
 
 .cf-character {
-  width: 45vw;
-  max-width: 680px;
+  width: 35%;
+  max-width: 480px;
   flex-shrink: 0;
   height: auto;
   object-fit: contain;
-  margin-left: -80px;
+  margin-left: -20px;
 }
 
 .cf-steps {
-  width: 100%;
-  max-width: 1100px;
+  width: 65%;
+  max-width: 800px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -1669,7 +1669,7 @@ img {
   opacity: 0;
   pointer-events: none;
   display: grid;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: 1fr 1fr;
   background: var(--white);
   overflow: hidden;
   z-index: 1;
@@ -1683,7 +1683,7 @@ img {
 }
 
 .cf-feature-content {
-  padding: 48px;
+  padding: 40px 32px 40px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
