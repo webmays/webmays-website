@@ -79,7 +79,6 @@ const fadeObserver = new IntersectionObserver((entries) => {
 // Apply to section cards
 const animTargets = [
   '.cf-steps',
-  '.servico-card',
   '.faq-item',
 ];
 animTargets.forEach(sel => {
@@ -90,6 +89,37 @@ animTargets.forEach(sel => {
     fadeObserver.observe(el);
   });
 });
+
+/* --- Seção Serviços: Todos os cards aparecem juntos ao chegar na seção (e não individualmente conforme o scroll) --- */
+const servicosSection = document.querySelector('#servicos');
+if (servicosSection) {
+  const servCards = servicosSection.querySelectorAll('.servico-card');
+  servCards.forEach((card, i) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(28px)';
+    card.style.transition = `opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.06}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.06}s`;
+  });
+
+  const servicosObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        servCards.forEach((card, i) => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+          // Limpa inline transform, transition e opacity após animação para permitir livre funcionamento do hover no CSS e do carrossel mobile
+          setTimeout(() => {
+            card.style.transform = '';
+            card.style.transition = '';
+            card.style.opacity = '';
+          }, 700 + i * 60);
+        });
+        servicosObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+  servicosObserver.observe(servicosSection);
+}
 
 /* --- SVG draw paths on scroll --- */
 const drawObserver = new IntersectionObserver((entries) => {
