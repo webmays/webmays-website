@@ -3095,8 +3095,7 @@ img {
 }
 
 .faq-left {
-  position: sticky;
-  top: 110px;
+  position: static;
 }
 
 .faq-left .section-desc {
