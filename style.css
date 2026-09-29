@@ -1395,18 +1395,18 @@ img {
     left: -15px;
     width: clamp(120px, 32vw, 140px);
     height: clamp(120px, 32vw, 140px);
-    bottom: 0px;
+    bottom: 12px;
     z-index: 2;
   }
 
-  /* Escorrimento Laranja: mais curto, sutil e posicionado um pouco mais para cima */
+  /* Escorrimento Laranja: elevado mais para cima e perfeitamente ancorado */
   .drip-left {
     display: block !important;
     top: auto;
-    bottom: -48px;
+    bottom: -26px;
     left: clamp(20px, 5.5vw, 28px);
-    width: clamp(48px, 13vw, 56px);
-    height: clamp(86px, 23vw, 100px);
+    width: clamp(46px, 12vw, 54px);
+    height: clamp(82px, 22vw, 96px);
     z-index: 1;
     transform: rotate(0deg);
   }
