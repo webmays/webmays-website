@@ -1381,55 +1381,58 @@ img {
     display: none !important;
   }
 
-  /* Desativa a máscara de desvanecimento para que a tinta do drip seja 100% sólida e una com a splash sem falhas */
+  /* Mantém a proporção natural da imagem original sem esticar nem distorcer */
   .drip-img {
     -webkit-mask-image: none !important;
     mask-image: none !important;
-    object-fit: fill;
+    object-fit: contain !important;
+    object-position: top center !important;
   }
 
-  /* Canto Inferior Esquerdo: Laranja (mais para cima, com escorrimento acoplado de forma contínua) */
+  /* Canto Inferior Esquerdo: Laranja (compacta, proporcional e nítida, mais para cima) */
   .splash-bottom-left {
     display: block !important;
-    left: -20px;
-    width: clamp(165px, 46vw, 195px);
-    height: clamp(165px, 46vw, 195px);
-    bottom: -15px;
+    left: -15px;
+    width: clamp(120px, 34vw, 145px);
+    height: clamp(120px, 34vw, 145px);
+    bottom: -5px;
     z-index: 2;
     transform: rotate(185deg);
   }
 
+  /* Escorrimento Laranja: proporção natural (~1:1.8) sem esticar */
   .drip-left {
     display: block !important;
     top: auto;
-    bottom: -180px;
-    left: clamp(34px, 9.5vw, 46px);
-    width: clamp(48px, 13vw, 58px);
-    height: 230px;
+    bottom: -95px;
+    left: clamp(26px, 7.5vw, 36px);
+    width: clamp(52px, 14vw, 64px);
+    height: clamp(95px, 25vw, 115px);
     z-index: 1;
     transform: rotate(0deg);
   }
 
-  /* Canto Inferior Direito: Azul (mais para baixo, com escorrimento acoplado de forma contínua) */
+  /* Canto Inferior Direito: Azul (compacta, proporcional e nítida, mais para baixo) */
   .splash-mid-right {
     display: block !important;
     left: auto;
-    right: -20px;
-    bottom: -60px;
-    width: clamp(160px, 45vw, 190px);
-    height: clamp(160px, 45vw, 190px);
+    right: -15px;
+    bottom: -40px;
+    width: clamp(120px, 34vw, 145px);
+    height: clamp(120px, 34vw, 145px);
     z-index: 2;
     transform: rotate(115deg);
   }
 
+  /* Escorrimento Azul: proporção natural (~1:1.8) sem esticar */
   .drip-right {
     display: block !important;
     top: auto;
-    bottom: -225px;
-    right: clamp(32px, 9vw, 44px);
+    bottom: -130px;
+    right: clamp(24px, 7vw, 34px);
     left: auto;
-    width: clamp(46px, 12.5vw, 56px);
-    height: 230px;
+    width: clamp(50px, 13.5vw, 62px);
+    height: clamp(92px, 24vw, 112px);
     z-index: 1;
     transform: rotate(0deg);
   }
