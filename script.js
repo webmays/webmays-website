@@ -20,28 +20,22 @@ window.addEventListener('beforeunload', () => {
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
 
-hamburger.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('open');
-  hamburger.setAttribute('aria-expanded', isOpen);
-  // Animate spans
-  const spans = hamburger.querySelectorAll('span');
-  if (isOpen) {
-    spans[0].style.transform = 'translateY(7px) rotate(45deg)';
-    spans[1].style.opacity = '0';
-    spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
-  } else {
-    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
-  }
-});
+function setNavMenu(isOpen) {
+  if (!navLinks || !hamburger) return;
+  navLinks.classList.toggle('open', isOpen);
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', String(isOpen));
+}
 
-// Close menu on link click
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    const spans = hamburger.querySelectorAll('span');
-    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    setNavMenu(!navLinks.classList.contains('open'));
   });
-});
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNavMenu(false));
+  });
+}
 
 /* --- FAQ accordion --- */
 document.querySelectorAll('.faq-question').forEach(btn => {
@@ -139,21 +133,6 @@ document.querySelectorAll('.faq-doodle, .cta-doodle-svg').forEach(svg => {
   });
   drawObserver.observe(svg);
 });
-
-/* --- Timeline bar trigger --- */
-const timelineObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.animationPlayState = 'running';
-    }
-  });
-}, { threshold: 0.5 });
-
-const timelineFill = document.querySelector('.timeline-fill');
-if (timelineFill) {
-  timelineFill.style.animationPlayState = 'paused';
-  timelineObserver.observe(timelineFill);
-}
 
 /* --- Active nav link on scroll --- */
 const sections = document.querySelectorAll('section[id]');
