@@ -2251,31 +2251,6 @@ img {
   z-index: 2;
 }
 
-/* ==========================================================================
-   MANCHAS DE TINTA LARANJA PREENCHIDAS (CONFORME ESBOÇO) - SERVIÇOS
-   ========================================================================== */
-.servicos-manchas-layer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.servicos-fluid-bg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-  filter: drop-shadow(0 14px 36px rgba(0, 0, 0, 0.2));
-}
-
-.mancha-shape-left,
-.mancha-shape-right {
-  opacity: 0.96;
-}
 
 .servicos-container {
   max-width: 1520px;
@@ -2848,9 +2823,6 @@ img {
     overflow: hidden;
   }
 
-  .servicos-fluid-bg {
-    opacity: 0.92;
-  }
 
   .servicos-container {
     padding-left: 0 !important;
