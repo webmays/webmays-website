@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=28" />
+  <link rel="stylesheet" href="style.css?v=29" />
 </head>
 
 <body>
@@ -295,13 +295,49 @@
     </section>
 
     <section class="section servicos" id="servicos">
+      <!-- Faixas laranjas criativas de detalhe / ambient energy stripes -->
+      <div class="servicos-bg-stripes" aria-hidden="true">
+        <!-- Grupo Superior Esquerdo: 3 faixas dinâmicas anguladas -->
+        <div class="stripe-cluster stripe-cluster-tl">
+          <span class="orange-stripe stripe-long"></span>
+          <span class="orange-stripe stripe-med"></span>
+          <span class="orange-stripe stripe-short"></span>
+        </div>
+
+        <!-- Grupo Superior Direito: 3 faixas dinâmicas anguladas -->
+        <div class="stripe-cluster stripe-cluster-tr">
+          <span class="orange-stripe stripe-long"></span>
+          <span class="orange-stripe stripe-med"></span>
+          <span class="orange-stripe stripe-short"></span>
+        </div>
+
+        <!-- Faixa flutuante lateral esquerda intermediária -->
+        <div class="stripe-cluster stripe-cluster-ml">
+          <span class="orange-stripe stripe-tape"></span>
+        </div>
+
+        <!-- Faixas flutuantes lateral direita inferior -->
+        <div class="stripe-cluster stripe-cluster-br">
+          <span class="orange-stripe stripe-med"></span>
+          <span class="orange-stripe stripe-short"></span>
+        </div>
+
+        <!-- Brilho âmbar ambiente de fundo -->
+        <div class="servicos-ambient-glow"></div>
+      </div>
+
       <div class="container servicos-container">
         <!-- Eyebrow & Header -->
         <div class="servicos-header">
           <div class="servicos-brand-tag">
             <span class="servicos-brand-title">WEBMAYS</span>
           </div>
-          <h2 class="servicos-title">Nossos serviços</h2>
+          <div class="servicos-title-wrap">
+            <h2 class="servicos-title">Nossos serviços</h2>
+            <svg class="servicos-title-stripe" viewBox="0 0 170 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M4 9.5 C40 3.5, 95 13, 140 6 C152 4, 162 7, 166 5.5" stroke="#FF5A00" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
           <p class="servicos-desc">Soluções claras e acessíveis para colocar o seu negócio online.</p>
         </div>
 
