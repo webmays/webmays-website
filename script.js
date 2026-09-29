@@ -552,6 +552,12 @@ function initGsapEffects() {
         }
       });
 
+      ScrollTrigger.create({
+        trigger: '#como-funciona',
+        start: 'top 95%',
+        onEnter: () => drip.classList.add('drip-reveal')
+      });
+
       if (st && st.progress > 0) {
         drip.classList.add('drip-reveal');
       }
