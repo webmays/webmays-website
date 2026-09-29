@@ -1765,12 +1765,12 @@ img {
   z-index: 3;
 }
 
-/* Container do Card Principal: Levemente ampliado na vertical e horizontal */
+/* Container do Card Principal: Elegante, sem imagens, com foco tipográfico */
 .cf-feature-cards {
   position: relative;
   width: 100%;
-  min-height: 460px;
-  height: 460px;
+  min-height: 380px;
+  height: 380px;
   background: var(--white);
   border-radius: 30px;
   box-shadow: 0 20px 48px rgba(0, 87, 255, 0.06);
@@ -1792,13 +1792,14 @@ img {
   visibility: hidden;
 }
 
-/* Card Individual: Flex horizontal dividindo Texto (47%) e Imagem (53%) */
+/* Card Individual: Ocupa 100% da área do card */
 .cf-feature-card {
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: stretch;
+  justify-content: center;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -1812,30 +1813,29 @@ img {
   visibility: visible;
 }
 
-/* Painel Esquerdo de Texto (47%): Largura estritamente travada para não afetar a imagem */
+/* Conteúdo de Texto: Ocupa toda a extensão horizontal com espaçamento generoso */
 .cf-feature-content {
-  flex: 0 0 47%;
-  width: 47%;
-  min-width: 47%;
-  max-width: 47%;
+  flex: 1 1 100%;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: clamp(38px, 4vw, 54px) clamp(20px, 2.2vw, 36px) clamp(24px, 2.5vw, 36px);
-  gap: 18px;
-  border-right: 1px solid #F1F5F9;
+  justify-content: center;
+  padding: clamp(38px, 4.5vw, 60px) clamp(36px, 5vw, 68px);
+  gap: clamp(18px, 2vw, 26px);
+  border-right: none;
   overflow: hidden;
 }
 
 .cf-feature-header {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 1.2vw, 16px);
+  gap: clamp(14px, 1.8vw, 22px);
 }
 
 .cf-feature-num {
-  font-size: clamp(2.4rem, 2.8vw, 3rem);
+  font-size: clamp(3.2rem, 4.2vw, 4.6rem);
   font-weight: 900;
   color: var(--orange);
   line-height: 1;
@@ -1845,53 +1845,23 @@ img {
 }
 
 .cf-feature-title {
-  font-size: clamp(1.35rem, 1.75vw, 2rem);
+  font-size: clamp(2rem, 2.8vw, 3.2rem);
   font-weight: 800;
   color: #0F172A;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
-/* Descrição: Tipografia legível com mais espaço horizontal para o texto */
+/* Descrição: Tipografia ampliada, elegante e de fácil leitura */
 .cf-feature-desc {
-  font-size: clamp(1rem, 1.1vw, 1.12rem);
-  color: #64748B;
-  line-height: 1.68;
+  font-size: clamp(1.15rem, 1.45vw, 1.35rem);
+  color: #475569;
+  line-height: 1.76;
   letter-spacing: -0.01em;
   word-spacing: normal;
   text-align: left;
-  max-width: 100%;
-}
-
-/* Painel Direito da Imagem (53%): Dimensões fixas imutáveis idênticas ao Card 01 */
-.cf-feature-visual {
-  flex: 0 0 53%;
-  width: 53%;
-  min-width: 53%;
-  max-width: 53%;
-  height: 100%;
-  box-sizing: border-box;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(18px, 2.2vw, 26px);
-  background: transparent;
-  overflow: hidden;
-}
-
-/* Quadro da Imagem: Arredondado com borda sutil e respiro confortável */
-.cf-mockup-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom center;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 22px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
-  display: block;
+  max-width: 860px;
 }
 
 /* 7. Marca-Páginas (Navegação Lateral 01-04) */
@@ -2126,74 +2096,50 @@ img {
     min-width: 0;
     max-width: 100%;
     border-right: none;
-    border-bottom: 1px solid #F1F5F9;
-    padding: clamp(20px, 5vw, 28px) clamp(18px, 5vw, 26px) clamp(16px, 4vw, 20px);
+    border-bottom: none;
+    padding: clamp(30px, 7vw, 44px) clamp(22px, 5.5vw, 32px);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     text-align: left;
+    gap: clamp(14px, 3vw, 20px);
   }
 
   .cf-feature-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    justify-content: flex-start;
+    gap: 14px;
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 0;
   }
 
   .cf-feature-num {
-    font-size: clamp(2rem, 6vw, 2.3rem);
+    font-size: clamp(2.5rem, 7.5vw, 3.2rem);
+    font-weight: 900;
     line-height: 1;
   }
 
   .cf-feature-title {
-    font-size: clamp(1.35rem, 4.6vw, 1.8rem);
-    line-height: 1.1;
-    white-space: nowrap;
+    font-size: clamp(1.7rem, 5.5vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.15;
+    white-space: normal;
+    word-break: break-word;
   }
 
-  /* Texto Justificado com Distribuição Equilibrada */
+  /* Texto Ampliado no Mobile */
   .cf-feature-desc {
-    font-size: clamp(0.96rem, 2.7vw, 1.04rem);
-    line-height: 1.68;
-    color: #64748B;
-    text-align: justify;
-    text-justify: inter-word;
-    text-align-last: left;
+    font-size: clamp(1.05rem, 3.4vw, 1.18rem);
+    line-height: 1.72;
+    color: #475569;
+    text-align: left;
+    text-justify: auto;
+    text-align-last: auto;
     hyphens: auto;
     width: 100%;
     margin: 0;
-  }
-
-  /* Painel da Imagem Fixo e Fluido */
-  .cf-feature-visual {
-    flex: 0 0 clamp(220px, 55vw, 275px);
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    min-height: clamp(220px, 55vw, 275px);
-    max-height: clamp(220px, 55vw, 275px);
-    height: clamp(220px, 55vw, 275px);
-    box-sizing: border-box;
-    padding: clamp(12px, 3.5vw, 18px) clamp(16px, 4.5vw, 22px) clamp(16px, 4.5vw, 22px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .cf-mockup-image {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    object-position: bottom center;
-    box-sizing: border-box;
-    border-radius: 18px;
   }
 
   /* No mobile, desativamos os drips longos de projetos */
