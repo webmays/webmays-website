@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="style.css?v=27" />
 </head>
 
 <body>
@@ -79,8 +79,7 @@
               style="animation-delay: 0.3s">a</span><span class="char" style="animation-delay: 0.35s">y</span><span
               class="char" style="animation-delay: 0.4s">s</span>
           </h1>
-          <p class="hero-tagline" id="dynamic-tagline" style="transition: opacity 0.5s ease, transform 0.5s ease;">Sites
-            acessíveis para você!</p>
+          <p class="hero-tagline" id="dynamic-tagline">Sites acessíveis para você!</p>
         </div>
       </div>
     </section>
@@ -106,50 +105,44 @@
     </section>
 
     <section class="section projetos" id="projetos">
-      <!-- Manchas e Pingos de Tinta Real (Textura Orgânica, Gotas e Escorrimentos Naturais) -->
+      <!-- Manchas e Pingos de Tinta Real (Composição Equilibrada e Limpa) -->
       <div class="ink-canvas-wrapper" aria-hidden="true">
-        <!-- 1. Grande Splash Azul (canto superior esquerdo, vazando para fora e atrás do card 01) -->
-        <div class="paint-element paint-splash splash-top-left">
+        <!-- 1. Grande Splash Azul (canto superior esquerdo) -->
+        <div class="paint-element paint-splash splash-top splash-top-left">
           <img src="assets/paint-splash-blue.png" alt="" class="paint-img" />
         </div>
 
-        <!-- 2. Escorrimento Laranja (agora na parte inferior esquerda) -->
+        <!-- 2. Grande Splash (Laranja no desktop / Azul no mobile) -->
+        <div class="paint-element paint-splash splash-top splash-top-right">
+          <picture style="display: contents;">
+            <source media="(max-width: 900px)" srcset="assets/paint-splash-blue.png" />
+            <img src="assets/paint-splash-orange.png" alt="" class="paint-img" />
+          </picture>
+        </div>
+
+        <!-- 3. Splash Laranja de Acento Inferior Esquerdo -->
+        <div class="paint-element paint-splash splash-bottom splash-bottom-left">
+          <img src="assets/paint-splash-orange.png" alt="" class="paint-img" />
+        </div>
+
+        <!-- 4. Escorrimento Laranja Inferior Esquerdo (transição para Como Funciona) -->
         <div class="paint-element paint-drip drip-left">
           <img src="assets/paint-drip-orange.png" alt="" class="paint-img drip-img" />
         </div>
 
-        <!-- 3. Grande Splash Laranja (centro-direita alto, com tentáculos e textura real de líquido) -->
-        <div class="paint-element paint-splash splash-top-right">
-          <img src="assets/paint-splash-orange.png" alt="" class="paint-img" />
-        </div>
-
-        <!-- 4. Escorrimento Azul (agora na parte inferior direita) -->
-        <div class="paint-element paint-drip drip-right">
-          <img src="assets/paint-drip-blue.png" alt="" class="paint-img drip-img" />
-        </div>
-
-        <!-- 5. Splash Laranja de Acento (lateral inferior esquerda, parcialmente visível) -->
-        <div class="paint-element paint-splash splash-bottom-left">
-          <img src="assets/paint-splash-orange.png" alt="" class="paint-img" />
-        </div>
-
-        <!-- 6. Splash Azul de Acento (lateral direita centro-baixo, saindo da viewport) -->
-        <div class="paint-element paint-splash splash-mid-right">
+        <!-- 5. Splash Central Inferior (Preenchendo a área inferior vazia) -->
+        <div class="paint-element paint-splash splash-bottom splash-bottom-center">
           <img src="assets/paint-splash-blue.png" alt="" class="paint-img" />
         </div>
 
-        <!-- 7. Gotas de Tinta e Respingos Satélites Orgânicos espalhados assimetricamente -->
-        <div class="paint-satellites">
-          <span class="satellite-drop drop-blue" style="top: 14%; left: 32%; width: 8px; height: 8px;"></span>
-          <span class="satellite-drop drop-blue" style="top: 26%; left: 36%; width: 4px; height: 4px;"></span>
-          <span class="satellite-drop drop-orange" style="top: 19%; left: 52%; width: 9px; height: 9px;"></span>
-          <span class="satellite-drop drop-orange" style="top: 68%; left: 24%; width: 6px; height: 6px;"></span>
-          <span class="satellite-drop drop-blue" style="top: 74%; left: 78%; width: 10px; height: 10px;"></span>
-          <span class="satellite-drop drop-orange" style="top: 85%; left: 45%; width: 5px; height: 5px;"></span>
-          <span class="satellite-drop drop-blue" style="top: 88%; left: 16%; width: 7px; height: 7px;"></span>
-          <span class="satellite-drop drop-orange" style="top: 12%; left: 88%; width: 6px; height: 6px;"></span>
-          <span class="satellite-drop drop-blue" style="top: 48%; left: 94%; width: 5px; height: 5px;"></span>
-          <span class="satellite-drop drop-orange" style="top: 56%; left: 6%; width: 7px; height: 7px;"></span>
+        <!-- 6. Splash Azul de Acento Inferior Direito -->
+        <div class="paint-element paint-splash splash-bottom splash-mid-right">
+          <img src="assets/paint-splash-blue.png" alt="" class="paint-img" />
+        </div>
+
+        <!-- 7. Escorrimento Azul Inferior Direito (transição para Como Funciona) -->
+        <div class="paint-element paint-drip drip-right">
+          <img src="assets/paint-drip-blue.png" alt="" class="paint-img drip-img" />
         </div>
       </div>
 
@@ -302,51 +295,335 @@
     </section>
 
     <section class="section servicos" id="servicos">
-      <div class="container" style="position: relative; z-index: 2;">
+      <div class="container servicos-container">
+        <!-- Eyebrow & Header -->
         <div class="servicos-header">
-          <h2 class="section-title">O que a <span class="highlight-orange">Webmays</span><br />pode fazer por voce?</h2>
-          <p class="section-desc">Placeholder — texto introdutorio dos servicos.</p>
+          <div class="servicos-brand-tag">
+            <span class="servicos-brand-title">WEBMAYS</span>
+          </div>
+          <h2 class="servicos-title">Nossos serviços</h2>
+          <p class="servicos-desc">Soluções claras e acessíveis para colocar o seu negócio online.</p>
         </div>
+
+        <!-- 6 Service Cards Grid (Desktop: 3 colunas / Mobile: Carrossel Coverflow Centralizado) -->
         <div class="servicos-grid">
-          <div class="servico-card servico-card--primary" id="servico-1">
-            <h3 class="servico-title">Sites Institucionais</h3>
-            <p class="servico-desc">Placeholder — descricao do servico.</p>
-            <ul class="servico-list">
-              <li>Placeholder</li>
-              <li>Placeholder</li>
-              <li>Placeholder</li>
+          <!-- Card 1: Página promocional simples (Valor Numérico) -->
+          <div class="servico-card" id="card-servico-1">
+            <div class="servico-badge-slot">
+              <!-- Espaçador de alinhamento -->
+            </div>
+            <div class="servico-header-slot">
+              <h3 class="servico-name">Página promocional<br>simples</h3>
+            </div>
+            <div class="servico-summary-slot">
+              <p class="servico-summary">Ideal para apresentar uma oferta, serviço ou lançamento de forma direta e sem distrações.</p>
+            </div>
+            <div class="servico-price-slot">
+              <div class="price-box">
+                <div class="price-main">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">390,90</span>
+                </div>
+                <span class="price-suffix">taxa única</span>
+              </div>
+            </div>
+            <div class="servico-cta-slot">
+              <button type="button" class="btn-servico-cta" data-service-name="Página promocional simples" data-service-price="R$ 390,90">
+                <span>Contratar</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+            <ul class="servico-features">
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>1 página focada em vendas</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Design 100% personalizado e leve</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Botão direto para WhatsApp</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Carregamento rápido otimizado</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Sem seções extras de conversão</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Sem formulário integrado de qualificação</span>
+              </li>
             </ul>
-            <a href="#contato" class="btn-primary-sm" id="srv1-cta">Solicitar orcamento</a>
           </div>
-          <div class="servico-card" id="servico-2">
-            <h3 class="servico-title">Lojas Virtuais</h3>
-            <p class="servico-desc">Placeholder — descricao do servico.</p>
-            <ul class="servico-list">
-              <li>Placeholder</li>
-              <li>Placeholder</li>
-              <li>Placeholder</li>
+
+          <!-- Card 2: Página promocional completa (Mais escolhida - Valor Numérico) -->
+          <div class="servico-card servico-card--featured" id="card-servico-2">
+            <div class="servico-badge-slot">
+              <span class="servico-badge servico-badge--orange">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"></path></svg>
+                <span>Mais escolhida</span>
+              </span>
+            </div>
+            <div class="servico-header-slot">
+              <h3 class="servico-name">Página promocional<br>completa</h3>
+            </div>
+            <div class="servico-summary-slot">
+              <p class="servico-summary">A melhor opção para vender mais, passar autoridade máxima e capturar clientes qualificados.</p>
+            </div>
+            <div class="servico-price-slot">
+              <div class="price-box">
+                <div class="price-main">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">499,90</span>
+                </div>
+                <span class="price-suffix">taxa única</span>
+              </div>
+            </div>
+            <div class="servico-cta-slot">
+              <button type="button" class="btn-servico-cta btn-servico-featured" data-service-name="Página promocional completa" data-service-price="R$ 499,90">
+                <span>Contratar</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+            <ul class="servico-features">
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>1 página completa e aprofundada</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Design personalizado premium exclusivo</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Estrutura estratégica em alta conversão</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Botão WhatsApp + Formulário integrado</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Seções extras de prova social e FAQ</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Otimização máxima de performance</span>
+              </li>
             </ul>
-            <a href="#contato" class="btn-ghost-sm" id="srv2-cta">Solicitar orcamento</a>
           </div>
-          <div class="servico-card" id="servico-3">
-            <h3 class="servico-title">Landing Pages</h3>
-            <p class="servico-desc">Placeholder — descricao do servico.</p>
-            <ul class="servico-list">
-              <li>Placeholder</li>
-              <li>Placeholder</li>
-              <li>Placeholder</li>
+
+          <!-- Card 3: Portfólio profissional (Valor Numérico) -->
+          <div class="servico-card" id="card-servico-3">
+            <div class="servico-badge-slot">
+              <!-- Espaçador de alinhamento -->
+            </div>
+            <div class="servico-header-slot">
+              <h3 class="servico-name">Portfólio<br>profissional</h3>
+            </div>
+            <div class="servico-summary-slot">
+              <p class="servico-summary">Uma opção simples e refinada para mostrar seus trabalhos e projetos de forma profissional.</p>
+            </div>
+            <div class="servico-price-slot">
+              <div class="price-box">
+                <div class="price-main">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">250,00</span>
+                </div>
+                <span class="price-suffix">taxa única</span>
+              </div>
+            </div>
+            <div class="servico-cta-slot">
+              <button type="button" class="btn-servico-cta" data-service-name="Portfólio" data-service-price="R$ 250,00">
+                <span>Contratar</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+            <ul class="servico-features">
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Galeria visual dos seus projetos</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Apresentação pessoal ou de estúdio</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Botão de contato rápido integrado</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Layout responsivo para celulares</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Focado apenas em exibição de trabalhos</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Sem estrutura de vendas e conversão</span>
+              </li>
             </ul>
-            <a href="#contato" class="btn-ghost-sm" id="srv3-cta">Solicitar orcamento</a>
           </div>
-          <div class="servico-card" id="servico-4">
-            <h3 class="servico-title">SEO &amp; Performance</h3>
-            <p class="servico-desc">Placeholder — descricao do servico.</p>
-            <ul class="servico-list">
-              <li>Placeholder</li>
-              <li>Placeholder</li>
-              <li>Placeholder</li>
+
+          <!-- Card 4: Site institucional (Texto ao invés de valor) -->
+          <div class="servico-card" id="card-servico-4">
+            <div class="servico-badge-slot">
+              <!-- Espaçador de alinhamento -->
+            </div>
+            <div class="servico-header-slot">
+              <h3 class="servico-name">Site institucional</h3>
+            </div>
+            <div class="servico-summary-slot">
+              <p class="servico-summary">Perfeito para empresas que precisam apresentar sua marca, serviços e autoridade com solidez.</p>
+            </div>
+            <div class="servico-price-slot">
+              <div class="price-box price-box--text">
+                <span class="price-val-label">Valor por página</span>
+                <span class="price-suffix">sob demanda</span>
+              </div>
+            </div>
+            <div class="servico-cta-slot">
+              <button type="button" class="btn-servico-cta" data-service-name="Site institucional" data-service-price="Valor por página">
+                <span>Contratar</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+            <ul class="servico-features">
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Páginas internas sob medida</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Apresentação corporativa completa</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Área de serviços, clientes e contato</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Arquitetura escalável para crescimento</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Sem catálogo de produtos integrado</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Sem checkout ou vendas e-commerce</span>
+              </li>
             </ul>
-            <a href="#contato" class="btn-ghost-sm" id="srv4-cta">Solicitar orcamento</a>
+          </div>
+
+          <!-- Card 5: Loja virtual (Texto ao invés de valor) -->
+          <div class="servico-card" id="card-servico-5">
+            <div class="servico-badge-slot">
+              <!-- Espaçador de alinhamento -->
+            </div>
+            <div class="servico-header-slot">
+              <h3 class="servico-name">Loja virtual</h3>
+            </div>
+            <div class="servico-summary-slot">
+              <p class="servico-summary">Para quem quer vender produtos online com estrutura completa, catálogo e checkout ágil.</p>
+            </div>
+            <div class="servico-price-slot">
+              <div class="price-box price-box--text">
+                <span class="price-val-label">Sob consulta</span>
+                <span class="price-suffix">sob medida</span>
+              </div>
+            </div>
+            <div class="servico-cta-slot">
+              <button type="button" class="btn-servico-cta" data-service-name="Loja virtual" data-service-price="Sob consulta">
+                <span>Contratar</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+            <ul class="servico-features">
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Catálogo de produtos interativo</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Carrinho de compras inteligente</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Checkout com pagamentos seguros</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Painel para gerenciar produtos</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Sem valor fixo imediato por pacote</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Requer gestão contínua de estoque</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 6: Manutenção de Website (Vertical - Texto ao invés de valor) -->
+          <div class="servico-card" id="card-servico-6">
+            <div class="servico-badge-slot">
+              <!-- Espaçador de alinhamento -->
+            </div>
+            <div class="servico-header-slot">
+              <h3 class="servico-name">Manutenção de<br>Website</h3>
+            </div>
+            <div class="servico-summary-slot">
+              <p class="servico-summary">Ajustes, correções e suporte contínuo para manter seu website sempre rápido, seguro e atualizado.</p>
+            </div>
+            <div class="servico-price-slot">
+              <div class="price-box price-box--text">
+                <span class="price-val-label">Via orçamento</span>
+                <span class="price-suffix">sob demanda</span>
+              </div>
+            </div>
+            <div class="servico-cta-slot">
+              <button type="button" class="btn-servico-cta" data-service-name="Manutenção de Website" data-service-price="Via orçamento">
+                <span>Contratar</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+            <ul class="servico-features">
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Correções técnicas e ajustes finos</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Atualizações de conteúdo e imagens</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Otimização contínua de performance</span>
+              </li>
+              <li class="feature-included">
+                <svg class="feat-icon check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span>Suporte prioritário via WhatsApp</span>
+              </li>
+              <li class="feature-excluded">
+                <svg class="feat-icon cross" viewBox="0 0 20 20" fill="none"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                <span>Não inclui criação de novas páginas</span>
+              </li>
+            </ul>
+            <!-- Aviso Exclusivo Webmays posicionado na base do card -->
+            <div class="servico-aviso-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>Aviso: Manutenção realizada exclusivamente em websites desenvolvidos pela <strong>Webmays</strong>.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -477,12 +754,82 @@
     </div>
   </footer>
 
+  <!-- Modal de Orçamento para WhatsApp -->
+  <div class="service-modal-backdrop" id="service-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-service-title">
+    <div class="service-modal-overlay" data-modal-close></div>
+    <div class="service-modal-dialog">
+      <button type="button" class="service-modal-close" data-modal-close aria-label="Fechar formulário">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="service-modal-header">
+        <div class="modal-badge-service" id="modal-selected-badge">
+          <span id="modal-badge-name">Página promocional simples</span>
+          <span class="modal-badge-price" id="modal-badge-price">R$ 390,90</span>
+        </div>
+        <h3 class="service-modal-title" id="modal-service-title">Solicitar Orçamento</h3>
+        <p class="service-modal-desc">Preencha as informações abaixo para enviarmos sua proposta direta pelo WhatsApp da Webmays.</p>
+      </div>
+
+      <form class="service-modal-form" id="service-quote-form">
+        <div class="form-group">
+          <label for="form-client-name" class="form-label">Seu nome <span class="required">*</span></label>
+          <input type="text" id="form-client-name" class="form-input" placeholder="Ex: Lucas Silva" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-business-name" class="form-label">Nome do negócio / projeto</label>
+            <input type="text" id="form-business-name" class="form-input" placeholder="Ex: Minha Loja ou Clínica" />
+          </div>
+
+          <div class="form-group">
+            <label for="form-client-phone" class="form-label">Seu WhatsApp <span class="required">*</span></label>
+            <input type="tel" id="form-client-phone" class="form-input" placeholder="(00) 00000-0000" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="form-service-select" class="form-label">Serviço escolhido</label>
+          <select id="form-service-select" class="form-select">
+            <option value="Página promocional simples (R$ 390,90)">Página promocional simples — R$ 390,90</option>
+            <option value="Página promocional completa (R$ 499,90)">Página promocional completa — R$ 499,90 (Mais escolhida)</option>
+            <option value="Portfólio (R$ 250,00)">Portfólio — R$ 250,00</option>
+            <option value="Site institucional (Valor por página)">Site institucional — Valor por página</option>
+            <option value="Loja virtual (Sob consulta)">Loja virtual — Sob consulta</option>
+            <option value="Manutenção de Website (Via orçamento)">Manutenção (Exclusivo p/ sites Webmays) — Via orçamento</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="form-client-notes" class="form-label">Detalhes ou dúvidas (opcional)</label>
+          <textarea id="form-client-notes" class="form-textarea" rows="3" placeholder="Ex: Preciso de um site para vender meu produto / já tenho domínio..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-modal-submit" id="btn-submit-whatsapp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.978-.276-.1-.476-.15-.676.15-.2.301-.776.978-.952 1.179-.175.2-.351.226-.652.075-.301-.151-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.301-.019-.464.132-.614.135-.135.301-.351.451-.527.151-.175.201-.301.301-.501.101-.2.051-.376-.025-.526-.076-.151-.676-1.63-.927-2.232-.244-.587-.492-.507-.676-.516l-.576-.01c-.2 0-.527.075-.802.376s-1.053 1.028-1.053 2.508 1.078 2.91 1.229 3.11c.15.201 2.122 3.24 5.141 4.544.718.31 1.279.496 1.716.634.721.23 1.377.197 1.896.12.578-.087 1.78-.727 2.03-1.43.251-.702.251-1.303.176-1.43-.075-.126-.276-.201-.577-.352zM12.04 2C6.51 2 2.02 6.49 2.02 12.02c0 1.94.55 3.76 1.51 5.31L2 22l4.82-1.48a10.02 10.02 0 0 0 5.22 1.48c5.53 0 10.02-4.49 10.02-10.02S17.57 2 12.04 2zm0 18.28c-1.63 0-3.15-.46-4.46-1.27l-.32-.2-3.26 1 1.02-3.18-.21-.34a8.21 8.21 0 0 1-1.25-4.27c0-4.57 3.71-8.28 8.28-8.28 4.56 0 8.27 3.71 8.27 8.28 0 4.57-3.71 8.28-8.27 8.28z"/>
+          </svg>
+          <span>Enviar para o WhatsApp</span>
+        </button>
+
+        <p class="modal-secure-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Conexão direta e segura com nossa equipe. Sem spam.</span>
+        </p>
+      </form>
+    </div>
+  </div>
+
   <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=27"></script>
 </body>
 
 </html>

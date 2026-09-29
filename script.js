@@ -170,7 +170,7 @@ if (window.innerWidth > 768) {
 console.log('%c Webmays ', 'background:#0057FF;color:#fff;font-size:18px;font-weight:900;padding:6px 12px;border-radius:6px;');
 console.log('%c Site desenvolvido com criatividade e cafe ☕', 'color:#FF5A00;font-size:13px;');
 
-/* --- Dynamic Tagline --- */
+/* --- Dynamic Tagline (Kinetic Letter-by-Letter Mask Reveal) --- */
 const taglinePhrases = [
   "Sites acessíveis para você!",
   "Design moderno que converte!",
@@ -178,29 +178,73 @@ const taglinePhrases = [
   "Experiências únicas para seus clientes!"
 ];
 const taglineEl = document.getElementById('dynamic-tagline');
+
+function splitTaglineText(element, text) {
+  const words = text.split(' ');
+  let html = '';
+  for (let i = 0; i < words.length; i++) {
+    const chars = Array.from(words[i]);
+    let wordHtml = '';
+    for (let j = 0; j < chars.length; j++) {
+      wordHtml += '<span class="char-wrap"><span class="char-inner">' + chars[j] + '</span></span>';
+    }
+    html += '<span class="word-wrap">' + wordHtml + '</span>';
+    if (i < words.length - 1) {
+      html += ' ';
+    }
+  }
+  element.innerHTML = html;
+}
+
 if (taglineEl) {
   let phraseIndex = 0;
+  splitTaglineText(taglineEl, taglinePhrases[phraseIndex]);
+
+  // Entrada inicial letra por letra surgindo de baixo da linha invisível
+  if (typeof gsap !== 'undefined') {
+    gsap.fromTo(taglineEl.querySelectorAll('.char-inner'),
+      { yPercent: 110, opacity: 0 },
+      {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.65,
+        stagger: 0.02,
+        delay: 0.45,
+        ease: 'power3.out'
+      }
+    );
+  }
+
   setInterval(() => {
-    taglineEl.style.opacity = '0';
-    taglineEl.style.transform = 'translateY(-10px)';
+    if (typeof gsap === 'undefined') return;
 
-    setTimeout(() => {
-      phraseIndex = (phraseIndex + 1) % taglinePhrases.length;
-      taglineEl.textContent = taglinePhrases[phraseIndex];
+    const currentChars = taglineEl.querySelectorAll('.char-inner');
+    // 1. As letras sobem sem ultrapassar a linha invisível (saem cortadas pela borda superior)
+    gsap.to(currentChars, {
+      yPercent: -110,
+      opacity: 0,
+      duration: 0.38,
+      stagger: 0.012,
+      ease: 'power2.in',
+      onComplete: () => {
+        phraseIndex = (phraseIndex + 1) % taglinePhrases.length;
+        splitTaglineText(taglineEl, taglinePhrases[phraseIndex]);
+        const nextChars = taglineEl.querySelectorAll('.char-inner');
 
-      // Position for coming from bottom
-      taglineEl.style.transition = 'none';
-      taglineEl.style.transform = 'translateY(10px)';
-
-      // Trigger reflow to apply 'none' transition
-      taglineEl.offsetHeight;
-
-      // Restore transition and fade in
-      taglineEl.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      taglineEl.style.opacity = '1';
-      taglineEl.style.transform = 'translateY(0)';
-    }, 500); // Wait for fade out to complete
-  }, 5000);
+        // 2. Cada letrinha vai saindo de uma linha invisível abaixo delas (entram cortadas pela borda inferior)
+        gsap.fromTo(nextChars,
+          { yPercent: 110, opacity: 0 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.02,
+            ease: 'power3.out'
+          }
+        );
+      }
+    });
+  }, 4800);
 }
 
 /* =========================================================================
@@ -313,14 +357,14 @@ function initGsapEffects() {
     });
 
     // 3. Título PROJETOS: preenchimento líquido laranja da esquerda para a direita,
-    // seguido do retorno ao preto também da esquerda para a direita (unidirecional)
+    // e fica laranja direto
     const liquidOverlay = document.querySelector('.liquid-title-overlay');
     if (liquidOverlay) {
       const titleTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#projetos',
           start: 'top 75%',
-          toggleActions: 'restart none none none'
+          toggleActions: 'play none none none'
         }
       });
 
@@ -331,17 +375,7 @@ function initGsapEffects() {
           clipPath: 'inset(0 0% 0 0%)',
           duration: 1.15,
           ease: 'power2.inOut'
-        })
-        // Fase 2: Pausa destacando o título 100% laranja
-        .to({}, { duration: 0.3 })
-        // Fase 3: A cor preta avança também da esquerda para a direita (unidirecional)
-        .to(liquidOverlay, {
-          clipPath: 'inset(0 0% 0 100%)',
-          duration: 1.15,
-          ease: 'power2.inOut'
-        })
-        // Reset silencioso para permitir replay perfeito ao rolar novamente
-        .set(liquidOverlay, { clipPath: 'inset(0 100% 0 0)' });
+        });
     }
 
     // 4. Efeito fluido nos 4 cards de Projetos (stagger refinado + scale)
@@ -428,14 +462,14 @@ function initGsapEffects() {
       }
     });
 
-    // Título líquido no mobile (unidirecional da esquerda para a direita)
+    // Título líquido no mobile
     const liquidOverlayMob = document.querySelector('.liquid-title-overlay');
     if (liquidOverlayMob) {
       const titleTlMob = gsap.timeline({
         scrollTrigger: {
           trigger: '#projetos',
           start: 'top 78%',
-          toggleActions: 'restart none none none'
+          toggleActions: 'play none none none'
         }
       });
 
@@ -445,14 +479,7 @@ function initGsapEffects() {
           clipPath: 'inset(0 0% 0 0%)',
           duration: 1.1,
           ease: 'power2.inOut'
-        })
-        .to({}, { duration: 0.25 })
-        .to(liquidOverlayMob, {
-          clipPath: 'inset(0 0% 0 100%)',
-          duration: 1.1,
-          ease: 'power2.inOut'
-        })
-        .set(liquidOverlayMob, { clipPath: 'inset(0 100% 0 0)' });
+        });
     }
 
     gsap.from(cards, {
@@ -468,21 +495,22 @@ function initGsapEffects() {
     });
   });
 
-    // 6. Manchas e Pingos de Tinta Real — Animação Orgânica de Impacto e Escorrimento
-    const paintSplashes = gsap.utils.toArray('.paint-splash');
+    // 6. Manchas e Pingos de Tinta Real — Impacto Orgânico (Splat) e Escorrimento Dinâmico
+    const topSplashes = gsap.utils.toArray('.splash-top');
+    const bottomSplashes = gsap.utils.toArray('.splash-bottom');
     const paintDrips = gsap.utils.toArray('.paint-drip');
-    const satelliteDrops = gsap.utils.toArray('.satellite-drop');
 
-    // Splashes: impacto orgânico como tinta fresca batendo na folha e abrindo tentáculos
-    paintSplashes.forEach((splash, i) => {
+    // Splashes superiores: impacto de tinta vigoroso com leve recoil rotacional
+    topSplashes.forEach((splash, i) => {
       gsap.fromTo(splash,
-        { scale: 0.15, opacity: 0 },
+        { scale: 0.1, opacity: 0, rotation: i === 0 ? -28 : 22 },
         {
           scale: 1,
           opacity: 1,
-          duration: 1.15,
-          delay: 0.1 + i * 0.18,
-          ease: 'power3.out',
+          rotation: i === 0 ? -12 : 38,
+          duration: 0.85,
+          delay: 0.08 + i * 0.16,
+          ease: 'back.out(1.8)',
           scrollTrigger: {
             trigger: '#projetos',
             start: 'top 75%',
@@ -492,14 +520,32 @@ function initGsapEffects() {
       );
     });
 
-    // Drips: escorrimento natural via CSS puro (classe .drip-reveal) ativado pelo ScrollTrigger
+    // Splashes inferiores: ativam quando o usuário rola até os cards, surgindo ao vivo na tela
+    bottomSplashes.forEach((splash, i) => {
+      gsap.fromTo(splash,
+        { scale: 0.12, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.85,
+          delay: i * 0.14,
+          ease: 'back.out(1.7)',
+          scrollTrigger: {
+            trigger: '.projetos-list',
+            start: 'top 65%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // Drips: escorrem em sincronia quando o usuário alcança a base da seção
     paintDrips.forEach((drip, i) => {
-      // Define o delay dinâmico diretamente no CSS inline do elemento
-      drip.style.transitionDelay = `${0.4 + i * 0.25}s`;
+      drip.style.transitionDelay = `${0.2 + i * 0.22}s`;
 
       const st = ScrollTrigger.create({
-        trigger: '#projetos',
-        start: 'top 70%',
+        trigger: '.projetos-list',
+        start: 'top 65%',
         onEnter: () => drip.classList.add('drip-reveal'),
         onRefresh: (self) => {
           if (self.progress > 0) drip.classList.add('drip-reveal');
@@ -510,26 +556,6 @@ function initGsapEffects() {
         drip.classList.add('drip-reveal');
       }
     });
-
-    // Gotas satélites: respingos que se soltaram e caíram independentes
-    if (satelliteDrops.length > 0) {
-      gsap.fromTo(satelliteDrops,
-        { scale: 0, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 0.75,
-          duration: 0.7,
-          stagger: 0.06,
-          delay: 0.25,
-          ease: 'back.out(2)',
-          scrollTrigger: {
-            trigger: '#projetos',
-            start: 'top 70%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-    }
 
   ScrollTrigger.refresh();
 }
@@ -669,3 +695,256 @@ cfNavNums.forEach(navNum => {
     triggerCardTransition(targetId);
   });
 });
+
+/* ==========================================================================
+   SERVIÇOS — MODAL DE ORÇAMENTO (WHATSAPP) & CARROSSEL MOBILE CENTRALIZADO
+   ========================================================================== */
+
+(function initServicosInteractions() {
+  // 1. Elementos do Modal
+  const serviceModal = document.getElementById('service-modal');
+  const modalBadgeName = document.getElementById('modal-badge-name');
+  const modalBadgePrice = document.getElementById('modal-badge-price');
+  const serviceSelect = document.getElementById('form-service-select');
+  const quoteForm = document.getElementById('service-quote-form');
+  const clientNameInput = document.getElementById('form-client-name');
+  const businessNameInput = document.getElementById('form-business-name');
+  const clientPhoneInput = document.getElementById('form-client-phone');
+  const clientNotesInput = document.getElementById('form-client-notes');
+
+  // Mapeamento de Serviços e Preços
+  const SERVICE_PRICES = {
+    'Página promocional simples': 'R$ 390,90',
+    'Página promocional completa': 'R$ 499,90',
+    'Site institucional': 'Valor por página',
+    'Loja virtual': 'Sob consulta',
+    'Portfólio': 'R$ 250,00',
+    'Manutenção de Website': 'Via orçamento',
+    'Manutenção': 'Via orçamento'
+  };
+
+  // Abre o modal preenchendo o serviço solicitado
+  function openServiceModal(serviceName, servicePrice) {
+    if (!serviceModal) return;
+
+    const matchedPrice = servicePrice || SERVICE_PRICES[serviceName] || 'Sob consulta';
+
+    if (modalBadgeName) modalBadgeName.textContent = serviceName;
+    if (modalBadgePrice) modalBadgePrice.textContent = matchedPrice;
+
+    // Sincroniza o select do formulário
+    if (serviceSelect) {
+      for (let i = 0; i < serviceSelect.options.length; i++) {
+        const opt = serviceSelect.options[i];
+        if (opt.value.toLowerCase().includes(serviceName.toLowerCase()) || 
+            serviceName.toLowerCase().includes(opt.text.toLowerCase().split('—')[0].trim())) {
+          serviceSelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+    serviceModal.classList.add('is-open');
+    serviceModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Foca suavemente no primeiro campo
+    setTimeout(() => {
+      if (clientNameInput) clientNameInput.focus();
+    }, 150);
+  }
+
+  // Fecha o modal
+  function closeServiceModal() {
+    if (!serviceModal) return;
+    serviceModal.classList.remove('is-open');
+    serviceModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Eventos de clique para abrir o modal em todos os botões de serviço (inclusive Manutenção)
+  document.querySelectorAll('[data-service-name]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const serviceName = btn.getAttribute('data-service-name') || 'Página promocional completa';
+      const servicePrice = btn.getAttribute('data-service-price') || '';
+      openServiceModal(serviceName, servicePrice);
+    });
+  });
+
+  // Fechar ao clicar no overlay ou no botão de fechar (data-modal-close)
+  document.querySelectorAll('[data-modal-close]').forEach(closer => {
+    closer.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeServiceModal();
+    });
+  });
+
+  // Fechar com tecla Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && serviceModal && serviceModal.classList.contains('is-open')) {
+      closeServiceModal();
+    }
+  });
+
+  // Atualizar badges quando o usuário troca o select manualmente
+  if (serviceSelect) {
+    serviceSelect.addEventListener('change', () => {
+      const selectedText = serviceSelect.options[serviceSelect.selectedIndex].text;
+      const parts = selectedText.split('—');
+      const cleanName = parts[0].trim();
+      const cleanPrice = parts[1] ? parts[1].replace('(Mais escolhida)', '').trim() : 'Sob consulta';
+
+      if (modalBadgeName) modalBadgeName.textContent = cleanName;
+      if (modalBadgePrice) modalBadgePrice.textContent = cleanPrice;
+    });
+  }
+
+  // Máscara brasileira para telefone/WhatsApp: (XX) XXXXX-XXXX
+  if (clientPhoneInput) {
+    clientPhoneInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      if (v.length > 6) {
+        e.target.value = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+      } else if (v.length > 2) {
+        e.target.value = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+      } else if (v.length > 0) {
+        e.target.value = `(${v}`;
+      }
+    });
+  }
+
+  // Envio do formulário para o WhatsApp Webmays
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = clientNameInput ? clientNameInput.value.trim() : '';
+      const business = businessNameInput && businessNameInput.value.trim() ? businessNameInput.value.trim() : 'Não informado';
+      const phone = clientPhoneInput ? clientPhoneInput.value.trim() : '';
+      const selectedService = serviceSelect ? serviceSelect.options[serviceSelect.selectedIndex].text : 'Website Webmays';
+      const notes = clientNotesInput && clientNotesInput.value.trim() ? clientNotesInput.value.trim() : 'Gostaria de mais detalhes sobre este serviço.';
+
+      if (!name || !phone) {
+        alert('Por favor, preencha seu nome e seu WhatsApp.');
+        return;
+      }
+
+      // Monta a mensagem estruturada e elegante para WhatsApp
+      const waMessage = 
+`🚀 *Solicitação de Orçamento — Webmays*
+
+👤 *Nome:* ${name}
+🏢 *Negócio / Projeto:* ${business}
+📱 *WhatsApp:* ${phone}
+💼 *Serviço Escolhido:* ${selectedService}
+📝 *Detalhes:* ${notes}
+
+---
+_Enviado pelo formulário de serviços da Webmays_`;
+
+      // Número do WhatsApp da Webmays (caso não haja número configurado, abre direto no wa.me com a mensagem)
+      const webmaysPhone = '5511999999999'; // Substituir pelo número comercial oficial se necessário
+      const waUrl = `https://wa.me/${webmaysPhone}?text=${encodeURIComponent(waMessage)}`;
+
+      window.open(waUrl, '_blank');
+
+      // Fecha o modal e limpa os campos
+      closeServiceModal();
+      quoteForm.reset();
+    });
+  }
+
+  // 2. Carrossel Mobile Centralizado (.servicos-grid)
+  // O card central fica ampliado (scale: 1.02) e os laterais encolhidos (scale: 0.88)
+  const servicosGrid = document.querySelector('.servicos-grid');
+  const servicoCards = document.querySelectorAll('.servicos-grid .servico-card');
+
+  if (servicosGrid && servicoCards.length > 0) {
+    function scrollToServiceCard(card, behavior = 'smooth') {
+      const cardRect = card.getBoundingClientRect();
+      const gridRect = servicosGrid.getBoundingClientRect();
+      const targetScrollLeft = servicosGrid.scrollLeft + (cardRect.left + cardRect.width / 2) - (gridRect.left + gridRect.width / 2);
+      servicosGrid.scrollTo({
+        left: targetScrollLeft,
+        behavior: behavior
+      });
+    }
+
+    function updateActiveServiceCard() {
+      // Ativo apenas em telas mobile / tablet (largura <= 1200px)
+      if (window.innerWidth > 1200) {
+        servicoCards.forEach(card => card.classList.remove('is-active-center', 'is-prev-card', 'is-next-card'));
+        return;
+      }
+
+      const gridRect = servicosGrid.getBoundingClientRect();
+      const gridCenter = gridRect.left + gridRect.width / 2;
+
+      let closestCard = null;
+      let minDistance = Infinity;
+
+      servicoCards.forEach(card => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const dist = Math.abs(gridCenter - cardCenter);
+
+        if (dist < minDistance) {
+          minDistance = dist;
+          closestCard = card;
+        }
+      });
+
+      const closestIndex = Array.from(servicoCards).indexOf(closestCard);
+      servicoCards.forEach((card, idx) => {
+        card.classList.remove('is-active-center', 'is-prev-card', 'is-next-card');
+        if (idx === closestIndex) {
+          card.classList.add('is-active-center');
+        } else if (idx < closestIndex) {
+          card.classList.add('is-prev-card');
+        } else {
+          card.classList.add('is-next-card');
+        }
+      });
+    }
+
+    // Listener com debounce via requestAnimationFrame para performance 60fps
+    let ticking = false;
+    servicosGrid.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateActiveServiceCard();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', updateActiveServiceCard, { passive: true });
+
+    // Ao clicar em um card lateral (atrás), centraliza-o suavemente sem scroll vertical
+    servicoCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1200 && !card.classList.contains('is-active-center')) {
+          if (!e.target.closest('.btn-servico-cta')) {
+            e.preventDefault();
+            scrollToServiceCard(card, 'smooth');
+          }
+        }
+      });
+    });
+
+    // Estado inicial no mobile: centraliza perfeitamente no card em destaque
+    setTimeout(() => {
+      if (window.innerWidth <= 1200) {
+        const featuredCard = document.querySelector('.servico-card--featured') || servicoCards[0];
+        if (featuredCard) {
+          scrollToServiceCard(featuredCard, 'auto');
+          updateActiveServiceCard();
+        }
+      }
+    }, 250);
+  }
+})();
+

@@ -526,13 +526,37 @@ img {
   animation-fill-mode: both;
 }
 
+/* Dynamic Tagline (Masked Kinetic Reveal) */
 .hero-tagline {
   font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.72);
   margin-bottom: 40px;
   letter-spacing: 0.01em;
-  animation: fadeUp 0.8s 0.3s var(--ease) both;
+  min-height: 1.6em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0 0.3em;
+}
+
+.hero-tagline .word-wrap {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.hero-tagline .char-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: 1.25;
+  padding: 0 0.5px;
+}
+
+.hero-tagline .char-inner {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
 .hero-line {
@@ -1240,6 +1264,10 @@ img {
   z-index: 3;
 }
 
+.paint-splash picture {
+  display: contents;
+}
+
 .paint-img {
   width: 100%;
   height: 100%;
@@ -1257,14 +1285,34 @@ img {
   mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 100%);
 }
 
-/* Posições Assimétricas dos Elementos de Tinta */
+/* Posições dos Elementos de Tinta na Seção Projetos */
 .splash-top-left {
   top: 20px;
-  /* Movido para baixo para não transpassar a seção anterior */
   left: -80px;
   width: 520px;
   height: 520px;
   transform: rotate(-12deg);
+  z-index: 2;
+}
+
+.splash-top-right {
+  top: 20px;
+  left: 56%;
+  width: 460px;
+  height: 460px;
+  transform: rotate(38deg);
+  z-index: 2;
+}
+
+/* Splash Central Inferior (Preenchendo a área inferior central vazia) */
+.splash-bottom-center {
+  top: auto;
+  bottom: -85px;
+  left: 50%;
+  transform: translateX(-50%) rotate(25deg);
+  width: clamp(280px, 24vw, 370px);
+  height: clamp(280px, 24vw, 370px);
+  z-index: 2;
 }
 
 /* Drip Laranja no Desktop: Alinhado e centrado com a splash inferior esquerda, escorrendo na transição */
@@ -1277,14 +1325,6 @@ img {
   height: clamp(380px, 26vw, 440px);
   z-index: 1;
   transform: rotate(0deg);
-}
-
-.splash-top-right {
-  top: 20px;
-  left: 56%;
-  width: 460px;
-  height: 460px;
-  transform: rotate(38deg);
 }
 
 /* Drip Azul no Desktop: Alinhado e centrado com a splash inferior direita, escorrendo na transição */
@@ -1300,8 +1340,7 @@ img {
   z-index: 1;
 }
 
-/* Splashes inferiores na transição Projetos -> Como Funciona:
-   Posicionadas no vão inferior (padding de 135px) sem invadir os cards e com margem segura para não cortar nas bordas */
+/* Splashes inferiores na transição Projetos -> Como Funciona */
 .splash-bottom-left {
   bottom: -110px;
   left: clamp(20px, 2.5vw, 50px);
@@ -1321,25 +1360,6 @@ img {
   z-index: 2;
 }
 
-/* Gotas satélites isoladas */
-.satellite-drop {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0.75;
-  mix-blend-mode: multiply;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
-  will-change: transform, opacity;
-}
-
-.drop-blue {
-  background: #0057FF;
-}
-
-.drop-orange {
-  background: #FF5A00;
-}
-
 /* Responsividade: Mobile e Tablet */
 @media (max-width: 900px) {
   .splash-top-left {
@@ -1357,12 +1377,20 @@ img {
     top: 40px;
   }
 
+  .splash-bottom-center {
+    width: 220px;
+    height: 220px;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%) rotate(25deg);
+  }
+
   .drip-left {
     display: none !important;
   }
 
   .drip-right {
-    display: none;
+    display: none !important;
   }
 
   .splash-bottom-left {
@@ -1405,7 +1433,7 @@ img {
   font-size: clamp(3.5rem, 8vw, 6.5rem);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.02em;
   margin: 0;
   line-height: 1;
   padding-right: 0.1em;
@@ -1831,9 +1859,9 @@ img {
 .cf-feature-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(20px, 2.5vw, 32px);
 }
 
 .cf-feature-num {
@@ -1854,8 +1882,8 @@ img {
   line-height: 1.15;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  text-align: right;
-  margin-left: auto;
+  text-align: left;
+  margin-left: 0;
 }
 
 /* Descrição: Tipografia ampliada, elegante e de fácil leitura */
@@ -1949,11 +1977,17 @@ img {
 }
 
 .cf-blob-bottom-blue {
-  bottom: -2px;
+  bottom: -4px;
   left: 0;
   width: 100%;
   height: clamp(100px, 14vw, 180px);
   opacity: 1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cf-blob-bottom-blue path {
+  fill: #0057FF;
 }
 
 /* 9. Responsividade Limpa (Breakpoint Tablets e Mobile) */
@@ -2058,7 +2092,7 @@ img {
     transform: none;
   }
 
-  /* Container do Card Principal: Altura perfeitamente estável via CSS Grid (sem layout shift) */
+  /* Container do Card Principal: Altura perfeitamente estável e idêntica para todos os cards */
   .cf-feature-cards {
     display: grid;
     grid-template-columns: 1fr;
@@ -2066,8 +2100,8 @@ img {
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    min-height: auto;
-    height: auto;
+    min-height: 290px;
+    height: 290px;
     border-radius: 24px;
     background: var(--white);
     border: 1px solid #E2E8F0;
@@ -2080,6 +2114,8 @@ img {
 
   .cf-feature-card {
     grid-area: 1 / 1;
+    position: relative;
+    inset: auto;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -2095,9 +2131,10 @@ img {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    z-index: 2;
   }
 
-  /* Conteúdo de Texto com Altura Total e Alinhamento Harmônico */
+  /* Conteúdo de Texto com Topo Alinhado Fixo (o título nunca se move entre abas) */
   .cf-feature-content {
     flex: 1 1 100%;
     width: 100%;
@@ -2106,55 +2143,77 @@ img {
     max-width: 100%;
     border-right: none;
     border-bottom: none;
-    padding: clamp(30px, 7vw, 44px) clamp(22px, 5.5vw, 32px);
+    padding: 28px 24px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: stretch;
     text-align: left;
-    gap: clamp(14px, 3vw, 20px);
+    gap: 14px;
   }
 
   .cf-feature-header {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    margin-bottom: 0;
-    gap: 12px;
+    min-height: 38px;
+    margin-bottom: 2px;
   }
 
   .cf-feature-num {
-    font-size: clamp(2.2rem, 6.5vw, 2.8rem);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.1rem;
     font-weight: 900;
     line-height: 1;
     color: var(--orange);
-    flex-shrink: 0;
     text-align: left;
+    z-index: 1;
   }
 
   .cf-feature-title {
-    font-size: clamp(1.45rem, 5vw, 1.85rem);
+    font-size: 1.38rem;
     font-weight: 800;
     line-height: 1.15;
     color: #0F172A;
     white-space: nowrap;
-    text-align: right;
-    margin-left: auto;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
   }
 
-  /* Texto Ampliado no Mobile */
+  /* Ajuste fino individual por card no mobile */
+  #card-01 .cf-feature-title {
+    transform: none;
+  }
+
+  #card-02 .cf-feature-title {
+    transform: none;
+  }
+
+  /* Exclusivo para Desenvolvimento: deslocado para a direita para compensar o tamanho da palavra e o número 03 */
+  #card-03 .cf-feature-title {
+    transform: translateX(18px);
+  }
+
+  #card-04 .cf-feature-title {
+    transform: none;
+  }
+
+  /* Texto com Tamanho e Espaçamento Consistentes */
   .cf-feature-desc {
-    font-size: clamp(1.05rem, 3.4vw, 1.18rem);
-    line-height: 1.72;
+    font-size: 1.05rem;
+    line-height: 1.68;
     color: #475569;
     text-align: left;
-    text-justify: auto;
-    text-align-last: auto;
-    hyphens: auto;
-    width: 100%;
     margin: 0;
+    width: 100%;
   }
 
   /* No mobile, desativamos os drips longos de projetos */
@@ -2163,131 +2222,885 @@ img {
     display: none !important;
   }
 
-  /* No mobile, ativamos o drip sutil posicionado atrás do título */
+  /* No mobile, ativamos o drip alinhado perfeitamente sob a mancha de tinta e atrás do título */
   .cf-drip-accent {
     display: block !important;
-    top: -45px;
-    left: 20px;
-    width: 32px;
-    height: 130px;
+    top: -55px;
+    left: 46px;
+    width: 34px;
+    height: 135px;
     z-index: 1;
   }
 }
 
 /* ============================
-   SERVICOS
+   SERVIÇOS
    ============================ */
 .servicos {
-  background: var(--blue);
-}
-
-.servicos-header {
-  max-width: 640px;
-  margin-bottom: 56px;
-}
-
-.servicos-header .section-title {
-  font-size: 3.2rem;
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin-bottom: 16px;
-}
-
-.servicos-header .section-desc {
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
-}
-
-.servicos-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.servico-card {
-  background: var(--light);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 32px 28px;
+  background-color: #0057FF;
+  background-image: linear-gradient(180deg, #0057FF 0%, #0050e6 42%, #0042d0 100%);
+  margin-top: -3px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+  justify-content: center;
+  padding: clamp(75px, 8.5vh, 110px) 0 clamp(85px, 9.5vh, 120px);
+  box-sizing: border-box;
+  position: relative;
+  overflow-x: clip;
+  z-index: 2;
+}
+
+.servicos-container {
+  max-width: 1520px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 2.5vw, 36px);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+/* Cabeçalho de Serviços */
+.servicos-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto clamp(32px, 4vw, 50px);
+}
+
+.servicos-brand-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.brand-tag-line {
+  display: none !important;
+}
+
+.servicos-brand-title {
+  font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+  font-weight: 900;
+  color: var(--orange); /* #FF5A00 - Laranja Bem Grande */
+  letter-spacing: 0.07em;
+  line-height: 1;
+  text-transform: uppercase;
+  display: inline-block;
+  -webkit-text-stroke: clamp(1.8px, 0.28vw, 2.8px) #FFFFFF;
+  paint-order: stroke fill;
+  text-shadow:
+    -1.5px -1.5px 0 #FFFFFF,
+     1.5px -1.5px 0 #FFFFFF,
+    -1.5px  1.5px 0 #FFFFFF,
+     1.5px  1.5px 0 #FFFFFF,
+     0 6px 28px rgba(0, 0, 0, 0.25);
+}
+
+.servicos-title {
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 8px 0 12px;
+}
+
+.servicos-desc {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Grid de 3 Colunas no Desktop: cards mais largos horizontalmente e confortáveis */
+.servicos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* Cards Brancos com Dimensões Aumentadas Verticalmente e Horizontalmente */
+.servico-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 26px;
+  padding: 32px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 20, 70, 0.08);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  box-sizing: border-box;
 }
 
 .servico-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 87, 255, 0.1);
-  border-color: var(--blue);
+  border-color: rgba(255, 90, 0, 0.45);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.12), 0 6px 20px rgba(255, 90, 0, 0.1);
 }
 
-.servico-card--primary {
-  background: linear-gradient(145deg, var(--blue) 0%, #1a3db0 100%);
-  border-color: transparent;
-  color: #fff;
+/* Card Destaque "Mais escolhida" */
+.servico-card--featured {
+  border: 2px solid #FF5A00;
+  box-shadow: 0 16px 42px rgba(255, 90, 0, 0.18), 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
-.servico-card--primary:hover {
-  border-color: transparent;
-  box-shadow: 0 20px 60px rgba(0, 87, 255, 0.35);
+.servico-card--featured:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 28px 60px rgba(255, 90, 0, 0.28), 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.servico-card--primary .servico-title {
-  color: #fff;
+/* 1. Slot de Badge no topo para alinhamento uniforme */
+.servico-badge-slot {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
 }
 
-.servico-card--primary .servico-desc {
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.servico-card--primary .servico-list li {
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.servico-card--primary .servico-list li::before {
-  color: var(--orange-light);
-}
-
-.servico-title {
-  font-size: 1.1rem;
+.servico-badge {
+  font-size: 0.76rem;
   font-weight: 800;
-  color: var(--dark);
+  padding: 4px 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
-.servico-desc {
-  font-size: 0.88rem;
-  color: var(--mid);
-  line-height: 1.65;
+.servico-badge--orange {
+  background: #FF5A00;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 90, 0, 0.35);
 }
 
-.servico-list {
+.servico-badge--obs {
+  background: #FFF7ED;
+  color: #C2410C;
+  border: 1.5px solid #FDBA74;
+}
+
+/* 2. Slot de Título com Tipografia BEM GRANDE e Chamativa */
+.servico-header-slot {
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.servico-name {
+  font-size: clamp(1.85rem, 2.25vw, 2.3rem);
+  font-weight: 900;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+  text-align: center;
+}
+
+/* 3. Slot de Apresentação (Alinhado à Esquerda conforme solicitado) */
+.servico-summary-slot {
+  min-height: 82px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.servico-summary {
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: #1E293B; /* Preto visível de alto contraste */
+  line-height: 1.55;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+/* 4. Slot de Preço: Valores com Texto/Sufixo Embaixo */
+.servico-price-slot {
+  min-height: 74px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.price-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3px;
+}
+
+.price-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.price-currency {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #FF5A00;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+/* Mistura de tons de laranja APENAS nos números */
+.price-val {
+  font-size: clamp(2.4rem, 2.7vw, 2.9rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #FFA022 0%, #FF5A00 45%, #E63500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Cards com texto ao invés de valor: cor sólida laranja, SEM misturas */
+.price-val-label {
+  font-size: clamp(1.45rem, 1.8vw, 1.85rem);
+  font-weight: 900;
+  color: #FF5A00; /* Laranja sólido */
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  display: inline-block;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+/* Textos "taxa", "sob demanda", "sob medida" posicionados EMBAIXO do valor e dos textos */
+.price-suffix {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748B;
+  margin-left: 0;
+  margin-top: 2px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* 5. Slot de Botão de Ação "Contratar" Centralizado */
+.servico-cta-slot {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-servico-cta {
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
+  padding: 13px 24px;
+  border-radius: 999px;
+  background: #F8FAFC;
+  border: 1.5px solid #0057FF;
+  color: #0057FF;
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
-  flex: 1;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  box-sizing: border-box;
 }
 
-.servico-list li {
-  font-size: 0.85rem;
-  color: var(--mid);
-  padding-left: 18px;
-  position: relative;
+.btn-servico-cta:hover {
+  background: #0057FF;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 87, 255, 0.25);
+  gap: 11px;
+}
+
+.btn-servico-featured {
+  background: #0057FF;
+  border-color: #0057FF;
+  color: #FFFFFF;
+  box-shadow: 0 6px 18px rgba(0, 87, 255, 0.3);
+}
+
+.btn-servico-featured:hover {
+  background: #FF5A00;
+  border-color: #FF5A00;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 90, 0, 0.4);
+  gap: 11px;
+}
+
+/* Mensagem final na Manutenção (sem bordinha, limpa e elegante) */
+.servico-aviso-box {
+  background: transparent;
+  border: none;
+  border-left: none;
+  border-radius: 0;
+  padding: 12px 0 0;
+  font-size: 0.82rem;
+  color: #64748B;
   line-height: 1.5;
+  margin-top: 16px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
 }
 
-.servico-list li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--blue);
+.servico-aviso-box strong {
+  color: #FF5A00;
   font-weight: 700;
 }
 
-.servico-card--primary .servico-list li::before {
-  color: var(--orange-light);
+/* 6. Lista de Vantagens e Checklist */
+.servico-features {
+  list-style: none;
+  margin: 0;
+  padding: 22px 0 0;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  flex-grow: 1;
+}
+
+.servico-card--featured .servico-features {
+  border-top-color: rgba(255, 90, 0, 0.25);
+}
+
+.servico-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+/* Vantagens incluídas (Preto Visível) */
+.servico-features li.feature-included {
+  color: #0F172A;
+  font-weight: 500;
+}
+
+/* Desvantagens com X cinza (Ancoragem psicológica para direcionar ao pacote completo) */
+.servico-features li.feature-excluded {
+  color: #94A3B8;
+  font-weight: 400;
+}
+
+.feat-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.feat-icon.check {
+  color: #0057FF;
+}
+
+.feat-icon.cross {
+  color: #94A3B8;
+}
+
+/* ==========================================================================
+   MODAL DE FORMULÁRIO (WHATSAPP)
+   ========================================================================== */
+.service-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.service-modal-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.service-modal-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.service-modal-dialog {
+  background: var(--white);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 520px;
+  padding: 36px 32px 30px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 87, 255, 0.1);
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.service-modal-backdrop.is-open .service-modal-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.service-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748B;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.service-modal-close:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+  transform: rotate(90deg);
+}
+
+.service-modal-header {
+  margin-bottom: 24px;
+}
+
+.modal-badge-service {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 87, 255, 0.08);
+  border: 1px solid rgba(0, 87, 255, 0.2);
+  color: var(--blue);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.modal-badge-price {
+  background: var(--blue);
+  color: var(--white);
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+}
+
+.service-modal-title {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #0F172A;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.service-modal-desc {
+  font-size: 0.88rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.service-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-label .required {
+  color: #FF5A00;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  font-size: 0.9rem;
+  color: #0F172A;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  background: #FFFFFF;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 87, 255, 0.15);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.btn-modal-submit {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 999px;
+  background: #25D366;
+  border: none;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+  margin-top: 4px;
+  font-family: inherit;
+}
+
+.btn-modal-submit:hover {
+  background: #1EBE5D;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.45);
+}
+
+.modal-secure-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: #94A3B8;
+  margin: 0;
+  text-align: center;
+}
+
+/* ==========================================================================
+   CARROSSEL MOBILE CENTRALIZADO (COVERFLOW COM ZOOM NO CENTRO)
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .servicos {
+    padding: 50px 0 70px;
+    overflow-x: clip;
+  }
+
+  .servicos-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .servicos-header {
+    padding: 0 clamp(16px, 4vw, 24px);
+    margin-bottom: 24px;
+  }
+
+  .servicos-grid {
+    --mobile-card-w: clamp(245px, 68vw, 280px);
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-top: 24px;
+    padding-bottom: 36px;
+    padding-left: calc(50% - (var(--mobile-card-w) / 2));
+    padding-right: calc(50% - (var(--mobile-card-w) / 2));
+    gap: 12px;
+    scroll-padding-left: calc(50% - (var(--mobile-card-w) / 2));
+    scroll-padding-right: calc(50% - (var(--mobile-card-w) / 2));
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-x pan-y;
+  }
+
+  .servicos-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .servico-card {
+    flex: 0 0 var(--mobile-card-w);
+    width: var(--mobile-card-w);
+    scroll-snap-align: center;
+    padding: 24px 18px 28px;
+    border-radius: 22px;
+    transform: scale(0.86);
+    opacity: 0.55;
+    filter: brightness(0.92);
+    z-index: 1;
+    transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease, filter 0.32s ease, box-shadow 0.32s ease, border-color 0.3s ease;
+    touch-action: pan-x pan-y;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  /* Card anterior (à esquerda, posicionado atrás) */
+  .servico-card.is-prev-card {
+    transform-origin: right center;
+    transform: scale(0.86);
+    z-index: 2;
+  }
+
+  /* Card seguinte (à direita, posicionado atrás) */
+  .servico-card.is-next-card {
+    transform-origin: left center;
+    transform: scale(0.86);
+    z-index: 2;
+  }
+
+  /* O card ativo central fica destacado na frente, com zoom e sombra imersiva */
+  .servico-card.is-active-center {
+    transform-origin: center center;
+    transform: scale(1.02);
+    opacity: 1;
+    filter: brightness(1);
+    box-shadow: 0 24px 60px rgba(0, 20, 70, 0.28), 0 0 0 1.5px rgba(255, 90, 0, 0.45);
+    z-index: 10;
+    border-color: rgba(255, 90, 0, 0.5);
+    cursor: default;
+  }
+
+  /* 1. Slot de Badge no mobile: altura fixa e alinhamento */
+  .servico-badge-slot {
+    height: 28px;
+    min-height: 28px;
+    max-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    box-sizing: border-box;
+  }
+
+  /* 2. Slot de Título no mobile: altura uniforme para 1 ou 2 linhas */
+  .servico-header-slot {
+    height: 66px;
+    min-height: 66px;
+    max-height: 66px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .servico-name {
+    font-size: 1.42rem;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* 3. Slot de Resumo no mobile: altura uniforme para todos os cards */
+  .servico-summary-slot {
+    height: 78px;
+    min-height: 78px;
+    max-height: 78px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .servico-summary {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+  }
+
+  /* 4. Slot de Preço no mobile: altura uniforme independente do conteúdo */
+  .servico-price-slot {
+    height: 68px;
+    min-height: 68px;
+    max-height: 68px;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .price-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 2px;
+  }
+
+  .price-main {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .price-currency {
+    font-size: 1rem;
+    margin-top: 3px;
+  }
+
+  .price-val {
+    font-size: 2.15rem;
+    line-height: 1;
+  }
+
+  .price-val-label {
+    font-size: 1.38rem;
+    line-height: 1.1;
+  }
+
+  .price-suffix {
+    font-size: 0.78rem;
+    margin-top: 2px;
+  }
+
+  /* 5. Slot de Botão de Ação "Contratar": alinhado e centralizado rigorosamente na mesma altura */
+  .servico-cta-slot {
+    height: 48px;
+    min-height: 48px;
+    max-height: 48px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-servico-cta {
+    width: 100%;
+    max-width: 195px;
+    height: 46px;
+    margin: 0 auto;
+    padding: 0 16px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .servico-features-head {
+    font-size: 0.78rem;
+    padding-top: 12px;
+    margin-bottom: 10px;
+  }
+
+  .servico-features li {
+    font-size: 0.82rem;
+    gap: 7px;
+    line-height: 1.3;
+  }
+
+  .servico-adendo-wrap {
+    margin-top: 10px;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .servico-adendo-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 16px 20px;
+  }
+
+  .adendo-right {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .adendo-price-box {
+    align-items: flex-start;
+  }
+
+  .btn-adendo-cta {
+    width: auto;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ============================
@@ -2606,9 +3419,6 @@ img {
     gap: 48px;
   }
 
-  .servicos-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 
   .steps-grid {
     grid-template-columns: 1fr 1fr;
@@ -2679,9 +3489,6 @@ img {
     grid-template-columns: 1fr 1fr;
   }
 
-  .servicos-grid {
-    grid-template-columns: 1fr;
-  }
 
   .footer-inner {
     grid-template-columns: 1fr;
@@ -2717,7 +3524,4 @@ img {
     height: 1px;
   }
 
-  .servicos-grid {
-    grid-template-columns: 1fr;
-  }
 }
