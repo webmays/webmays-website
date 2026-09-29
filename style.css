@@ -2247,178 +2247,8 @@ img {
   padding: clamp(75px, 8.5vh, 110px) 0 clamp(85px, 9.5vh, 120px);
   box-sizing: border-box;
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
   z-index: 2;
-}
-
-/* ==========================================================================
-   FAIXAS LARANJAS DECORATIVAS DE DETALHE (SERVIÇOS)
-   ========================================================================== */
-.servicos-bg-stripes {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.stripe-cluster {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  pointer-events: none;
-}
-
-.orange-stripe {
-  display: block;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #FFA022 0%, #FF5A00 60%, #E63500 100%);
-  box-shadow: 0 4px 18px rgba(255, 90, 0, 0.42);
-  transition: transform 0.4s ease;
-}
-
-/* Cluster Topo-Esquerdo */
-.stripe-cluster-tl {
-  top: 45px;
-  left: -20px;
-  transform: rotate(-18deg);
-  opacity: 0.9;
-  animation: stripeFloat1 7s ease-in-out infinite;
-}
-
-.stripe-cluster-tl .stripe-long {
-  width: clamp(140px, 14vw, 220px);
-  height: clamp(8px, 0.75vw, 12px);
-}
-
-.stripe-cluster-tl .stripe-med {
-  width: clamp(90px, 9vw, 140px);
-  height: clamp(6px, 0.55vw, 9px);
-  margin-left: 20px;
-  opacity: 0.85;
-}
-
-.stripe-cluster-tl .stripe-short {
-  width: clamp(45px, 4.5vw, 75px);
-  height: clamp(5px, 0.45vw, 7px);
-  margin-left: 45px;
-  opacity: 0.7;
-}
-
-/* Cluster Topo-Direito */
-.stripe-cluster-tr {
-  top: 65px;
-  right: -25px;
-  align-items: flex-end;
-  transform: rotate(16deg);
-  opacity: 0.9;
-  animation: stripeFloat2 8s ease-in-out infinite 0.5s;
-}
-
-.stripe-cluster-tr .stripe-long {
-  width: clamp(150px, 15vw, 230px);
-  height: clamp(8px, 0.75vw, 12px);
-}
-
-.stripe-cluster-tr .stripe-med {
-  width: clamp(95px, 9.5vw, 145px);
-  height: clamp(6px, 0.55vw, 9px);
-  margin-right: 25px;
-  opacity: 0.85;
-}
-
-.stripe-cluster-tr .stripe-short {
-  width: clamp(45px, 4.5vw, 75px);
-  height: clamp(5px, 0.45vw, 7px);
-  margin-right: 50px;
-  opacity: 0.7;
-}
-
-/* Faixa Fita Central-Esquerda */
-.stripe-cluster-ml {
-  top: 52%;
-  left: -15px;
-  transform: rotate(22deg);
-  opacity: 0.8;
-  animation: stripeFloat3 8.5s ease-in-out infinite 1s;
-}
-
-.stripe-cluster-ml .stripe-tape {
-  width: clamp(130px, 13vw, 190px);
-  height: clamp(9px, 0.75vw, 13px);
-  background: linear-gradient(135deg, #FF9E15 0%, #FF5A00 100%);
-  box-shadow: 0 4px 16px rgba(255, 90, 0, 0.38);
-}
-
-/* Cluster Fundo-Direito */
-.stripe-cluster-br {
-  bottom: 55px;
-  right: -20px;
-  align-items: flex-end;
-  transform: rotate(-15deg);
-  opacity: 0.82;
-  animation: stripeFloat4 7.5s ease-in-out infinite 1.5s;
-}
-
-.stripe-cluster-br .stripe-med {
-  width: clamp(110px, 11vw, 160px);
-  height: clamp(7px, 0.6vw, 10px);
-}
-
-.stripe-cluster-br .stripe-short {
-  width: clamp(60px, 6vw, 90px);
-  height: clamp(5px, 0.45vw, 7px);
-  margin-right: 25px;
-  opacity: 0.75;
-}
-
-/* Brilho âmbar de fundo */
-.servicos-ambient-glow {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: clamp(350px, 50vw, 700px);
-  height: clamp(250px, 35vw, 450px);
-  background: radial-gradient(circle, rgba(255, 90, 0, 0.15) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-@keyframes stripeFloat1 {
-  0%, 100% {
-    transform: rotate(-18deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-18deg) translateY(-8px);
-  }
-}
-
-@keyframes stripeFloat2 {
-  0%, 100% {
-    transform: rotate(16deg) translateY(0);
-  }
-  50% {
-    transform: rotate(16deg) translateY(-10px);
-  }
-}
-
-@keyframes stripeFloat3 {
-  0%, 100% {
-    transform: rotate(22deg) translateY(0);
-  }
-  50% {
-    transform: rotate(22deg) translateY(-6px);
-  }
-}
-
-@keyframes stripeFloat4 {
-  0%, 100% {
-    transform: rotate(-15deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-15deg) translateY(-8px);
-  }
 }
 
 .servicos-container {
@@ -2436,8 +2266,6 @@ img {
   text-align: center;
   max-width: 820px;
   margin: 0 auto clamp(32px, 4vw, 50px);
-  position: relative;
-  z-index: 2;
 }
 
 .servicos-brand-tag {
@@ -2462,25 +2290,6 @@ img {
   -webkit-text-stroke: 1px #FFFFFF;
   paint-order: stroke fill;
   text-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
-}
-
-.servicos-title-wrap {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  margin: 6px 0 10px;
-}
-
-.servicos-title-wrap .servicos-title {
-  margin: 0 0 4px;
-}
-
-.servicos-title-stripe {
-  width: clamp(140px, 16vw, 195px);
-  height: auto;
-  filter: drop-shadow(0 2px 8px rgba(255, 90, 0, 0.5));
-  pointer-events: none;
 }
 
 .servicos-title {
@@ -2522,46 +2331,16 @@ img {
   box-sizing: border-box;
 }
 
-/* Faixa Laranja Superior de Destaque no Card */
-.servico-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 36px;
-  right: 36px;
-  height: 4px;
-  background: linear-gradient(90deg, #FFA022 0%, #FF5A00 50%, #FF3D00 100%);
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 2px 10px rgba(255, 90, 0, 0.4);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-
 .servico-card:hover {
   transform: translateY(-8px);
   border-color: rgba(255, 90, 0, 0.45);
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.12), 0 6px 20px rgba(255, 90, 0, 0.1);
 }
 
-.servico-card:hover::before {
-  left: 20px;
-  right: 20px;
-  height: 5px;
-  box-shadow: 0 4px 18px rgba(255, 90, 0, 0.65);
-}
-
 /* Card Destaque "Mais escolhida" */
 .servico-card--featured {
   border: 2px solid #FF5A00;
   box-shadow: 0 16px 42px rgba(255, 90, 0, 0.18), 0 4px 14px rgba(0, 0, 0, 0.06);
-}
-
-.servico-card--featured::before {
-  left: 20px;
-  right: 20px;
-  height: 5px;
-  background: linear-gradient(90deg, #FFB703 0%, #FF5A00 50%, #E63500 100%);
-  box-shadow: 0 3px 16px rgba(255, 90, 0, 0.6);
 }
 
 .servico-card--featured:hover {
@@ -3060,29 +2839,7 @@ img {
 @media (max-width: 1200px) {
   .servicos {
     padding: 50px 0 70px;
-    overflow: hidden;
-  }
-
-  .stripe-cluster-tl {
-    left: -35px;
-    top: 20px;
-    transform: rotate(-16deg) scale(0.8);
-  }
-
-  .stripe-cluster-tr {
-    right: -35px;
-    top: 30px;
-    transform: rotate(14deg) scale(0.8);
-  }
-
-  .stripe-cluster-ml {
-    display: none;
-  }
-
-  .stripe-cluster-br {
-    right: -25px;
-    bottom: 25px;
-    transform: rotate(-12deg) scale(0.75);
+    overflow-x: clip;
   }
 
   .servicos-container {
@@ -3136,19 +2893,6 @@ img {
     touch-action: pan-x pan-y;
     cursor: pointer;
     box-sizing: border-box;
-  }
-
-  .servico-card::before {
-    left: 24px;
-    right: 24px;
-    height: 3.5px;
-  }
-
-  .servico-card.is-active-center::before {
-    left: 18px;
-    right: 18px;
-    height: 4.5px;
-    box-shadow: 0 4px 16px rgba(255, 90, 0, 0.6);
   }
 
   /* Card anterior (à esquerda, posicionado atrás) */
