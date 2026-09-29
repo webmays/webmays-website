@@ -2252,58 +2252,29 @@ img {
 }
 
 /* ==========================================================================
-   MANCHAS DE TINTA LARANJA (SVG PREENCHIDO) - SEÇÃO DE SERVIÇOS
+   MANCHAS DE TINTA LARANJA PREENCHIDAS (CONFORME ESBOÇO) - SERVIÇOS
    ========================================================================== */
 .servicos-manchas-layer {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   pointer-events: none;
   z-index: 1;
 }
 
-.servicos-mancha {
-  position: absolute;
+.servicos-fluid-bg {
+  width: 100%;
+  height: 100%;
+  display: block;
   pointer-events: none;
-  filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.22));
-  opacity: 0.95;
-  transition: transform 0.4s ease;
+  filter: drop-shadow(0 14px 36px rgba(0, 0, 0, 0.2));
 }
 
-/* Mancha 1: Topo Esquerda */
-.servicos-mancha.mancha-tl {
-  top: -45px;
-  left: -55px;
-  width: clamp(220px, 22vw, 340px);
-  height: auto;
-  transform: rotate(-10deg);
-}
-
-/* Mancha 2: Topo/Lateral Direita */
-.servicos-mancha.mancha-tr {
-  top: 20px;
-  right: -65px;
-  width: clamp(240px, 24vw, 380px);
-  height: auto;
-  transform: rotate(14deg);
-}
-
-/* Mancha 3: Base Esquerda */
-.servicos-mancha.mancha-bl {
-  bottom: 25px;
-  left: -60px;
-  width: clamp(200px, 20vw, 310px);
-  height: auto;
-  transform: rotate(18deg);
-}
-
-/* Mancha 4: Base Direita */
-.servicos-mancha.mancha-br {
-  bottom: -35px;
-  right: -45px;
-  width: clamp(190px, 18vw, 290px);
-  height: auto;
-  transform: rotate(-8deg);
+.mancha-shape-left,
+.mancha-shape-right {
+  opacity: 0.96;
 }
 
 .servicos-container {
@@ -2897,32 +2868,8 @@ img {
     overflow: hidden;
   }
 
-  .servicos-mancha.mancha-tl {
-    top: -25px;
-    left: -40px;
-    width: clamp(140px, 34vw, 210px);
-    opacity: 0.9;
-  }
-
-  .servicos-mancha.mancha-tr {
-    top: 20px;
-    right: -45px;
-    width: clamp(150px, 36vw, 220px);
-    opacity: 0.9;
-  }
-
-  .servicos-mancha.mancha-bl {
-    bottom: 10px;
-    left: -40px;
-    width: clamp(130px, 30vw, 190px);
-    opacity: 0.85;
-  }
-
-  .servicos-mancha.mancha-br {
-    bottom: -20px;
-    right: -30px;
-    width: clamp(120px, 28vw, 170px);
-    opacity: 0.85;
+  .servicos-fluid-bg {
+    opacity: 0.92;
   }
 
   .servicos-container {
