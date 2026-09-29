@@ -1831,7 +1831,9 @@ img {
 .cf-feature-header {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 1.8vw, 22px);
+  justify-content: space-between;
+  width: 100%;
+  gap: clamp(16px, 2vw, 24px);
 }
 
 .cf-feature-num {
@@ -1841,6 +1843,7 @@ img {
   line-height: 1;
   letter-spacing: -0.04em;
   flex-shrink: 0;
+  text-align: left;
   font-family: inherit;
 }
 
@@ -1851,6 +1854,8 @@ img {
   line-height: 1.15;
   letter-spacing: -0.02em;
   white-space: nowrap;
+  text-align: right;
+  margin-left: auto;
 }
 
 /* Descrição: Tipografia ampliada, elegante e de fácil leitura */
@@ -2114,24 +2119,29 @@ img {
   .cf-feature-header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 14px;
+    justify-content: space-between;
     width: 100%;
     margin-bottom: 0;
+    gap: 12px;
   }
 
   .cf-feature-num {
-    font-size: clamp(2.5rem, 7.5vw, 3.2rem);
+    font-size: clamp(2.2rem, 6.5vw, 2.8rem);
     font-weight: 900;
     line-height: 1;
+    color: var(--orange);
+    flex-shrink: 0;
+    text-align: left;
   }
 
   .cf-feature-title {
-    font-size: clamp(1.7rem, 5.5vw, 2.1rem);
+    font-size: clamp(1.45rem, 5vw, 1.85rem);
     font-weight: 800;
     line-height: 1.15;
-    white-space: normal;
-    word-break: break-word;
+    color: #0F172A;
+    white-space: nowrap;
+    text-align: right;
+    margin-left: auto;
   }
 
   /* Texto Ampliado no Mobile */
