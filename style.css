@@ -1185,7 +1185,7 @@ img {
   min-height: 100vh;
   box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.14), 0 -10px 25px rgba(0, 87, 255, 0.05);
   border-top: 1px solid rgba(0, 87, 255, 0.1);
-  padding: 110px 0;
+  padding: 110px 0 135px;
   box-sizing: border-box;
   overflow-x: clip;
   max-width: 100%;
@@ -1267,14 +1267,14 @@ img {
   transform: rotate(-12deg);
 }
 
-/* Drip Laranja no Desktop: Forte presença visual orgânica, escorrendo naturalmente da splash inferior esquerda */
+/* Drip Laranja no Desktop: Alinhado e centrado com a splash inferior esquerda, escorrendo na transição */
 .drip-left {
   display: block;
   top: auto;
-  bottom: -320px;
-  left: clamp(40px, 4.5vw, 85px);
-  width: clamp(190px, 13vw, 240px);
-  height: clamp(440px, 28vw, 520px);
+  bottom: -350px;
+  left: calc(clamp(20px, 2.5vw, 50px) + 50px);
+  width: clamp(120px, 9vw, 145px);
+  height: clamp(380px, 26vw, 440px);
   z-index: 1;
   transform: rotate(0deg);
 }
@@ -1287,32 +1287,36 @@ img {
   transform: rotate(38deg);
 }
 
+/* Drip Azul no Desktop: Alinhado e centrado com a splash inferior direita, escorrendo na transição */
 .drip-right {
+  display: block;
   top: auto;
-  bottom: -280px;
+  bottom: -350px;
   left: auto;
-  right: clamp(60px, 6vw, 110px);
-  width: clamp(160px, 11vw, 220px);
-  height: clamp(400px, 26vw, 500px);
-  transform: rotate(2deg);
+  right: calc(clamp(20px, 2.5vw, 50px) + 50px);
+  width: clamp(120px, 9vw, 145px);
+  height: clamp(380px, 26vw, 440px);
+  transform: rotate(0deg);
   z-index: 1;
 }
 
+/* Splashes inferiores na transição Projetos -> Como Funciona:
+   Posicionadas no vão inferior (padding de 135px) sem invadir os cards e com margem segura para não cortar nas bordas */
 .splash-bottom-left {
-  bottom: -50px;
-  left: -20px;
-  width: clamp(280px, 20vw, 340px);
-  height: clamp(280px, 20vw, 340px);
+  bottom: -110px;
+  left: clamp(20px, 2.5vw, 50px);
+  width: clamp(200px, 15vw, 250px);
+  height: clamp(200px, 15vw, 250px);
   transform: rotate(185deg);
   z-index: 2;
 }
 
 .splash-mid-right {
   top: auto;
-  bottom: -30px;
-  right: -30px;
-  width: 320px;
-  height: 320px;
+  bottom: -110px;
+  right: clamp(20px, 2.5vw, 50px);
+  width: clamp(200px, 15vw, 250px);
+  height: clamp(200px, 15vw, 250px);
   transform: rotate(115deg);
   z-index: 2;
 }
