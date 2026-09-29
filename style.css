@@ -1381,49 +1381,56 @@ img {
     display: none !important;
   }
 
-  /* Canto Inferior Esquerdo: Laranja (um pouco mais para cima com escorrimento alinhado) */
+  /* Desativa a máscara de desvanecimento para que a tinta do drip seja 100% sólida e una com a splash sem falhas */
+  .drip-img {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    object-fit: fill;
+  }
+
+  /* Canto Inferior Esquerdo: Laranja (mais para cima, com escorrimento acoplado de forma contínua) */
   .splash-bottom-left {
     display: block !important;
     left: -20px;
-    width: clamp(160px, 44vw, 190px);
-    height: clamp(160px, 44vw, 190px);
+    width: clamp(165px, 46vw, 195px);
+    height: clamp(165px, 46vw, 195px);
     bottom: -15px;
-    z-index: 3;
+    z-index: 2;
     transform: rotate(185deg);
   }
 
   .drip-left {
     display: block !important;
     top: auto;
-    bottom: -175px;
-    left: 20px;
-    width: 52px;
-    height: 185px;
-    z-index: 2;
+    bottom: -180px;
+    left: clamp(34px, 9.5vw, 46px);
+    width: clamp(48px, 13vw, 58px);
+    height: 230px;
+    z-index: 1;
     transform: rotate(0deg);
   }
 
-  /* Canto Inferior Direito: Azul (um pouco mais para baixo com escorrimento alinhado) */
+  /* Canto Inferior Direito: Azul (mais para baixo, com escorrimento acoplado de forma contínua) */
   .splash-mid-right {
     display: block !important;
     left: auto;
     right: -20px;
-    bottom: -55px;
-    width: clamp(155px, 43vw, 185px);
-    height: clamp(155px, 43vw, 185px);
-    z-index: 3;
+    bottom: -60px;
+    width: clamp(160px, 45vw, 190px);
+    height: clamp(160px, 45vw, 190px);
+    z-index: 2;
     transform: rotate(115deg);
   }
 
   .drip-right {
     display: block !important;
     top: auto;
-    bottom: -215px;
-    right: 20px;
+    bottom: -225px;
+    right: clamp(32px, 9vw, 44px);
     left: auto;
-    width: 50px;
-    height: 185px;
-    z-index: 2;
+    width: clamp(46px, 12.5vw, 56px);
+    height: 230px;
+    z-index: 1;
     transform: rotate(0deg);
   }
 }
@@ -1680,11 +1687,11 @@ img {
    COMO FUNCIONA - ARQUITETURA FLEXBOX FLUIDA (DEBUG FRIENDLY)
    ========================================================================== */
 
-/* 1. Container de Seção: Define o fundo limpo e permite passagem suave de elementos de tinta */
+/* 1. Container de Seção: Define o fundo transparente e z-index 4 para que as tintas passem por TRÁS do título */
 .como-funciona {
-  background: #f8f9fc;
+  background: transparent;
   position: relative;
-  z-index: 2;
+  z-index: 4;
   padding: clamp(40px, 5.5vw, 76px) 0 clamp(90px, 10vw, 140px);
   overflow-x: clip;
   overflow-y: visible;
@@ -1701,16 +1708,16 @@ img {
   padding: 0 clamp(16px, 3vw, 48px);
   padding-left: clamp(8px, 1.5vw, 20px); /* Recuo reduzido para posicionar a garota mais à esquerda */
   position: relative;
-  z-index: 2;
+  z-index: 4;
   gap: clamp(16px, 2.5vw, 28px); /* Gap reduzido para puxar o card mais para cima na seção */
 }
 
-/* 3. Cabeçalho: Centralizado, espaçamento natural e z-index acima do drip */
+/* 3. Cabeçalho: Centralizado, espaçamento natural e z-index 10 acima das tintas e escorrimentos */
 .cf-header {
   width: 100%;
   text-align: center;
   position: relative;
-  z-index: 5;
+  z-index: 10;
 }
 
 .cf-header .section-title {
@@ -1721,7 +1728,7 @@ img {
   letter-spacing: -0.03em;
   margin-bottom: 12px;
   position: relative;
-  z-index: 6; /* As letras passam por CIMA da gota decorativa */
+  z-index: 10; /* As letras passam 100% por CIMA das tintas e escorrimentos */
 }
 
 .cf-header .highlight-blue {
@@ -2259,7 +2266,7 @@ img {
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
-  z-index: 2;
+  z-index: 5;
 }
 
 
