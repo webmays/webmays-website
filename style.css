@@ -3357,6 +3357,38 @@ img {
   outline-offset: 4px;
 }
 
+/* No mobile, o botão final de whatsapp já deve ser verde com glow neon verde escuro */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .btn-cta-whatsapp {
+    color: #ffffff;
+  }
+
+  .btn-cta-whatsapp .cta-whatsapp-bg {
+    background: #25D366;
+    box-shadow:
+      0 0 14px rgba(10, 110, 48, 0.9),
+      0 0 28px rgba(7, 85, 38, 0.8),
+      0 0 52px rgba(5, 68, 30, 0.65),
+      0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn-cta-whatsapp:hover,
+  .btn-cta-whatsapp:active {
+    color: #ffffff;
+    transform: scale(0.98);
+  }
+
+  .btn-cta-whatsapp:hover .cta-whatsapp-bg,
+  .btn-cta-whatsapp:active .cta-whatsapp-bg {
+    background: #20ba5a;
+    box-shadow:
+      0 0 18px rgba(10, 110, 48, 1),
+      0 0 34px rgba(7, 85, 38, 0.9),
+      0 0 60px rgba(5, 68, 30, 0.75),
+      0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+}
+
 /* ============================
    FOOTER
    ============================ */
