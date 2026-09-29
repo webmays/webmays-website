@@ -2053,8 +2053,11 @@ img {
     transform: none;
   }
 
-  /* Container do Card Principal */
+  /* Container do Card Principal: Altura perfeitamente estável via CSS Grid (sem layout shift) */
   .cf-feature-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     width: 100%;
     min-width: 0;
     max-width: 100%;
@@ -2071,28 +2074,29 @@ img {
   }
 
   .cf-feature-card {
-    position: relative;
+    grid-area: 1 / 1;
+    display: flex;
     flex-direction: column;
-    height: auto;
+    height: 100%;
     width: 100%;
     box-sizing: border-box;
-  }
-
-  .cf-feature-card:not(.active) {
-    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
   }
 
   .cf-feature-card.active {
-    display: flex;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
 
-  /* Conteúdo de Texto com Justificação Correta */
+  /* Conteúdo de Texto com Altura Total e Alinhamento Harmônico */
   .cf-feature-content {
-    flex: 1 1 auto;
+    flex: 1 1 100%;
     width: 100%;
+    height: 100%;
     min-width: 0;
     max-width: 100%;
     border-right: none;
@@ -2101,6 +2105,7 @@ img {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: flex-start;
     text-align: left;
     gap: clamp(14px, 3vw, 20px);
