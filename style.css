@@ -1395,18 +1395,18 @@ img {
     left: -15px;
     width: clamp(120px, 32vw, 140px);
     height: clamp(120px, 32vw, 140px);
-    bottom: -10px;
+    bottom: 0px;
     z-index: 2;
   }
 
-  /* Escorrimento Laranja: conectado diretamente dentro do corpo da mancha, sem vão e proporção 1:1.8 */
+  /* Escorrimento Laranja: mais curto, sutil e posicionado um pouco mais para cima */
   .drip-left {
     display: block !important;
     top: auto;
-    bottom: -85px;
-    left: clamp(16px, 4.5vw, 24px);
-    width: clamp(66px, 17vw, 76px);
-    height: clamp(118px, 30vw, 136px);
+    bottom: -48px;
+    left: clamp(20px, 5.5vw, 28px);
+    width: clamp(48px, 13vw, 56px);
+    height: clamp(86px, 23vw, 100px);
     z-index: 1;
     transform: rotate(0deg);
   }
