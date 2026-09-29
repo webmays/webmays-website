@@ -134,23 +134,56 @@ document.querySelectorAll('.faq-doodle, .cta-doodle-svg').forEach(svg => {
   drawObserver.observe(svg);
 });
 
-/* --- Active nav link on scroll --- */
-const sections = document.querySelectorAll('section[id]');
-const navAnchors = document.querySelectorAll('.nav-link');
+/* --- Active nav link & logo on scroll --- */
+const navLogo = document.getElementById('nav-logo');
+const navLinksList = document.querySelectorAll('.nav-link');
+const trackedSectionIds = ['faq', 'servicos', 'como-funciona', 'projetos', 'sobre', 'home'];
+const trackedSections = trackedSectionIds
+  .map(id => ({ id, el: document.getElementById(id) }))
+  .filter(item => item.el !== null);
 
-const navObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navAnchors.forEach(a => a.classList.remove('active'));
-      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-      if (active) active.classList.add('active');
-
-
-    }
+function setActiveNav(activeId) {
+  if (navLogo) {
+    navLogo.classList.toggle('active', activeId === 'home');
+  }
+  navLinksList.forEach(link => {
+    const href = link.getAttribute('href');
+    link.classList.toggle('active', href === `#${activeId}`);
   });
-}, { threshold: 0.4 });
+}
 
-sections.forEach(s => navObserver.observe(s));
+function updateNavActive() {
+  const scrollY = window.scrollY || window.pageYOffset || 0;
+
+  // Se estiver no topo da página (Hero section)
+  if (scrollY < 120) {
+    setActiveNav('home');
+    return;
+  }
+
+  // Se estiver no final da página (FAQ/rodapé)
+  if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 60) {
+    setActiveNav('faq');
+    return;
+  }
+
+  // Linha de foco logo abaixo da barra de navegação (~140px)
+  const navThreshold = 140;
+
+  for (const item of trackedSections) {
+    const rect = item.el.getBoundingClientRect();
+    if (rect.top <= navThreshold) {
+      setActiveNav(item.id);
+      return;
+    }
+  }
+
+  setActiveNav('home');
+}
+
+window.addEventListener('scroll', updateNavActive, { passive: true });
+window.addEventListener('resize', updateNavActive, { passive: true });
+updateNavActive();
 
 /* --- Cursor glow effect (desktop) --- */
 if (window.innerWidth > 768) {
@@ -296,6 +329,7 @@ function initGsapEffects() {
     window.scrollTo(0, 0);
 
     lenis.on('scroll', ScrollTrigger.update);
+    lenis.on('scroll', updateNavActive);
 
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
@@ -587,6 +621,7 @@ window.addEventListener('load', () => {
     lenis.scrollTo(0, { immediate: true });
   }
   ScrollTrigger.refresh();
+  updateNavActive();
 });
 
 /* --- Mobile Carousel Active Card (Intersection Observer) --- */
