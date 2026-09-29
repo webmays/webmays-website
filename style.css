@@ -1389,52 +1389,42 @@ img {
     object-position: top center !important;
   }
 
-  /* Canto Inferior Esquerdo: Laranja (compacta, proporcional e nítida, mais para cima) */
+  /* Canto Inferior Esquerdo: Laranja (compacta e proporcional) */
   .splash-bottom-left {
     display: block !important;
     left: -15px;
-    width: clamp(120px, 34vw, 145px);
-    height: clamp(120px, 34vw, 145px);
-    bottom: -5px;
+    width: clamp(120px, 32vw, 140px);
+    height: clamp(120px, 32vw, 140px);
+    bottom: -10px;
     z-index: 2;
-    transform: rotate(185deg);
   }
 
-  /* Escorrimento Laranja: proporção natural (~1:1.8) sem esticar */
+  /* Escorrimento Laranja: conectado diretamente dentro do corpo da mancha, sem vão e proporção 1:1.8 */
   .drip-left {
     display: block !important;
     top: auto;
-    bottom: -95px;
-    left: clamp(26px, 7.5vw, 36px);
-    width: clamp(52px, 14vw, 64px);
-    height: clamp(95px, 25vw, 115px);
+    bottom: -85px;
+    left: clamp(16px, 4.5vw, 24px);
+    width: clamp(66px, 17vw, 76px);
+    height: clamp(118px, 30vw, 136px);
     z-index: 1;
     transform: rotate(0deg);
   }
 
-  /* Canto Inferior Direito: Azul (compacta, proporcional e nítida, mais para baixo) */
+  /* Canto Inferior Direito: Splash Azul limpa (sem escorrimento conforme solicitado) */
   .splash-mid-right {
     display: block !important;
     left: auto;
     right: -15px;
     bottom: -40px;
-    width: clamp(120px, 34vw, 145px);
-    height: clamp(120px, 34vw, 145px);
+    width: clamp(115px, 31vw, 135px);
+    height: clamp(115px, 31vw, 135px);
     z-index: 2;
-    transform: rotate(115deg);
   }
 
-  /* Escorrimento Azul: proporção natural (~1:1.8) sem esticar */
+  /* Escorrimento azul removido no mobile */
   .drip-right {
-    display: block !important;
-    top: auto;
-    bottom: -130px;
-    right: clamp(24px, 7vw, 34px);
-    left: auto;
-    width: clamp(50px, 13.5vw, 62px);
-    height: clamp(92px, 24vw, 112px);
-    z-index: 1;
-    transform: rotate(0deg);
+    display: none !important;
   }
 }
 
