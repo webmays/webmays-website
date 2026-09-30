@@ -454,10 +454,6 @@ img {
   animation: jelly 0.45s ease-out forwards;
 }
 
-.nav-cta::after {
-  content: '↗';
-  font-size: 0.8rem;
-}
 
 .hamburger {
   display: none;
