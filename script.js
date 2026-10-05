@@ -37,20 +37,21 @@ if (hamburger && navLinks) {
   });
 }
 
-/* --- FAQ accordion --- */
+/* --- FAQ accordion (Motion-Primitives Style) --- */
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
+    const wasOpen = item.classList.contains('open');
 
-    // Close all
+    // Close all items
     document.querySelectorAll('.faq-item').forEach(i => {
       i.classList.remove('open');
-      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      const q = i.querySelector('.faq-question');
+      if (q) q.setAttribute('aria-expanded', 'false');
     });
 
-    // Open clicked if it was closed
-    if (!isOpen) {
+    // Toggle current item
+    if (!wasOpen) {
       item.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
     }
@@ -337,7 +338,7 @@ function initGsapEffects() {
 
     gsap.ticker.lagSmoothing(0);
 
-    // Rolagem suave para links de âncoras internas (#sobre, #projetos, etc.)
+    // Rolagem suave e precisa para links de âncoras internas (#sobre, #projetos, etc.)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const targetId = this.getAttribute('href');
@@ -345,7 +346,32 @@ function initGsapEffects() {
           const targetEl = document.querySelector(targetId);
           if (targetEl) {
             e.preventDefault();
-            lenis.scrollTo(targetEl, { offset: 0, duration: 1.2 });
+            const nav = document.querySelector('#navbar');
+            const navHeight = nav ? nav.offsetHeight : 70;
+
+            if (targetId === '#home') {
+              lenis.scrollTo(0, { duration: 1.2 });
+              return;
+            }
+
+            // Elementos com pin do ScrollTrigger (como #sobre) possuem um wrapper .pin-spacer
+            const pinSpacer = targetEl.closest('.pin-spacer') || (targetEl.parentElement && targetEl.parentElement.classList.contains('pin-spacer') ? targetEl.parentElement : null);
+            const referenceEl = pinSpacer || targetEl;
+
+            // Calcula a coordenada vertical absoluta acumulando offsetTop estático
+            let elementTop = 0;
+            let curr = referenceEl;
+            while (curr && curr !== document.body) {
+              elementTop += curr.offsetTop;
+              curr = curr.offsetParent;
+            }
+
+            if (elementTop === 0 && referenceEl !== document.body) {
+              elementTop = referenceEl.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop);
+            }
+
+            const targetY = Math.max(0, elementTop - navHeight);
+            lenis.scrollTo(targetY, { duration: 1.2 });
           }
         }
       });
@@ -435,35 +461,6 @@ function initGsapEffects() {
         toggleActions: 'play none none reverse'
       }
     });
-
-    // 5. Brilho sequencial nos números (01 a 04) e depois fade para cinza suave
-    const numberEls = gsap.utils.toArray('.projeto-index');
-    if (numberEls.length > 0) {
-      const numTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.projetos-list',
-          start: 'top 80%',
-          toggleActions: 'restart none none none'
-        }
-      });
-
-      numberEls.forEach((numEl, i) => {
-        numTl
-          .to(numEl, {
-            color: '#FF5A00',
-            scale: 1.2,
-            duration: 0.35,
-            ease: 'power2.out'
-          }, i * 0.22)
-          .to(numEl, {
-            color: 'rgba(0, 0, 0, 0.1)',
-            scale: 1,
-            duration: 0.45,
-            ease: 'power2.inOut',
-            clearProps: 'color,scale'
-          }, (i * 0.22) + 0.35);
-      });
-    }
   });
 
   // Mobile (<= 768px): Transição Parallax no final da garota no círculo laranja
@@ -762,6 +759,21 @@ cfNavNums.forEach(navNum => {
   const clientPhoneInput = document.getElementById('form-client-phone');
   const clientNotesInput = document.getElementById('form-client-notes');
 
+  // Custom Dropdown
+  const customDropdown = document.getElementById('custom-service-dropdown');
+  const dropdownTrigger = document.getElementById('custom-dropdown-trigger');
+  const dropdownSelectedLabel = document.getElementById('dropdown-selected-label');
+  const dropdownSelectedPrice = document.getElementById('dropdown-selected-price');
+  const dropdownOptions = customDropdown ? customDropdown.querySelectorAll('.custom-dropdown-option') : [];
+
+  // Seção de Imagens de Referência (Até 3 imagens)
+  const refDropzone = document.getElementById('ref-dropzone');
+  const refImagesInput = document.getElementById('ref-images-input');
+  const refImagesCounter = document.getElementById('ref-images-counter');
+  const refPreviewsList = document.getElementById('ref-previews-list');
+  let refFiles = [];
+  let refCreatedUrls = [];
+
   // Mapeamento de Serviços e Preços
   const SERVICE_PRICES = {
     'Página promocional simples': 'R$ 390,90',
@@ -773,26 +785,197 @@ cfNavNums.forEach(navNum => {
     'Manutenção': 'Via orçamento'
   };
 
+  // Sincroniza o dropdown customizado, o select nativo e o widget de resumo
+  function syncServiceSelection(serviceName, servicePrice) {
+    const matchedPrice = servicePrice || SERVICE_PRICES[serviceName] || 'Sob consulta';
+    let matchedOption = null;
+
+    dropdownOptions.forEach(opt => {
+      const optName = opt.getAttribute('data-name') || '';
+      const optVal = opt.getAttribute('data-value') || '';
+
+      const isMatch = optName.toLowerCase() === serviceName.toLowerCase() ||
+                      optVal.toLowerCase().includes(serviceName.toLowerCase()) ||
+                      serviceName.toLowerCase().includes(optName.toLowerCase());
+
+      if (isMatch && !matchedOption) {
+        matchedOption = opt;
+        opt.classList.add('is-selected');
+      } else {
+        opt.classList.remove('is-selected');
+      }
+    });
+
+    const finalName = matchedOption ? (matchedOption.getAttribute('data-name') || serviceName) : serviceName;
+    const finalPrice = matchedOption ? (matchedOption.getAttribute('data-price') || matchedPrice) : matchedPrice;
+    const finalValue = matchedOption ? (matchedOption.getAttribute('data-value') || '') : '';
+
+    if (dropdownSelectedLabel) dropdownSelectedLabel.textContent = finalName;
+    if (dropdownSelectedPrice) dropdownSelectedPrice.textContent = finalPrice;
+    if (modalBadgeName) modalBadgeName.textContent = finalName;
+    if (modalBadgePrice) modalBadgePrice.textContent = finalPrice;
+
+    if (serviceSelect && finalValue) {
+      serviceSelect.value = finalValue;
+    }
+  }
+
+  // Interatividade do Custom Dropdown
+  if (dropdownTrigger && customDropdown) {
+    dropdownTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = customDropdown.classList.toggle('is-active');
+      dropdownTrigger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    dropdownOptions.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const optName = opt.getAttribute('data-name') || '';
+        const optPrice = opt.getAttribute('data-price') || '';
+        syncServiceSelection(optName, optPrice);
+        customDropdown.classList.remove('is-active');
+        dropdownTrigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Fecha dropdown se clicar fora
+    document.addEventListener('click', (e) => {
+      if (customDropdown.classList.contains('is-active') && !customDropdown.contains(e.target)) {
+        customDropdown.classList.remove('is-active');
+        dropdownTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Gerenciamento das Imagens de Referência
+  function clearRefCreatedUrls() {
+    refCreatedUrls.forEach(url => URL.revokeObjectURL(url));
+    refCreatedUrls = [];
+  }
+
+  function renderRefPreviews() {
+    if (!refPreviewsList || !refImagesCounter) return;
+
+    clearRefCreatedUrls();
+    refPreviewsList.innerHTML = '';
+
+    refFiles.forEach((file, idx) => {
+      const card = document.createElement('div');
+      card.className = 'ref-preview-card';
+
+      const thumbUrl = URL.createObjectURL(file);
+      refCreatedUrls.push(thumbUrl);
+
+      const sizeKb = file.size > 1024 * 1024 
+        ? `${(file.size / (1024 * 1024)).toFixed(1)} MB`
+        : `${Math.round(file.size / 1024)} KB`;
+
+      card.innerHTML = `
+        <img src="${thumbUrl}" alt="Referência ${idx + 1}" class="ref-preview-thumb" />
+        <div class="ref-preview-details">
+          <span class="ref-preview-name" title="${file.name}">${file.name}</span>
+          <span class="ref-preview-size">${sizeKb}</span>
+        </div>
+        <button type="button" class="btn-ref-remove" data-ref-idx="${idx}" aria-label="Remover imagem ${file.name}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      `;
+
+      const removeBtn = card.querySelector('.btn-ref-remove');
+      if (removeBtn) {
+        removeBtn.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          refFiles.splice(idx, 1);
+          renderRefPreviews();
+        });
+      }
+
+      refPreviewsList.appendChild(card);
+    });
+
+    const total = refFiles.length;
+    refImagesCounter.textContent = `${total}/3 adicionada${total === 1 ? '' : 's'}`;
+
+    if (refDropzone) {
+      if (total >= 3) {
+        refDropzone.classList.add('is-disabled');
+        if (refImagesInput) refImagesInput.disabled = true;
+      } else {
+        refDropzone.classList.remove('is-disabled');
+        if (refImagesInput) refImagesInput.disabled = false;
+      }
+    }
+  }
+
+  function handleIncomingFiles(fileList) {
+    if (!fileList || !fileList.length) return;
+    const remaining = 3 - refFiles.length;
+    if (remaining <= 0) return;
+
+    const files = Array.from(fileList);
+    const validImages = files.filter(f => f.type && f.type.startsWith('image/'));
+
+    if (validImages.length === 0) {
+      alert('Por favor, selecione apenas arquivos de imagem (PNG, JPG, WEBP).');
+      return;
+    }
+
+    const toAdd = validImages.slice(0, remaining);
+    refFiles = refFiles.concat(toAdd);
+    renderRefPreviews();
+  }
+
+  if (refDropzone && refImagesInput) {
+    refDropzone.addEventListener('click', (e) => {
+      if (e.target.closest('.btn-ref-remove')) return;
+      if (refFiles.length >= 3) return;
+      refImagesInput.click();
+    });
+
+    refDropzone.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && refFiles.length < 3) {
+        e.preventDefault();
+        refImagesInput.click();
+      }
+    });
+
+    refImagesInput.addEventListener('change', () => {
+      handleIncomingFiles(refImagesInput.files);
+      refImagesInput.value = '';
+    });
+
+    ['dragenter', 'dragover'].forEach(evName => {
+      refDropzone.addEventListener(evName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (refFiles.length < 3) refDropzone.classList.add('is-dragover');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(evName => {
+      refDropzone.addEventListener(evName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        refDropzone.classList.remove('is-dragover');
+      });
+    });
+
+    refDropzone.addEventListener('drop', (e) => {
+      if (e.dataTransfer && e.dataTransfer.files) {
+        handleIncomingFiles(e.dataTransfer.files);
+      }
+    });
+  }
+
   // Abre o modal preenchendo o serviço solicitado
   function openServiceModal(serviceName, servicePrice) {
     if (!serviceModal) return;
 
-    const matchedPrice = servicePrice || SERVICE_PRICES[serviceName] || 'Sob consulta';
-
-    if (modalBadgeName) modalBadgeName.textContent = serviceName;
-    if (modalBadgePrice) modalBadgePrice.textContent = matchedPrice;
-
-    // Sincroniza o select do formulário
-    if (serviceSelect) {
-      for (let i = 0; i < serviceSelect.options.length; i++) {
-        const opt = serviceSelect.options[i];
-        if (opt.value.toLowerCase().includes(serviceName.toLowerCase()) || 
-            serviceName.toLowerCase().includes(opt.text.toLowerCase().split('—')[0].trim())) {
-          serviceSelect.selectedIndex = i;
-          break;
-        }
-      }
-    }
+    syncServiceSelection(serviceName, servicePrice);
 
     serviceModal.classList.add('is-open');
     serviceModal.setAttribute('aria-hidden', 'false');
@@ -804,12 +987,19 @@ cfNavNums.forEach(navNum => {
     }, 150);
   }
 
+  // Permite chamada global para o botão secundário dos projetos
+  window.openServiceModal = openServiceModal;
+
   // Fecha o modal
   function closeServiceModal() {
     if (!serviceModal) return;
     serviceModal.classList.remove('is-open');
     serviceModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (customDropdown) {
+      customDropdown.classList.remove('is-active');
+      if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
+    }
   }
 
   // Eventos de clique para abrir o modal em todos os botões de serviço (inclusive Manutenção)
@@ -837,16 +1027,16 @@ cfNavNums.forEach(navNum => {
     }
   });
 
-  // Atualizar badges quando o usuário troca o select manualmente
+  // Sincroniza se o select oculto sofrer alteração nativa
   if (serviceSelect) {
     serviceSelect.addEventListener('change', () => {
-      const selectedText = serviceSelect.options[serviceSelect.selectedIndex].text;
-      const parts = selectedText.split('—');
-      const cleanName = parts[0].trim();
-      const cleanPrice = parts[1] ? parts[1].replace('(Mais escolhida)', '').trim() : 'Sob consulta';
-
-      if (modalBadgeName) modalBadgeName.textContent = cleanName;
-      if (modalBadgePrice) modalBadgePrice.textContent = cleanPrice;
+      const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+      if (selectedOption) {
+        const parts = selectedOption.text.split('—');
+        const cleanName = parts[0].trim();
+        const cleanPrice = parts[1] ? parts[1].replace('(Mais escolhida)', '').trim() : 'Sob consulta';
+        syncServiceSelection(cleanName, cleanPrice);
+      }
     });
   }
 
@@ -873,12 +1063,20 @@ cfNavNums.forEach(navNum => {
       const name = clientNameInput ? clientNameInput.value.trim() : '';
       const business = businessNameInput && businessNameInput.value.trim() ? businessNameInput.value.trim() : 'Não informado';
       const phone = clientPhoneInput ? clientPhoneInput.value.trim() : '';
-      const selectedService = serviceSelect ? serviceSelect.options[serviceSelect.selectedIndex].text : 'Website Webmays';
+      const selectedService = dropdownSelectedLabel ? dropdownSelectedLabel.textContent.trim() : (serviceSelect ? serviceSelect.options[serviceSelect.selectedIndex].text : 'Website Webmays');
+      const selectedPrice = dropdownSelectedPrice ? dropdownSelectedPrice.textContent.trim() : '';
       const notes = clientNotesInput && clientNotesInput.value.trim() ? clientNotesInput.value.trim() : 'Gostaria de mais detalhes sobre este serviço.';
 
       if (!name || !phone) {
         alert('Por favor, preencha seu nome e seu WhatsApp.');
         return;
+      }
+
+      // Detalhes sobre referências visuais se o usuário anexou
+      let refText = '';
+      if (refFiles.length > 0) {
+        const names = refFiles.map(f => f.name).join(', ');
+        refText = `\n🖼️ *Imagens de Referência (${refFiles.length}/3):* ${names} _(vou enviar aqui no chat)_`;
       }
 
       // Monta a mensagem estruturada e elegante para WhatsApp
@@ -888,14 +1086,13 @@ cfNavNums.forEach(navNum => {
 👤 *Nome:* ${name}
 🏢 *Negócio / Projeto:* ${business}
 📱 *WhatsApp:* ${phone}
-💼 *Serviço Escolhido:* ${selectedService}
-📝 *Detalhes:* ${notes}
+💼 *Serviço Escolhido:* ${selectedService}${selectedPrice ? ` (${selectedPrice})` : ''}
+📝 *Detalhes:* ${notes}${refText}
 
 ---
 _Enviado pelo formulário de serviços da Webmays_`;
 
-      // Número do WhatsApp da Webmays (caso não haja número configurado, abre direto no wa.me com a mensagem)
-      const webmaysPhone = '5511999999999'; // Substituir pelo número comercial oficial se necessário
+      const webmaysPhone = '5511999999999';
       const waUrl = `https://wa.me/${webmaysPhone}?text=${encodeURIComponent(waMessage)}`;
 
       window.open(waUrl, '_blank');
@@ -903,6 +1100,8 @@ _Enviado pelo formulário de serviços da Webmays_`;
       // Fecha o modal e limpa os campos
       closeServiceModal();
       quoteForm.reset();
+      refFiles = [];
+      renderRefPreviews();
     });
   }
 
@@ -998,3 +1197,324 @@ _Enviado pelo formulário de serviços da Webmays_`;
   }
 })();
 
+/* --- Hero Title Magnetic Repel & Draggable Letters (Desktop Mouse Only) --- */
+const heroChars = document.querySelectorAll('.hero-title .char');
+const heroTitle = document.querySelector('.hero-title');
+const isMobileOrTouch = window.innerWidth <= 768 || window.matchMedia('(pointer: coarse)').matches;
+
+if (!isMobileOrTouch) {
+  setTimeout(() => {
+    heroChars.forEach(char => {
+      char.style.animation = 'none';
+      char.style.cursor = 'grab';
+      char.dataset.flying = 'false';
+    });
+  }, 1200);
+
+  let activeChar = null;
+  let startMouseX = 0;
+  let startMouseY = 0;
+  let startCharX = 0;
+  let startCharY = 0;
+
+  function getTranslateXY(el) {
+    const style = window.getComputedStyle(el);
+    const matrix = style.transform;
+    if (matrix === 'none') return { x: 0, y: 0 };
+    const values = matrix.split('(')[1].split(')')[0].split(',');
+    return {
+      x: parseFloat(values[4]),
+      y: parseFloat(values[5])
+    };
+  }
+
+  // Suave repulsão magnética baseada na posição de repouso fixa dos caracteres (sem jitter)
+  if (heroTitle && heroChars.length > 0) {
+    heroTitle.addEventListener('pointermove', (e) => {
+      if (activeChar) return;
+
+      heroChars.forEach(char => {
+        if (char.dataset.flying === 'true') return;
+
+        const rect = char.getBoundingClientRect();
+        const currentPos = getTranslateXY(char);
+        // Calcula o centro de repouso desfazendo a translação atual (evita oscilação/feedback loop)
+        const restCenterX = rect.left - currentPos.x + rect.width / 2;
+        const restCenterY = rect.top - currentPos.y + rect.height / 2;
+
+        const distX = e.clientX - restCenterX;
+        const distY = e.clientY - restCenterY;
+        const dist = Math.hypot(distX, distY);
+        const maxRadius = Math.max(rect.width, rect.height) * 1.05;
+
+        if (dist < maxRadius && dist > 0) {
+          const factor = Math.pow(1 - dist / maxRadius, 1.8);
+          const moveX = -(distX / dist) * factor * 10;
+          const moveY = -(distY / dist) * factor * 8;
+          const rotate = -(distX / dist) * factor * 4;
+
+          char.style.transform = `translate(${moveX.toFixed(2)}px, ${moveY.toFixed(2)}px) rotate(${rotate.toFixed(2)}deg)`;
+          char.style.color = '#FF5A00';
+          char.style.transition = 'transform 0.2s cubic-bezier(0.2, 0.8, 0.25, 1), color 0.25s ease';
+        } else {
+          char.style.transform = 'translate(0px, 0px) rotate(0deg)';
+          char.style.color = '';
+          char.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s ease';
+        }
+      });
+    });
+
+    heroTitle.addEventListener('pointerleave', () => {
+      if (activeChar) return;
+      heroChars.forEach(char => {
+        if (char.dataset.flying === 'true') return;
+        char.style.transform = 'translate(0px, 0px) rotate(0deg)';
+        char.style.color = '';
+        char.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s ease';
+      });
+    });
+  }
+
+  // Interação Drag & Throw com ponteiro livre
+  heroChars.forEach(char => {
+    char.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      activeChar = char;
+      char.dataset.flying = 'false';
+
+      const currentPos = getTranslateXY(char);
+      startCharX = currentPos.x;
+      startCharY = currentPos.y;
+
+      startMouseX = e.clientX;
+      startMouseY = e.clientY;
+
+      char.style.transition = 'none';
+      char.style.color = '#FF5A00';
+      char.style.cursor = 'grabbing';
+      char.style.zIndex = '100';
+    });
+  });
+
+  window.addEventListener('pointermove', (e) => {
+    if (!activeChar) return;
+
+    const dx = e.clientX - startMouseX;
+    const dy = e.clientY - startMouseY;
+
+    const newX = startCharX + dx;
+    const newY = startCharY + dy;
+    const rotate = dx * 0.05;
+
+    activeChar.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotate}deg)`;
+  });
+
+  window.addEventListener('pointerup', () => {
+    if (!activeChar) return;
+
+    activeChar.style.transition = 'transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), color 1.6s ease';
+    activeChar.style.transform = 'translate(0px, 0px) rotate(0deg)';
+    activeChar.style.color = '';
+    activeChar.style.cursor = 'grab';
+    activeChar.style.zIndex = '1';
+
+    activeChar.dataset.flying = 'true';
+    const charRef = activeChar;
+    setTimeout(() => {
+      charRef.dataset.flying = 'false';
+    }, 1600);
+
+    activeChar = null;
+  });
+}
+
+/* --- Spotlight Border para Cards de Projetos & Serviços (#FF5A00) --- */
+const spotlightCardsList = document.querySelectorAll('.servico-card, .projeto-row');
+spotlightCardsList.forEach(card => {
+  card.addEventListener('pointermove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--spot-x', `${x}px`);
+    card.style.setProperty('--spot-y', `${y}px`);
+    card.style.setProperty('--spot-opacity', '1');
+  });
+
+  card.addEventListener('pointerleave', () => {
+    card.style.setProperty('--spot-opacity', '0');
+  });
+});
+
+/* --- Projetos Morphing Dialog (Motion-Primitives Style) --- */
+const projectData = {
+  "1": {
+    title: "Aura Concept Store",
+    subtype: "Loja Virtual Completa",
+    category: "E-commerce",
+    tagline: "Loja virtual de alta performance com checkout acelerado, catálogo fluido e integração com meios de pagamento.",
+    gradient: "linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #3B82F6 100%)",
+    serviceSelect: "Loja virtual (Sob consulta)",
+    description: "Desenvolvimento de e-commerce moderno e responsivo, focado em alta velocidade e experiência de compra intuitiva. Integramos gateway de pagamento transparente com checkout rápido via PIX e cartão, gerador de etiquetas de envio e gestão facilitada de estoque.",
+    features: [
+      "Catálogo dinâmico com filtros ágeis",
+      "Carrinho inteligente com recuperação",
+      "Checkout transparente em 1 clique",
+      "Painel administrativo intuitivo",
+      "Cálculo automático de frete",
+      "Design mobile-first de alta retenção"
+    ],
+    waText: "Olá! Gostei do projeto Aura Concept Store e gostaria de um e-commerce semelhante para meu negócio!"
+  },
+  "2": {
+    title: "Solar Prime Energia",
+    subtype: "Landing Page de Conversão",
+    category: "Landing Page",
+    tagline: "Página de captação com simulador de economia, carregamento ultra-rápido e roteamento direto no WhatsApp.",
+    gradient: "linear-gradient(135deg, #1E293B 0%, #EA580C 50%, #FBBF24 100%)",
+    serviceSelect: "Página promocional completa (R$ 499,90)",
+    description: "Landing Page de alta conversão estruturada com arquitetura persuasiva para captação de clientes B2B e residenciais. Inclui simulador interativo de economia na conta de luz e roteamento inteligente de leads direto para a equipe de vendas no WhatsApp.",
+    features: [
+      "Simulador dinâmico de economia de energia",
+      "Copywriting focado em quebra de objeções",
+      "Integração instantânea com WhatsApp",
+      "Formulário com validação em tempo real",
+      "Pixel do Meta e Google Analytics 4",
+      "Carregamento leve sem dependências pesadas"
+    ],
+    waText: "Olá! Gostei da Landing Page Solar Prime e gostaria de uma página focada em conversão para minha empresa!"
+  },
+  "3": {
+    title: "Odonto Harmony",
+    subtype: "Website Institucional",
+    category: "Institucional",
+    tagline: "Presença corporativa elegante com agendamento online de consultas, equipe médica e apresentação de tratamentos.",
+    gradient: "linear-gradient(135deg, #0F172A 0%, #0369A1 50%, #38BDF8 100%)",
+    serviceSelect: "Site institucional (Valor por página)",
+    description: "Website institucional de padrão internacional transmitindo sofisticação, confiança e higiene. Conta com catálogo visual de especialidades odontológicas, depoimentos em vídeo de pacientes e agendamento prévio com 1 toque integrado ao WhatsApp da recepção.",
+    features: [
+      "Apresentação humanizada da equipe",
+      "Galeria antes e depois com alta nitidez",
+      "Agendamento de consultas facilitado",
+      "Seção FAQ para dúvidas de pacientes",
+      "Otimização completa para Google Meu Negócio",
+      "Certificado SSL e conformidade LGPD"
+    ],
+    waText: "Olá! Vi o projeto da clínica Odonto Harmony e quero um website institucional profissional para minha empresa!"
+  },
+  "4": {
+    title: "Bistrô & Co. Gourmet",
+    subtype: "Cardápio Digital & Reservas",
+    category: "Gastronomia",
+    tagline: "Plataforma digital com cardápio mobile em fotos de alta definição, reservas instantâneas e identidade visual artesanal.",
+    gradient: "linear-gradient(135deg, #1C1917 0%, #B45309 50%, #F59E0B 100%)",
+    serviceSelect: "Página promocional simples (R$ 390,90)",
+    description: "Plataforma digital para restaurante e bistrô gourmet, com cardápio interativo via QR Code e website institucional para reservas de mesas, visualização de pratos e drinks em alta resolução e informações de localização.",
+    features: [
+      "Cardápio digital por categorias e alérgenos",
+      "Sistema de reservas diretas no WhatsApp",
+      "Galeria fotográfica de alta definição",
+      "Integração com Google Maps e Waze",
+      "Design temático artesanal e sofisticado",
+      "Zero lentidão na navegação via 4G/5G"
+    ],
+    waText: "Olá! Adorei o projeto Bistrô & Co. e gostaria de um cardápio digital ou site gastronômico para meu restaurante!"
+  }
+};
+
+const projectDialog = document.getElementById('project-dialog');
+const dialogCategory = document.getElementById('dialog-category');
+const dialogProjectName = document.getElementById('dialog-project-name');
+const dialogSubtype = document.getElementById('dialog-subtype');
+const dialogTagline = document.getElementById('dialog-tagline');
+const dialogBanner = document.getElementById('dialog-banner');
+const dialogDescription = document.getElementById('dialog-description');
+const dialogFeatures = document.getElementById('dialog-features');
+const dialogCtaPrimary = document.getElementById('dialog-cta-primary');
+const dialogCtaSecondary = document.getElementById('dialog-cta-secondary');
+const dialogCtaWhatsappIcon = document.getElementById('dialog-cta-whatsapp-icon');
+
+function openProjectDialog(projectId) {
+  const p = projectData[projectId] || projectData["1"];
+  if (!projectDialog) return;
+
+  if (dialogCategory) dialogCategory.textContent = p.category;
+  if (dialogProjectName) dialogProjectName.textContent = p.title;
+  if (dialogSubtype) dialogSubtype.textContent = p.subtype;
+  if (dialogTagline) dialogTagline.textContent = p.tagline;
+  if (dialogBanner) dialogBanner.style.background = p.gradient;
+  if (dialogDescription) dialogDescription.textContent = p.description;
+
+  // Render Recursos chave
+  if (dialogFeatures) {
+    dialogFeatures.innerHTML = p.features.map(f => `
+      <li class="dialog-feature-item">
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4L16 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span>${f}</span>
+      </li>
+    `).join('');
+  }
+
+  const waUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(p.waText)}`;
+
+  // Botão Principal: Entre em contato (WhatsApp com mensagem personalizada)
+  if (dialogCtaPrimary) {
+    dialogCtaPrimary.setAttribute('href', waUrl);
+  }
+
+  // Ícone WhatsApp direto
+  if (dialogCtaWhatsappIcon) {
+    dialogCtaWhatsappIcon.setAttribute('href', waUrl);
+  }
+
+  // Botão Secundário: Montar minha ideia (fecha o modal de projetos e abre o formulário de orçamento de serviço)
+  if (dialogCtaSecondary) {
+    dialogCtaSecondary.onclick = (e) => {
+      e.preventDefault();
+      closeProjectDialog();
+      if (typeof window.openServiceModal === 'function') {
+        window.openServiceModal(p.serviceSelect || 'Página promocional completa', '');
+      }
+    };
+  }
+
+  projectDialog.classList.add('is-open');
+  projectDialog.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProjectDialog() {
+  if (!projectDialog) return;
+  projectDialog.classList.remove('is-open');
+  projectDialog.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+// Event listeners para abrir o modal de projeto ao clicar no card ou no botão
+document.querySelectorAll('.projeto-row').forEach(row => {
+  row.addEventListener('click', () => {
+    const id = row.getAttribute('data-project-id') || '1';
+    openProjectDialog(id);
+  });
+
+  row.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      const id = row.getAttribute('data-project-id') || '1';
+      openProjectDialog(id);
+    }
+  });
+});
+
+// Fechar modal de projetos
+document.querySelectorAll('[data-project-dialog-close]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeProjectDialog();
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && projectDialog && projectDialog.classList.contains('is-open')) {
+    closeProjectDialog();
+  }
+});

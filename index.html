@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=47" />
+  <link rel="stylesheet" href="style.css?v=73" />
 </head>
 
 <body>
@@ -159,45 +159,112 @@
           </div>
         </div>
         <div class="projetos-list">
-          <div class="projeto-row" id="projeto-1">
-            <span class="projeto-index">01</span>
-            <div class="projeto-row-img"></div>
-            <div class="projeto-row-info">
-              <span class="projeto-category">E-commerce</span>
-              <h3 class="projeto-name">Nome do Projeto</h3>
-              <p class="projeto-desc">Placeholder &mdash; breve descricao do projeto e resultado entregue.</p>
+          <!-- Card 1: E-commerce -->
+          <div class="projeto-row" id="projeto-1" data-project-id="1" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Ver detalhes do projeto Aura Concept">
+            <div class="projeto-row-img projeto-img-1">
+              <button type="button" class="projeto-expand-btn" aria-label="Abrir projeto">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
             </div>
-            <button type="button" class="projeto-row-link">Saiba mais</button>
+            <div class="projeto-row-info">
+              <h3 class="projeto-name">Aura Concept Store</h3>
+              <span class="projeto-subtype">Loja Virtual Completa</span>
+              <p class="projeto-desc">Loja virtual de alta performance com checkout acelerado, catálogo fluido e integração com meios de pagamento.</p>
+            </div>
+            <div class="projeto-row-footer">
+              <button type="button" class="btn-projeto-details">
+                <span class="btn-liquid-layer btn-liquid-blue" aria-hidden="true">
+                  <span class="liquid-wave liquid-wave-back"></span>
+                  <span class="liquid-wave liquid-wave-front"></span>
+                </span>
+                <span class="btn-projeto-text">Ver detalhes</span>
+                <svg class="btn-projeto-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
           </div>
-          <div class="projeto-row" id="projeto-2">
-            <span class="projeto-index">02</span>
-            <div class="projeto-row-img"></div>
-            <div class="projeto-row-info">
-              <span class="projeto-category">Landing Page</span>
-              <h3 class="projeto-name">Nome do Projeto</h3>
-              <p class="projeto-desc">Placeholder &mdash; breve descricao do projeto e resultado entregue.</p>
+
+          <!-- Card 2: Landing Page -->
+          <div class="projeto-row" id="projeto-2" data-project-id="2" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Ver detalhes do projeto Solar Prime">
+            <div class="projeto-row-img projeto-img-2">
+              <button type="button" class="projeto-expand-btn" aria-label="Abrir projeto">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
             </div>
-            <button type="button" class="projeto-row-link">Saiba mais</button>
+            <div class="projeto-row-info">
+              <h3 class="projeto-name">Solar Prime Energia</h3>
+              <span class="projeto-subtype">Landing Page de Conversão</span>
+              <p class="projeto-desc">Página de captação com simulador de economia, carregamento ultra-rápido e roteamento direto no WhatsApp.</p>
+            </div>
+            <div class="projeto-row-footer">
+              <button type="button" class="btn-projeto-details">
+                <span class="btn-liquid-layer btn-liquid-blue" aria-hidden="true">
+                  <span class="liquid-wave liquid-wave-back"></span>
+                  <span class="liquid-wave liquid-wave-front"></span>
+                </span>
+                <span class="btn-projeto-text">Ver detalhes</span>
+                <svg class="btn-projeto-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
           </div>
-          <div class="projeto-row" id="projeto-3">
-            <span class="projeto-index">03</span>
-            <div class="projeto-row-img"></div>
-            <div class="projeto-row-info">
-              <span class="projeto-category">Institucional</span>
-              <h3 class="projeto-name">Nome do Projeto</h3>
-              <p class="projeto-desc">Placeholder &mdash; breve descricao do projeto e resultado entregue.</p>
+
+          <!-- Card 3: Institucional -->
+          <div class="projeto-row" id="projeto-3" data-project-id="3" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Ver detalhes do projeto Odonto Harmony">
+            <div class="projeto-row-img projeto-img-3">
+              <button type="button" class="projeto-expand-btn" aria-label="Abrir projeto">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
             </div>
-            <button type="button" class="projeto-row-link">Saiba mais</button>
+            <div class="projeto-row-info">
+              <h3 class="projeto-name">Odonto Harmony</h3>
+              <span class="projeto-subtype">Website Institucional</span>
+              <p class="projeto-desc">Presença corporativa elegante com agendamento online de consultas, equipe médica e apresentação de tratamentos.</p>
+            </div>
+            <div class="projeto-row-footer">
+              <button type="button" class="btn-projeto-details">
+                <span class="btn-liquid-layer btn-liquid-blue" aria-hidden="true">
+                  <span class="liquid-wave liquid-wave-back"></span>
+                  <span class="liquid-wave liquid-wave-front"></span>
+                </span>
+                <span class="btn-projeto-text">Ver detalhes</span>
+                <svg class="btn-projeto-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
           </div>
-          <div class="projeto-row" id="projeto-4">
-            <span class="projeto-index">04</span>
-            <div class="projeto-row-img"></div>
-            <div class="projeto-row-info">
-              <span class="projeto-category">Blog</span>
-              <h3 class="projeto-name">Nome do Projeto</h3>
-              <p class="projeto-desc">Placeholder &mdash; breve descricao do projeto e resultado entregue.</p>
+
+          <!-- Card 4: Gastronomia -->
+          <div class="projeto-row" id="projeto-4" data-project-id="4" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Ver detalhes do projeto Bistro & Co.">
+            <div class="projeto-row-img projeto-img-4">
+              <button type="button" class="projeto-expand-btn" aria-label="Abrir projeto">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
             </div>
-            <button type="button" class="projeto-row-link">Saiba mais</button>
+            <div class="projeto-row-info">
+              <h3 class="projeto-name">Bistrô & Co. Gourmet</h3>
+              <span class="projeto-subtype">Cardápio Digital & Reservas</span>
+              <p class="projeto-desc">Plataforma digital com cardápio mobile em fotos de alta definição, reservas instantâneas e identidade visual artesanal.</p>
+            </div>
+            <div class="projeto-row-footer">
+              <button type="button" class="btn-projeto-details">
+                <span class="btn-liquid-layer btn-liquid-blue" aria-hidden="true">
+                  <span class="liquid-wave liquid-wave-back"></span>
+                  <span class="liquid-wave liquid-wave-front"></span>
+                </span>
+                <span class="btn-projeto-text">Ver detalhes</span>
+                <svg class="btn-projeto-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -622,75 +689,131 @@
           </div>
         </div>
       </div>
+
+      <!-- Onda da cor azul (mesma cor final da seção serviços #0042d0) no final da seção serviços -->
+      <div class="servicos-bottom-wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 90" fill="none" preserveAspectRatio="none">
+          <path d="M0,0 L1440,0 L1440,32 C1240,82 1040,16 720,58 C400,98 200,20 0,62 Z" fill="#0042d0"></path>
+        </svg>
+      </div>
     </section>
 
     <section class="section faq" id="faq">
       <div class="container faq-container">
+        <!-- Coluna Esquerda: Textos e botão centralizados e aumentados -->
         <div class="faq-left">
           <div class="section-tag">FAQ</div>
-          <h2 class="section-title">Duvidas<br /><span class="highlight-blue">frequentes</span></h2>
-          <p class="section-desc">Placeholder — texto de apoio.</p>
+          <h2 class="section-title">Dúvidas<br /><span class="highlight-blue">frequentes</span></h2>
+          <p class="section-desc">Tire suas principais dúvidas sobre nossos prazos, pagamentos, suporte e desenvolvimento sob medida.</p>
           <a href="#contato" class="btn-faq-cta" id="faq-cta">
-            <span class="faq-cta-bg"></span>
-            Fale com a gente
+            <span class="btn-liquid-layer btn-liquid-orange" aria-hidden="true">
+              <span class="liquid-wave liquid-wave-back"></span>
+              <span class="liquid-wave liquid-wave-front"></span>
+            </span>
+            <span class="faq-btn-text">Fale com a gente</span>
+            <svg class="faq-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
           </a>
-          <svg class="faq-doodle" viewBox="0 0 160 80" aria-hidden="true">
-            <path d="M10,40 C40,5 80,70 120,35 C150,10 155,55 150,40" fill="none" stroke="#FF5A00" stroke-width="5"
-              stroke-linecap="round" class="draw-path" />
-            <circle cx="10" cy="40" r="6" fill="#FF5A00" class="dot-pop" />
-          </svg>
         </div>
+
+        <!-- Coluna Direita: Motion-Primitives Accordion com ChevronUp -->
         <div class="faq-right">
           <div class="faq-list" id="faq-list">
-            <div class="faq-item" id="faq-1"><button class="faq-question" aria-expanded="false">Placeholder — pergunta
-                frequente 01?<span class="faq-icon">+</span></button>
-              <div class="faq-answer">
-                <p>Placeholder — resposta completa para a duvida.</p>
+            <div class="faq-item" id="faq-1">
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-q-text">Quanto tempo leva para o meu site ficar pronto?</span>
+                <span class="faq-icon-box">
+                  <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-answer-grid">
+                <div class="faq-answer-inner">
+                  <p>Para Landing Pages e Portfólios, a entrega média é de 5 a 10 dias úteis. Sites institucionais e lojas virtuais levam de 15 a 25 dias úteis, com acompanhamento transparente e aprovação em cada etapa.</p>
+                </div>
               </div>
             </div>
-            <div class="faq-item" id="faq-2"><button class="faq-question" aria-expanded="false">Placeholder — pergunta
-                frequente 02?<span class="faq-icon">+</span></button>
-              <div class="faq-answer">
-                <p>Placeholder — resposta completa para a duvida.</p>
+
+            <div class="faq-item" id="faq-2">
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-q-text">Como funciona a forma de pagamento dos projetos?</span>
+                <span class="faq-icon-box">
+                  <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-answer-grid">
+                <div class="faq-answer-inner">
+                  <p>Facilitamos o investimento do seu negócio: trabalhamos com entrada de 50% no início e 50% após aprovação final na entrega, ou parcelamento facilitado no cartão de crédito via link seguro.</p>
+                </div>
               </div>
             </div>
-            <div class="faq-item" id="faq-3"><button class="faq-question" aria-expanded="false">Placeholder — pergunta
-                frequente 03?<span class="faq-icon">+</span></button>
-              <div class="faq-answer">
-                <p>Placeholder — resposta completa para a duvida.</p>
+
+            <div class="faq-item" id="faq-3">
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-q-text">O site já vem adaptado para celulares e otimizado para o Google?</span>
+                <span class="faq-icon-box">
+                  <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-answer-grid">
+                <div class="faq-answer-inner">
+                  <p>Sim, com certeza! Todos os nossos websites são desenvolvidos na filosofia <em>mobile-first</em> (100% responsivos), com carregamento instantâneo e boas práticas de SEO para que seu negócio ganhe visibilidade nas pesquisas do Google.</p>
+                </div>
               </div>
             </div>
-            <div class="faq-item" id="faq-4"><button class="faq-question" aria-expanded="false">Placeholder — pergunta
-                frequente 04?<span class="faq-icon">+</span></button>
-              <div class="faq-answer">
-                <p>Placeholder — resposta completa para a duvida.</p>
+
+            <div class="faq-item" id="faq-4">
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-q-text">Eu poderei atualizar textos, fotos ou produtos no futuro?</span>
+                <span class="faq-icon-box">
+                  <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-answer-grid">
+                <div class="faq-answer-inner">
+                  <p>Sim. Criamos a arquitetura do seu website de forma organizada e intuitiva, permitindo que você tenha autonomia total para gerenciar seus conteúdos. Além disso, disponibilizamos nosso plano de suporte e manutenção contínua caso prefira deixar os ajustes com a gente.</p>
+                </div>
               </div>
             </div>
-            <div class="faq-item" id="faq-5"><button class="faq-question" aria-expanded="false">Placeholder — pergunta
-                frequente 05?<span class="faq-icon">+</span></button>
-              <div class="faq-answer">
-                <p>Placeholder — resposta completa para a duvida.</p>
+
+            <div class="faq-item" id="faq-5">
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-q-text">Vocês oferecem garantia e suporte após o lançamento?</span>
+                <span class="faq-icon-box">
+                  <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-answer-grid">
+                <div class="faq-answer-inner">
+                  <p>Com certeza. Oferecemos 30 dias de garantia técnica integral após o site ir ao ar para qualquer ajuste ou dúvida. Também dispomos de planos mensais de manutenção exclusiva para sites Webmays com suporte prioritário via WhatsApp.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+  </main>
+
+  <div class="bottom-gradient-wrapper">
+    <div class="cta-brand-transition" aria-hidden="true">
+      <div class="brand-text-wrap">
+        <span class="brand-text-stroke">WEBMAYS</span>
+        <span class="brand-text-fill">WEBMAYS</span>
+      </div>
+    </div>
 
     <section class="cta-banner" id="contato">
-      <div class="cta-doodles" aria-hidden="true">
-        <svg viewBox="0 0 300 300" class="cta-doodle-svg cta-d1">
-          <path d="M50,150 Q150,20 250,150 Q150,280 50,150 Z" fill="none" stroke="#FF5A00" stroke-width="5"
-            stroke-linecap="round" class="draw-path" />
-        </svg>
-        <svg viewBox="0 0 300 300" class="cta-doodle-svg cta-d2">
-          <path d="M50,150 Q150,20 250,150 Q150,280 50,150 Z" fill="none" stroke="rgba(255,255,255,0.3)"
-            stroke-width="5" stroke-linecap="round" class="draw-path" />
-        </svg>
-      </div>
       <div class="container cta-content">
         <h2 class="cta-title">Pronto para ter um<br /><span>site que vende?</span></h2>
-        <p class="cta-desc">Placeholder — texto de chamada para acao.</p>
         <div class="cta-actions">
           <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-cta-whatsapp" id="cta-whatsapp">
             <span class="cta-whatsapp-bg"></span>
@@ -699,60 +822,55 @@
         </div>
       </div>
     </section>
-  </main>
 
-  <footer class="footer" id="footer">
+    <footer class="footer" id="footer">
     <div class="container footer-inner">
       <div class="footer-brand">
         <a href="#home" class="nav-logo footer-logo"><span class="logo-dot"></span>Webmays</a>
         <p class="footer-tagline">Placeholder — tagline da empresa.</p>
         <div class="footer-socials">
-          <a href="#" class="social-link" id="social-instagram" aria-label="Instagram">
+          <a href="https://instagram.com/webmays" target="_blank" rel="noopener noreferrer" class="social-link social-link--instagram" id="social-instagram" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path
                 d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
             </svg>
           </a>
-          <a href="#" class="social-link" id="social-linkedin" aria-label="LinkedIn">
+          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="social-link social-link--whatsapp" id="social-whatsapp" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
             </svg>
           </a>
         </div>
       </div>
       <div class="footer-links">
-        <div class="footer-col">
+        <div class="footer-col" id="footer-col-empresa">
           <h4 class="footer-col-title">Empresa</h4>
           <a href="#sobre" class="footer-link">Sobre nós</a>
           <a href="#projetos" class="footer-link">Projetos</a>
           <a href="#servicos" class="footer-link">Servicos</a>
         </div>
-        <div class="footer-col">
+        <div class="footer-col" id="footer-col-servicos">
           <h4 class="footer-col-title">Servicos</h4>
           <a href="#servicos" class="footer-link">Sites Institucionais</a>
           <a href="#servicos" class="footer-link">Lojas Virtuais</a>
           <a href="#servicos" class="footer-link">Landing Pages</a>
           <a href="#servicos" class="footer-link">SEO &amp; Performance</a>
         </div>
-        <div class="footer-col">
+        <div class="footer-col" id="footer-col-contato">
           <h4 class="footer-col-title">Contato</h4>
           <a href="mailto:contato@webmays.com.br" class="footer-link">contato@webmays.com.br</a>
-          <a href="#" class="footer-link">WhatsApp</a>
+          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="footer-link">WhatsApp</a>
           <a href="#faq" class="footer-link">FAQ</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
-        <p>2026 Webmays. Todos os direitos reservados.</p>
-        <div class="footer-bottom-links">
-          <a href="#" class="footer-link-sm">Politica de Privacidade</a>
-          <a href="#" class="footer-link-sm">Termos de Uso</a>
-        </div>
+        <p class="footer-copy">2026 Webmays. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
+  </div>
 
   <!-- Modal de Orçamento para WhatsApp -->
   <div class="service-modal-backdrop" id="service-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-service-title">
@@ -766,12 +884,8 @@
       </button>
 
       <div class="service-modal-header">
-        <div class="modal-badge-service" id="modal-selected-badge">
-          <span id="modal-badge-name">Página promocional simples</span>
-          <span class="modal-badge-price" id="modal-badge-price">R$ 390,90</span>
-        </div>
-        <h3 class="service-modal-title" id="modal-service-title">Solicitar Orçamento</h3>
-        <p class="service-modal-desc">Preencha as informações abaixo para enviarmos sua proposta direta pelo WhatsApp da Webmays.</p>
+        <h3 class="service-modal-title" id="modal-service-title">Montar Minha Ideia</h3>
+        <p class="service-modal-desc">Personalize seu projeto abaixo. Ao enviar, nossa equipe receberá sua ideia detalhada diretamente no WhatsApp.</p>
       </div>
 
       <form class="service-modal-form" id="service-quote-form">
@@ -792,16 +906,98 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="form-service-select" class="form-label">Serviço escolhido</label>
-          <select id="form-service-select" class="form-select">
+        <!-- Dropdown Animado e Moderno de Serviços -->
+        <div class="form-group form-group--service">
+          <label class="form-label" id="label-service-select">Serviço desejado <span class="required">*</span></label>
+          <select id="form-service-select" class="form-select-native" tabindex="-1" aria-hidden="true">
             <option value="Página promocional simples (R$ 390,90)">Página promocional simples — R$ 390,90</option>
-            <option value="Página promocional completa (R$ 499,90)">Página promocional completa — R$ 499,90 (Mais escolhida)</option>
+            <option value="Página promocional completa (R$ 499,90)" selected>Página promocional completa — R$ 499,90 (Mais escolhida)</option>
             <option value="Portfólio (R$ 250,00)">Portfólio — R$ 250,00</option>
             <option value="Site institucional (Valor por página)">Site institucional — Valor por página</option>
             <option value="Loja virtual (Sob consulta)">Loja virtual — Sob consulta</option>
             <option value="Manutenção de Website (Via orçamento)">Manutenção (Exclusivo p/ sites Webmays) — Via orçamento</option>
           </select>
+
+          <div class="custom-dropdown" id="custom-service-dropdown">
+            <button type="button" class="custom-dropdown-trigger" id="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="dropdown-trigger-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+              </span>
+              <span class="dropdown-selected-label" id="dropdown-selected-label">Página promocional completa</span>
+              <span class="dropdown-selected-price" id="dropdown-selected-price">R$ 499,90</span>
+              <svg class="dropdown-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            <div class="custom-dropdown-menu" id="custom-dropdown-menu" role="listbox" aria-labelledby="label-service-select">
+              <div class="custom-dropdown-option is-selected" data-value="Página promocional completa (R$ 499,90)" data-name="Página promocional completa" data-price="R$ 499,90" role="option">
+                <div class="option-info">
+                  <span class="option-name">Página promocional completa</span>
+                  <span class="option-badge">Mais escolhida</span>
+                </div>
+                <span class="option-price">R$ 499,90</span>
+              </div>
+              <div class="custom-dropdown-option" data-value="Página promocional simples (R$ 390,90)" data-name="Página promocional simples" data-price="R$ 390,90" role="option">
+                <div class="option-info">
+                  <span class="option-name">Página promocional simples</span>
+                </div>
+                <span class="option-price">R$ 390,90</span>
+              </div>
+              <div class="custom-dropdown-option" data-value="Portfólio (R$ 250,00)" data-name="Portfólio" data-price="R$ 250,00" role="option">
+                <div class="option-info">
+                  <span class="option-name">Portfólio</span>
+                </div>
+                <span class="option-price">R$ 250,00</span>
+              </div>
+              <div class="custom-dropdown-option" data-value="Site institucional (Valor por página)" data-name="Site institucional" data-price="Valor por página" role="option">
+                <div class="option-info">
+                  <span class="option-name">Site institucional</span>
+                </div>
+                <span class="option-price">Valor por página</span>
+              </div>
+              <div class="custom-dropdown-option" data-value="Loja virtual (Sob consulta)" data-name="Loja virtual" data-price="Sob consulta" role="option">
+                <div class="option-info">
+                  <span class="option-name">Loja virtual</span>
+                </div>
+                <span class="option-price">Sob consulta</span>
+              </div>
+              <div class="custom-dropdown-option" data-value="Manutenção de Website (Via orçamento)" data-name="Manutenção de Website" data-price="Via orçamento" role="option">
+                <div class="option-info">
+                  <span class="option-name">Manutenção de Website</span>
+                  <span class="option-badge-neutral">Exclusivo Webmays</span>
+                </div>
+                <span class="option-price">Via orçamento</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seção para adicionar até 3 imagens de referência -->
+        <div class="form-group form-group--ref-images">
+          <div class="ref-images-header">
+            <label class="form-label" for="ref-images-input">Imagens de referência (opcional)</label>
+            <span class="ref-images-counter" id="ref-images-counter">0/3 adicionadas</span>
+          </div>
+
+          <div class="ref-dropzone" id="ref-dropzone" tabindex="0" role="button" aria-label="Adicionar imagens de referência">
+            <input type="file" id="ref-images-input" accept="image/png, image/jpeg, image/jpg, image/webp" multiple class="ref-file-input" />
+            <div class="ref-dropzone-content">
+              <div class="ref-dropzone-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </div>
+              <div class="ref-dropzone-text">
+                <span class="ref-dropzone-title">Clique ou arraste até 3 referências visuais</span>
+                <span class="ref-dropzone-sub">Prints de sites, referências ou rascunhos (PNG, JPG, WEBP)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ref-previews-list" id="ref-previews-list"></div>
         </div>
 
         <div class="form-group">
@@ -809,12 +1005,22 @@
           <textarea id="form-client-notes" class="form-textarea" rows="3" placeholder="Ex: Preciso de um site para vender meu produto / já tenho domínio..."></textarea>
         </div>
 
-        <button type="submit" class="btn-modal-submit" id="btn-submit-whatsapp">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.978-.276-.1-.476-.15-.676.15-.2.301-.776.978-.952 1.179-.175.2-.351.226-.652.075-.301-.151-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.301-.019-.464.132-.614.135-.135.301-.351.451-.527.151-.175.201-.301.301-.501.101-.2.051-.376-.025-.526-.076-.151-.676-1.63-.927-2.232-.244-.587-.492-.507-.676-.516l-.576-.01c-.2 0-.527.075-.802.376s-1.053 1.028-1.053 2.508 1.078 2.91 1.229 3.11c.15.201 2.122 3.24 5.141 4.544.718.31 1.279.496 1.716.634.721.23 1.377.197 1.896.12.578-.087 1.78-.727 2.03-1.43.251-.702.251-1.303.176-1.43-.075-.126-.276-.201-.577-.352zM12.04 2C6.51 2 2.02 6.49 2.02 12.02c0 1.94.55 3.76 1.51 5.31L2 22l4.82-1.48a10.02 10.02 0 0 0 5.22 1.48c5.53 0 10.02-4.49 10.02-10.02S17.57 2 12.04 2zm0 18.28c-1.63 0-3.15-.46-4.46-1.27l-.32-.2-3.26 1 1.02-3.18-.21-.34a8.21 8.21 0 0 1-1.25-4.27c0-4.57 3.71-8.28 8.28-8.28 4.56 0 8.27 3.71 8.27 8.28 0 4.57-3.71 8.28-8.27 8.28z"/>
-          </svg>
-          <span>Enviar para o WhatsApp</span>
-        </button>
+        <!-- Widget no final: Simples, sem caixa azul, tipografia limpa e grande -->
+        <div class="modal-summary-widget" id="modal-summary-widget">
+          <span class="summary-label">Resumo do investimento</span>
+          <h4 class="summary-service-title" id="modal-badge-name">Página promocional completa</h4>
+          <div class="summary-service-price" id="modal-badge-price">R$ 499,90</div>
+        </div>
+
+        <!-- Botão WhatsApp compacto e centralizado -->
+        <div class="modal-submit-wrap">
+          <button type="submit" class="btn-modal-submit" id="btn-submit-whatsapp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.978-.276-.1-.476-.15-.676.15-.2.301-.776.978-.952 1.179-.175.2-.351.226-.652.075-.301-.151-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.301-.019-.464.132-.614.135-.135.301-.351.451-.527.151-.175.201-.301.301-.501.101-.2.051-.376-.025-.526-.076-.151-.676-1.63-.927-2.232-.244-.587-.492-.507-.676-.516l-.576-.01c-.2 0-.527.075-.802.376s-1.053 1.028-1.053 2.508 1.078 2.91 1.229 3.11c.15.201 2.122 3.24 5.141 4.544.718.31 1.279.496 1.716.634.721.23 1.377.197 1.896.12.578-.087 1.78-.727 2.03-1.43.251-.702.251-1.303.176-1.43-.075-.126-.276-.201-.577-.352zM12.04 2C6.51 2 2.02 6.49 2.02 12.02c0 1.94.55 3.76 1.51 5.31L2 22l4.82-1.48a10.02 10.02 0 0 0 5.22 1.48c5.53 0 10.02-4.49 10.02-10.02S17.57 2 12.04 2zm0 18.28c-1.63 0-3.15-.46-4.46-1.27l-.32-.2-3.26 1 1.02-3.18-.21-.34a8.21 8.21 0 0 1-1.25-4.27c0-4.57 3.71-8.28 8.28-8.28 4.56 0 8.27 3.71 8.27 8.28 0 4.57-3.71 8.28-8.27 8.28z"/>
+            </svg>
+            <span>Enviar para o WhatsApp</span>
+          </button>
+        </div>
 
         <p class="modal-secure-hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -824,12 +1030,79 @@
     </div>
   </div>
 
+  <!-- Morphing Dialog: Detalhes do Projeto (Motion-Primitives com Progressive Blur e Spring) -->
+  <div class="morphing-dialog-overlay" id="project-dialog" aria-hidden="true">
+    <div class="morphing-dialog-backdrop" data-project-dialog-close></div>
+    <div class="morphing-dialog-container" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="dialog-project-name">
+      <button type="button" class="morphing-dialog-close" data-project-dialog-close aria-label="Fechar detalhes do projeto">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="morphing-dialog-banner" id="dialog-banner">
+        <div class="dialog-banner-gradient"></div>
+        <div class="dialog-banner-content">
+          <span class="dialog-category-badge" id="dialog-category">E-commerce</span>
+        </div>
+      </div>
+
+      <div class="morphing-dialog-body">
+        <div class="dialog-header-info">
+          <h3 class="dialog-title" id="dialog-project-name">Aura Concept Store</h3>
+          <span class="dialog-subtype" id="dialog-subtype">Loja Virtual Completa</span>
+          <p class="dialog-tagline" id="dialog-tagline">Loja virtual de alta performance com checkout acelerado, catálogo fluido e integração com meios de pagamento.</p>
+        </div>
+
+        <div class="dialog-section">
+          <h4 class="dialog-section-title">Objetivo</h4>
+          <p class="dialog-description" id="dialog-description">Desenvolvimento completo com foco em conversão e experiência de compra sem atritos.</p>
+        </div>
+
+        <div class="dialog-section">
+          <h4 class="dialog-section-title">Recursos chave</h4>
+          <ul class="dialog-features-list" id="dialog-features">
+            <!-- Entregas dinâmicas -->
+          </ul>
+        </div>
+
+        <div class="dialog-footer">
+          <div class="dialog-footer-actions">
+            <!-- Botão Principal: Entre em contato (Preenchimento Líquido Azul Realista) -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-dialog-primary" id="dialog-cta-primary">
+              <span class="btn-liquid-layer btn-liquid-blue" aria-hidden="true">
+                <span class="liquid-wave liquid-wave-back"></span>
+                <span class="liquid-wave liquid-wave-front"></span>
+              </span>
+              <span class="btn-dialog-text">Entre em contato</span>
+              <svg class="btn-dialog-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+            </a>
+
+            <!-- Grupo Secundário: Montar minha ideia + WhatsApp ícone -->
+            <div class="dialog-footer-secondary-group">
+              <button type="button" class="btn-dialog-secondary" id="dialog-cta-secondary">
+                <span>Montar minha ideia</span>
+              </button>
+
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-dialog-whatsapp-icon" id="dialog-cta-whatsapp-icon" aria-label="WhatsApp direto">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js?v=30"></script>
+  <script src="script.js?v=35"></script>
 </body>
 
 </html>
