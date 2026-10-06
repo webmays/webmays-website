@@ -1299,45 +1299,52 @@ img {
   overflow: hidden;
   pointer-events: none;
   z-index: 1;
-  transform: translateY(105%);
-  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.25, 1);
 }
 
 .liquid-wave {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 100%;
   width: 200%;
-  height: 100%;
-  background-repeat: repeat-x;
-  background-position: 0 0;
+  height: 200px;
+  background-repeat: repeat-x, no-repeat;
+  background-position: 0 0, 0 39px;
+  transition: top 1s cubic-bezier(0.2, 0.8, 0.25, 1);
 }
 
 /* Camadas de Onda Líquida Azul (#0057FF) */
 .btn-liquid-blue .liquid-wave-front {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 100' preserveAspectRatio='none'%3E%3Cpath d='M0,22 C40,4 80,40 120,22 C160,4 200,40 240,22 L240,100 L0,100 Z' fill='%230057FF'/%3E%3C/svg%3E");
-  background-size: 160px 100%;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 100' preserveAspectRatio='none'%3E%3Cpath d='M0,22 C40,4 80,40 120,22 C160,4 200,40 240,22 L240,100 L0,100 Z' fill='%230057FF'/%3E%3C/svg%3E"),
+    linear-gradient(#0057FF, #0057FF);
+  background-size: 160px 40px, 100% calc(100% - 39px);
   animation: waveHorizontalFront 2.2s linear infinite;
 }
 
 .btn-liquid-blue .liquid-wave-back {
   opacity: 0.45;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 100' preserveAspectRatio='none'%3E%3Cpath d='M0,28 C50,12 70,44 120,28 C170,12 190,44 240,28 L240,100 L0,100 Z' fill='%230057FF'/%3E%3C/svg%3E");
-  background-size: 130px 100%;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 100' preserveAspectRatio='none'%3E%3Cpath d='M0,28 C50,12 70,44 120,28 C170,12 190,44 240,28 L240,100 L0,100 Z' fill='%230057FF'/%3E%3C/svg%3E"),
+    linear-gradient(#0057FF, #0057FF);
+  background-size: 130px 40px, 100% calc(100% - 39px);
   animation: waveHorizontalBack 3.4s linear infinite;
 }
 
 /* Camadas de Onda Líquida Laranja (#FF5A00) */
 .btn-liquid-orange .liquid-wave-front {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 100' preserveAspectRatio='none'%3E%3Cpath d='M0,22 C40,4 80,40 120,22 C160,4 200,40 240,22 L240,100 L0,100 Z' fill='%23FF5A00'/%3E%3C/svg%3E");
-  background-size: 160px 100%;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 100' preserveAspectRatio='none'%3E%3Cpath d='M0,22 C40,4 80,40 120,22 C160,4 200,40 240,22 L240,100 L0,100 Z' fill='%23FF5A00'/%3E%3C/svg%3E"),
+    linear-gradient(#FF5A00, #FF5A00);
+  background-size: 160px 40px, 100% calc(100% - 39px);
   animation: waveHorizontalFront 2.2s linear infinite;
 }
 
 .btn-liquid-orange .liquid-wave-back {
   opacity: 0.45;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 100' preserveAspectRatio='none'%3E%3Cpath d='M0,28 C50,12 70,44 120,28 C170,12 190,44 240,28 L240,100 L0,100 Z' fill='%23FF7A00'/%3E%3C/svg%3E");
-  background-size: 130px 100%;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 100' preserveAspectRatio='none'%3E%3Cpath d='M0,28 C50,12 70,44 120,28 C170,12 190,44 240,28 L240,100 L0,100 Z' fill='%23FF7A00'/%3E%3C/svg%3E"),
+    linear-gradient(#FF7A00, #FF7A00);
+  background-size: 130px 40px, 100% calc(100% - 39px);
   animation: waveHorizontalBack 3.4s linear infinite;
 }
 
@@ -1358,9 +1365,9 @@ img {
   box-shadow: 0 8px 20px rgba(0, 87, 255, 0.28);
 }
 
-.projeto-row:hover .btn-projeto-details .btn-liquid-layer,
-.btn-projeto-details:hover .btn-liquid-layer {
-  transform: translateY(-8px);
+.projeto-row:hover .btn-projeto-details .liquid-wave,
+.btn-projeto-details:hover .liquid-wave {
+  top: -40px;
 }
 
 .btn-projeto-text,
@@ -1627,8 +1634,8 @@ img {
   transform: translateY(-2px);
 }
 
-.btn-dialog-primary:hover .btn-liquid-layer {
-  transform: translateY(-8px);
+.btn-dialog-primary:hover .liquid-wave {
+  top: -40px;
 }
 
 .btn-dialog-text,
@@ -1871,8 +1878,8 @@ img {
     border-color: var(--blue) !important;
   }
 
-  .btn-projeto-details:active .btn-liquid-layer {
-    transform: translateY(-8px);
+  .btn-projeto-details:active .liquid-wave {
+    top: -40px;
   }
 
   .btn-projeto-details:active .btn-projeto-text,
@@ -3743,8 +3750,8 @@ img {
   outline-offset: 4px;
 }
 
-#faq-cta:hover .btn-liquid-layer {
-  transform: translateY(-8px);
+#faq-cta:hover .liquid-wave {
+  top: -40px;
 }
 
 .faq-btn-text,
